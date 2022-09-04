@@ -15,7 +15,7 @@
 
 	</delete>
 
-	<select id="findByB_number"
+	<select id="findByPdNum"
 		resultType="com.spring.market.product.mapper.ProductAttachMapper">
 		select * from attach_product where pdNum = #{pdNum}
 	</select>

@@ -126,7 +126,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductAttachVO> getAttachList(Long pdNum) {
 		log.info("get Attach list in ===== [pdNum]" + pdNum);
-		return attachMapper.findByB_number(pdNum);
+		return attachMapper.findByPdNum(pdNum);
 	}
 
 	

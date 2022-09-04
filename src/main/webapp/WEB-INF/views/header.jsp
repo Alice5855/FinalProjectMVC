@@ -116,7 +116,7 @@
 	            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4 me-auto">
 	            	<!--
 	                <li class="nav-item"><a class="nav-link" aria-current="page" href="#!">상품</a></li>
-	                <li class="nav-item"><a class="nav-link" href="#!">장바구니</a></li>
+	                <li class="nav-item"><a class="nav-link" href="#!">장동이</a></li>
 	                -->
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
@@ -131,7 +131,7 @@
 	            <form class="d-flex">
 	                <button class="btn btn-outline-primary" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
-						장바구니
+						장동이
 	                    <span class="badge ms-1 rounded-pill" style="background-color: #FF4A4A; color: #B9FFF8;">0</span>
 	                </button>
 	            </form>
@@ -151,7 +151,7 @@
 	            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4 me-auto">
 	            	<!--
 	                <li class="nav-item"><a class="nav-link nav-text" aria-current="page" href="#!">상품</a></li>
-	                <li class="nav-item"><a class="nav-link nav-text" href="#!">장바구니</a></li>
+	                <li class="nav-item"><a class="nav-link nav-text" href="#!">장동이</a></li>
 	                -->
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
@@ -166,7 +166,7 @@
 	            <form class="d-flex">
 	                <button class="btn btn-outline-primary2" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
-						장바구니
+						장동이
 	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
 	                </button>
 	            </form>

@@ -9,7 +9,7 @@ import com.spring.market.product.domain.ProductAttachVO;
 public interface ProductAttachMapper {
 	public void insert(ProductAttachVO vo);
 	public void delete(String uuid);
-	public List<ProductAttachVO> findByB_number(Long pdNum);
+	public List<ProductAttachVO> findByPdNum(Long pdNum);
 	// 첨부파일은 수정의 개념이 없기 때문에 CRD만 정의죔
 	
 	public void deleteAll(Long pdNum);

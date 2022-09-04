@@ -88,5 +88,9 @@
 <!-- 			update Board_table set b_img = (select b_uploadpath||'/'||b_uuid||'_'||b_filename from ATTACH_TABLE where b_number = #{b_number}) where b_number = #{b_number} -->
 <!-- 		]]> -->
 <!-- 	</update> -->
+	
+	<update id="updateReplyCnt">
+		update product_table set replycnt = replycnt + #{amount} where pdnum = #{pdnum}
+	</update>
 		
 </mapper>
