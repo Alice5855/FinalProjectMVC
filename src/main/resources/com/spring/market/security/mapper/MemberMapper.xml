@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+              "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.market.security.mapper.MemberMapper">
+
+<resultMap type="com.spring.market.security.model.Member" id="MemberMap">
+	<id property="memNum" column="memNum"/>
+	<result property="memNum" column="memNum"/>
+	<result property="memName" column="memName"/>	
+	<result property="memEmail" column="memEmail"/>	
+	<result property="memNickname" column="memNickname"/>	
+	<result property="memPw" column="memPw"/>	
+	<result property="memAd" column="memAd"/>	
+	<result property="memPimg" column="memPimg"/>
+	<result property="memGender" column="memGender"/>
+	<result property="memPh" column="memPh"/>
+	<collection property="memAuth" resultMap="authMap"></collection>	
+</resultMap>
+
+
+<resultMap type="com.spring.market.security.model.Auth" id="MemAuthMap">
+	<result property="memAuth" column="memAuth"/>
+	<result property="memNum" column="memNum"/>
+</resultMap>
+
+
+	<insert id="signup">
+		<selectKey keyProperty="memNum" order="BEFORE" resultType="int">
+			select idx_mem_seq.nextval from dual
+		</selectKey>
+		insert into membertable(memNum, memName, memEmail, memNickname, memPw, memAd, memPimg, memGender, memPh) values(#{memNum}, #{memName}, #{memEmail}, #{memNickname} , #{memPw}, #{memAd}, #{memPimg}, #{memGender}, #{memPh})
+	</insert>
+	
+	<update id="update">
+		update membertable set memNickname = #{memNickname}, memPw = #{memPw}, memAd = #{memAd}, memPimg = #{memPimg}, memGender = #{memGender} where memNum = #{memNum}
+	
+	</update>
+	
+	<delete id="deleteMember">
+		delete from membertable where memNum = #{memNum}
+	</delete>
+	
+	<select id="read" resultMap="MemberMap">
+		SELECT 
+		  mt.memNum, memName, memEmail, memPw, memAd, memPimg, memGender, memPh, memAuth
+		FROM 
+		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNickname = Auth.memNickname 
+		WHERE mt.memNickname = #{memNickname} 
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

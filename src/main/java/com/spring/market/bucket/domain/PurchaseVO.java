@@ -3,7 +3,7 @@ package com.spring.market.bucket.domain;
 import lombok.Data;
 
 @Data
-public class BucketVO {
+public class PurchaseVO {
 	
 	private long memNum;
 	private long pcNum;
