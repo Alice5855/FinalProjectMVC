@@ -26,7 +26,7 @@
 	
 	
 	<insert id="insert">
-		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, pdRegDate) 
+		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, pdRegDate)
 		values(seq_product.nextval, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit}, sysdate)
 	</insert>
 	
@@ -34,7 +34,7 @@
 		<selectKey keyProperty="pdNum" order="BEFORE" resultType="long">
 			select seq_product.nextval from dual
 		</selectKey>
-		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit)  values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit})
+		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit) values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit})
 	</insert>
 	
 	<select id="read" resultType="com.spring.market.product.domain.ProductVO">
@@ -64,7 +64,7 @@
 		<![CDATA[
  			select pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit from  
 			(select /*+ index_desc(PRODUCT_TABLE pk_product)*/
- 			rownum rn, pdNum, pdName, pdPrice,pdStock,pdKeyword,pdHit   
+ 			rownum rn, pdNum, pdName, pdPrice,pdStock,pdKeyword, pdHit   
  			from Product_Table 
 			where 
 		]]>
@@ -73,7 +73,7 @@
 		
 		<![CDATA[
  			rownum <= #{pageNum} * #{amount}) 
- 			where rn > (#{pageNum} - 1) * #{amount} 
+ 			where rn > (#{pageNum} - 1) * #{amount}
  		]]> 
 	</select>
 	

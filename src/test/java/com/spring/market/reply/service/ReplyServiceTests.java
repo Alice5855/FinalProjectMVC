@@ -15,7 +15,8 @@ public class ReplyServiceTests {
 	@Test
 	public void testRegister() {
 		ReplyVO vo = new ReplyVO();
-		// wip
+		vo.setPdnum(1L);
+		
 	}
 	
 	/*
