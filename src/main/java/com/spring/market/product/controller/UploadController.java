@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -104,6 +106,7 @@ public class UploadController {
 	    log.info("=== Upload File Handle with Ajax ===");
 	    String uploadFolder = "C:/Uploaded";
 	    
+	    
 	    // Page 509 getFolder() method 적용
 	    File uploadPath = new File(uploadFolder, getFolder());
 	    log.info("Upload Path ====== " + uploadPath);
@@ -131,7 +134,7 @@ public class UploadController {
 		    uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 		    log.info("Uploaded file name ===== " + uploadFileName);
 		    
-		    attachDTO.setP_fileName(uploadFileName);
+		    attachDTO.setPdName(uploadFileName);
 		    // Added (page517)
 		    
 		    UUID uuid = UUID.randomUUID();
@@ -146,10 +149,10 @@ public class UploadController {
 		    	File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
 				
-				attachDTO.setP_uuid(uuid.toString());
-				attachDTO.setP_uploadPath(getFolder());
+				attachDTO.setPdUuid(uuid.toString());
+				attachDTO.setPdFolder(getFolder());
 				// Added (page517)
-				log.info(attachDTO.getP_uploadPath());
+				log.info(attachDTO.getPdFolder());
 				
 				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "sthmb_" + uploadFileName));
 				
@@ -159,11 +162,11 @@ public class UploadController {
 				 
 				thumbnail.close();
 				
-				String uploadLink = attachDTO.getP_uploadPath().toString().replaceAll("\\+", "/");
-				attachDTO.setP_uploadPath(uploadLink);
+				String uploadLink = attachDTO.getPdFolder().toString().replaceAll("\\+", "/");
+				attachDTO.setPdPath(uploadLink);
 				
 				
-				log.info("uploadLink ===== " + attachDTO.getP_uploadPath());
+				log.info("uploadLink ===== " + attachDTO.getPdFolder());
 				
 				list.add(attachDTO);
 				// Added (page517)

@@ -73,6 +73,10 @@
 			cursor: pointer;
 		}
 </style>
+
+
+
+
 <div class="container-fluid">
 	<div class="row">
 	  <div class="col-lg-12">
@@ -86,7 +90,7 @@
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 		
-				<form role="form" action="${context}/product/modify" method="post">
+				<form role="form" action="/product/modify" method="post">
 				<!-- Page719 CSRF Token을 hidden input으로 추가함 -->
 <%--         		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
         
@@ -109,7 +113,7 @@
 					
 					<div class="form-group">
 					  <label>상품 가격</label>
-					  <input class="form-control" rows="3" type="number"  name='pdPrice' style="resize: none;" value="${product.pdPrice}"></textarea>
+					  <input class="form-control" rows="3" type="number"  name='pdPrice' style="resize: none;" value="${product.pdPrice}">
 					</div>
 					
 					<div class="form-group">
@@ -119,7 +123,7 @@
 					
 					<div class="form-group">
 					  <label>상품 키워드</label>
-					  <input class="form-control" rows="3" type="text"  name='pdKeyword' style="resize: none;" value="${product.pdKeyword}"></textarea>
+					  <input class="form-control" rows="3" type="text"  name='pdKeyword' style="resize: none;" value="${product.pdKeyword}">
 					</div>
 					
 					<div class="form-group">
@@ -136,8 +140,8 @@
 <%-- 			        <sec:authorize access="isAuthenticated()"> --%>
 <%-- 				        <c:if test="${pinfo.username eq board.u_email}"> --%>
 				        
-							<button type="submit" data-oper='modify' class="btn btn-secondary">수정</button>
-							<button type="submit" data-oper='remove' class="btn btn-danger">삭제</button>
+							<button type="submit"  class="btn btn-secondary">수정</button>
+							<button type="submit"  class="btn btn-danger">삭제</button>
 							
 <%-- 						</c:if> --%>
 <%-- 			        </sec:authorize> --%>
@@ -160,7 +164,7 @@
 		
 	</div>
 </div>
-
+<!-- 
 <div class="row container-fluid">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
@@ -176,17 +180,25 @@
 					</ul>
 				</div>
 			</div>
-			<!--  end panel-body -->
+		
 		</div>
-		<!--  end panel-body -->
+		
+	
 	</div>
-	<!-- end panel -->
-</div>
+	
+</div> 
+
+ -->
+
+
 <!-- /.row -->
 <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
+
+
+<!-- 
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form");
@@ -206,32 +218,34 @@
 				//move to list
 				formObj.attr("action", "/product/list").attr("method","get");
 			  
-			} else if(operation === 'product'){
+			} else if(operation === 'modify'){
+				
 			    
 				console.log("submit clicked");
 				
-				var str = "";
+// 				var str = "";
 				
-				 $(".uploadResult ul li").each(function(i, obj){
+// 				 $(".uploadResult ul li").each(function(i, obj){
 					
-					var jobj = $(obj);
+// 					var jobj = $(obj);
 					
-					console.dir(jobj);
+// 					console.dir(jobj);
 					
-					str += "<input type='hidden' name='attachList[" + i + "].b_fileName' value='" + jobj.data("filename") + "'>";
-					str += "<input type='hidden' name='attachList[" + i + "].b_uuid' value='" + jobj.data("uuid") + "'>";
-					str += "<input type='hidden' name='attachList[" + i + "].b_uploadPath' value='" + jobj.data("path") + "'>";
+// 					str += "<input type='hidden' name='attachList[" + i + "].b_fileName' value='" + jobj.data("filename") + "'>";
+// 					str += "<input type='hidden' name='attachList[" + i + "].b_uuid' value='" + jobj.data("uuid") + "'>";
+// 					str += "<input type='hidden' name='attachList[" + i + "].b_uploadPath' value='" + jobj.data("path") + "'>";
 
-				});
-				formObj.append(str).submit();*/
+// 				});
+// 				formObj.append(str).submit();
+				formObj.submit();
 			}
 		
-		  formObj.submit();
+ 		  formObj.submit();
 		});
 
-	});
+	}); 
 </script>
-
+  -->
 <!-- 
 <script type="text/javascript">
 	$(document).ready(function() {

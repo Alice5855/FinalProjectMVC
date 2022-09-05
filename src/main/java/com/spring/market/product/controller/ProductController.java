@@ -41,7 +41,7 @@ public class ProductController {
 	
 	
 //	private UserMapper usermapper;
-	
+	 
 	// register 입력 page와 등록 처리
 	// 등록 작업은 post method를 사용하나 get method로 입력 page를 '읽어올 수
 	// 있도록' BoardController에 method를 추가해야 함
@@ -54,19 +54,13 @@ public class ProductController {
 	public void list(Criteria cri, Model m) {
 	    List<ProductVO> productVOList = new ArrayList<ProductVO>();
 	    productVOList = service.getList(cri);
-	    for (ProductVO productVO : productVOList) {
-	    	productVO.setPdNum(productVO.getPdNum());
-	    }
+	    
 	    m.addAttribute("list", productVOList);
 		int total = service.getTotal(cri);
 		log.info("total ===== " + total);
 		m.addAttribute("pageMaker", new PageDTO(cri, total));
     }
     
-    public String getProductName(ProductVO productVO) {
-
-		return productVO.getPdName();
-	}
 	
 	// 첨부 파일 list를 읽어오기 위한 method
 	@GetMapping(value="/getAttachList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)

@@ -39,7 +39,13 @@
         <div class="form-group">
           <label>상품가격</label>
           <input class="form-control" rows="3" name='pdPrice' type="number"
-            readonly="readonly" value="${product.pdPrice}"></textarea>
+            readonly="readonly" value="${product.pdPrice}">
+        </div>
+        
+         <div class="form-group">
+          <label>상품태그</label>
+          <input class="form-control" rows="3" name='pdKeyword' type="text"
+            readonly="readonly" value="${product.pdKeyword}">
         </div>
 
         <div class="form-group">
@@ -73,7 +79,7 @@
 
 <!-- page 317 jsp 소스 코딩 시작 : Page345 조회 페이지에서 검색 처리 jsp 소스 추가 코딩 시작 -->
 <form id='operForm' action="/product/modify" method="get">
-   <input type='hidden' id='bno' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
+   <input type='hidden' id='pdNum' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
    <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
    <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
    <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
@@ -717,7 +723,7 @@ $(document).ready(function() {
 
 <script>
 // Page570~Page571 소스 코딩 시작
-/*$(document).ready(function(){
+$(document).ready(function(){
      
      (function(){
      
@@ -799,7 +805,7 @@ $(document).ready(function() {
    
    });
 
-*/ 
+ 
 </script>
 
 
