@@ -8,11 +8,8 @@
 	<!-- BCrypt Password Encoder 사용하기위해 빈등록 -->
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
-	
-	
 	<!-- MemberMapper type의 instance를 주입받아 기능을 구현하는 UserDetailsService -->	
 	<bean id="customDetailService" class="com.spring.market.security.service.CustomDetailService"></bean>
-	
 	
 	<security:http></security:http>	
 	
