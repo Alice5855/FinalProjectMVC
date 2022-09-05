@@ -6,6 +6,6 @@ import lombok.Data;
 public class Auth {
 	
 	private String memAuth;
-	private String memNickname;
+	private Long memNum;
 	
 }

@@ -34,45 +34,45 @@ public class MemberServiceImplTests {
 	
 //	@Test
 //	public void testsignup() {
-//		System.out.println("회원가입시작");
+//		System.out.println("회원가입 테스트");
 //		Member mem = new Member();
-//		System.out.println("Memeber 맴버 담겨짐?" + mem);
-//		mem.setMemName("김춘식");
-//		mem.setMemEmail("kimchunsic@naver.com");
-//		mem.setMemNickname("kimchunsic");
-//		mem.setMemPw("kimchunsic");
+//		System.out.println("Memeber 객체 생성됨?" + mem);
+//		mem.setMemName("666");
+//		mem.setMemEmail("666@naver.com");
+//		mem.setMemNickname("666");
+//		mem.setMemPw("666");
 //		mem.setMemAd("어쩌라구");
 //		mem.setMemPh("010-2661-9397");
-//		mem.setMemPimg("프로필사진담는다");
-//		mem.setMemGender("전투헬리콥터!!!");
+//		mem.setMemPimg("회원사진 이쿠죠");
+//		mem.setMemGender("전투 헬리콥터!");
 //		
-//		System.out.println("이름가져와짐? ?" + mem.getMemName());
+//		System.out.println("멤버의 네임을 가져와짐??" + mem.getMemName());
 //	 	ms.signup(mem);
-//		System.out.println("mem 회원가입이됨?" + mem);
+//		System.out.println("mem 에 뭐담김??" + mem);
+//	}
+
+//	@Test
+//	public void testUpdate() {
+//		Member mem = ms.MemInfo(4L);
+//		System.out.println("mem가 담기나요?" + mem);
+//		if(mem == null) {
+//			System.out.println("멤버가없어요?");
+//			return;
+//		}else {
+//			mem.setMemAd("주소 수정합니다");
+//		}
+//		System.out.println("수정값보여주세요" + ms.update(mem));
 //	}
 //
 //	@Test
-//	public void testUpdate() {
-//		Member mem = ms.MemInfo("kimchunsic");
-//		System.out.println("mem에 뭐담김?" + mem);
-//		if(mem == null) {
-//			System.out.println("널임?");
-//			return;
-//		}else {
-//			mem.setMemAd("주소바꿉니다");
-//		}
-//		System.out.println("수덩결과좀 보여주세요" + ms.update(mem));
+//	public void testDeleteMember() {
+//		try {
+//			ms.deleteMember(5L);
+//		} catch (Exception e) {
+//			fail(e.getMessage());
+//		} 
 //	}
-//
-	@Test
-	public void testDeleteMember() {
-		try {
-			ms.deleteMember(4L);
-		} catch (Exception e) {
-			fail(e.getMessage());
-		} 
-	}
-//
+
 //	@Test
 //	public void testMemInfo() {
 //		fail("Not yet implemented");

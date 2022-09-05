@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		try {
 			System.out.println("try캐치문실행하나요?");
-			authMapper.authInsert(mem.getMemNickname());
+			authMapper.authInsert(mem.getMemNum());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -46,6 +46,7 @@ public class MemberServiceImpl implements MemberService {
 		String rawPw = mem.getMemPw();
 		mem.setMemPw(bCryptPasswordEncoder.encode(rawPw));
 		boolean modifyMember = memMapper.update(mem) == 1;
+		System.out.println("시발련아 boolean실행하냐?");
 		return modifyMember;
 	}
 
@@ -56,9 +57,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member MemInfo(String memNickname) {
-		System.out.println("회원의 정보가져와지나?? " + memNickname);
-		return memMapper.read(memNickname);
+	public Member MemInfo(Long memNum) {
+		System.out.println("회원의 정보가져와지나??" + memMapper.read(memNum));
+		return memMapper.read(memNum);
 	}
 	
 	

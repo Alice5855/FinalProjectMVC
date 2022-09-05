@@ -10,6 +10,6 @@ public interface MemberService {
 	
 	public boolean deleteMember(Long memNum);
 	
-	public Member MemInfo(String memNickname);
+	public Member MemInfo(Long memNum);
 	
 }
