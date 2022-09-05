@@ -31,7 +31,7 @@ import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
-@RequestMapping("/board/*")
+@RequestMapping("/product/*")
 @Log4j
 public class UploadController {
 	// Page 494 Get, Post method로 file upload를 처리

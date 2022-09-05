@@ -113,7 +113,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductVO> getList(Criteria cri) {
-		log.info("getList ===== Entry List from board with paging " + cri);
+		log.info("getList ===== Entry List from product with paging " + cri);
 		return mapper.getListPaging(cri);
 	}
 
