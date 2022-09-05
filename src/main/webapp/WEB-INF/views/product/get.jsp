@@ -8,7 +8,7 @@
          시큐리티 관련 태그 라이브러리를 설정하도록 주의합니다. -->
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-<%@include file="../includes/header.jsp"%>  
+<%@include file="../header.jsp"%>  
 
 <div class="row">
   <div class="col-lg-12">
@@ -805,4 +805,4 @@ $(document).ready(function() {
 
 
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../footer.jsp"%>

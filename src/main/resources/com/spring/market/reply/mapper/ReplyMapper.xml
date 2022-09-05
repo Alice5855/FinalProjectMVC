@@ -4,7 +4,7 @@
 <mapper namespace="com.spring.market.reply.mapper.ReplyMapper">
 	<insert id="insert">
 		insert into review_table (rvnum, pdnum, rvtext, memnickname)
-		values (idx_seq_revi.nextval, #{pdnum}, #{rvtext}, #{memnickname})
+		values (seq_review.nextval, #{pdnum}, #{rvtext}, #{memnickname})
 	</insert>
 	
 	<select id="read" resultType="com.spring.market.reply.domain.ReplyVO">

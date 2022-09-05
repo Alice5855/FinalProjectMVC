@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @RestController
-@RequestMapping("/replies/")
+@RequestMapping("/reviews/")
 @AllArgsConstructor
 @Log4j
 public class ReplyController {
