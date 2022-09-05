@@ -3,6 +3,8 @@ package com.spring.market.product.domain;
 import java.util.Date;
 import java.util.List;
 
+import com.spring.market.product.domain.ProductAttachVO;
+
 import lombok.Data;
 
 @Data

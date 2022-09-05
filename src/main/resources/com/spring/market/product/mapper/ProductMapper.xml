@@ -27,12 +27,12 @@
 	
 	<insert id="insert">
 		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, pdRegDate) 
-		values(idx_product_seq.nextval, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit}, sysdate)
+		values(seq_product.nextval, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit}, sysdate)
 	</insert>
 	
 	<insert id="insertSelectKey">
 		<selectKey keyProperty="pdNum" order="BEFORE" resultType="long">
-			select idx_product_seq.nextval from dual
+			select seq_product.nextval from dual
 		</selectKey>
 		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit)  values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit})
 	</insert>

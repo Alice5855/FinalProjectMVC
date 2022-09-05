@@ -87,6 +87,7 @@ public class ProductController {
 		if (product.getAttachList() != null) {
 			product.getAttachList().forEach(attach -> log.info(attach));
 		}
+		
 		service.register(product);
 		ratt.addFlashAttribute("result", product.getPdNum());
 		return "redirect:/product/list";
@@ -114,7 +115,7 @@ public class ProductController {
 	// 하여 글 내용을 표시함.
 	@GetMapping(value="/getModal", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<ProductVO> getModal(Long pdNum) {
+	public ResponseEntity<ProductVO> getModal(Long pdNum){
 		log.info("getModal ===== " + pdNum);
 		
 		return new ResponseEntity<ProductVO>(service.get(pdNum), HttpStatus.OK);

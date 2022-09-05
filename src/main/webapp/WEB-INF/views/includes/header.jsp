@@ -174,7 +174,7 @@
     <header class="py-3 mb-3 border-bottom">
 		<div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
 			<div class="col-4">
-				<a href="/board/list" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none" aria-expanded="false">
+				<a href="/product/list" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none" aria-expanded="false">
 					<!-- Logo -->
 					<div class="imgWrapper rounded">
 						<img src="${Context}/resources/img/logoh.png" alt="Logo">

@@ -121,32 +121,34 @@
 	  </div>
 	  <!-- end panel -->
 	
-	<!-- file upload form -->
-<!-- 	<div class="row container-fluid"> -->
-<!-- 		<div class="col-lg-12"> -->
-<!-- 			<div class="panel panel-default"> -->
-<!-- 				<div class=""> -->
-<!-- 					<div class="form-group uploadDiv"> -->
-<!-- 						<label for="formFile" class="form-label">이미지 하나를 선택하세요</label> -->
-<!-- 						<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*"> -->
-<!-- 					</div> -->
-					
-<!-- 					<div class='uploadResult'>  -->
-<!-- 						<ul> -->
-						
-<!-- 						</ul> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				 end panel-body -->
-<!-- 			</div> -->
-<!-- 			<!--  end panel-body --> 
-<!-- 		</div> -->
-<!-- 		<!-- col-lg-12 --> 
-<!-- 	</div> -->
-<!-- 	<!-- /.row --> 
-<!-- </div> -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
 
-<!-- <script
+      <div class="panel-heading">File Attach</div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <div class="form-group uploadDiv">
+            <input type="file" name='uploadFile' multiple>
+        </div>
+        
+        <div class='uploadResult'> 
+          <ul>
+          
+          </ul>
+        </div>
+        
+        
+      </div>
+      <!--  end panel-body -->
+
+    </div>
+    <!--  end panel-body -->
+  </div>
+  <!-- end panel -->
+</div>
+
+ <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
@@ -169,9 +171,9 @@
             console.log("===========================");
             console.log(jobj.data("filename"));
             
-            str += "<input type='hidden' name='attachList[" + i + "].b_fileName' value='" + jobj.data("filename") + "'>";
-            str += "<input type='hidden' name='attachList[" + i + "].b_uuid' value='" + jobj.data("uuid") + "'>";
-            str += "<input type='hidden' name='attachList[" + i + "].b_uploadPath' value='" + jobj.data("path") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdName' value='" + jobj.data("pdName") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdUuid' value='" + jobj.data("pdUuid") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdPath' value='" + jobj.data("pdPath") + "'>";
          }); // uploadResult ul li.each func
          console.log(str);
          formObj.append(str).submit();
@@ -222,7 +224,7 @@
          
          
          $.ajax({
-            url: '/uploadAjaxAction',
+            url: '/product/uploadAjaxAction',
             processData: false, 
             contentType: false,
             beforeSend: function(xhr){
@@ -249,11 +251,11 @@
          var str = "";
          
          $(uploadResultArr).each(function(i, obj){
-           	var filePath = obj.b_uploadPath + "/sthmb_" + obj.b_uuid + "_" + obj.b_fileName;
+           	var filePath = obj.pdPath + "/sthmb_" + obj.pdUuid + "_" + obj.pdName;
            	var fileLink = filePath.replace(new RegExp(/\\/g),"/");
 			
-			str += "<li data-path='" + obj.b_uploadPath + "' data-uuid='" + obj.b_uuid + "' data-filename='" + obj.b_fileName + "' ><div>";
-			str += "<span> "+ obj.b_fileName + "</span>";
+			str += "<li data-path='" + obj.pdPath + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
+			str += "<span> "+ obj.pdName + "</span>";
 			str += "<img class='thumbnail' src='/display?fileName=" + fileLink + "'>";
 			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
 			str += "</div></li>";
@@ -290,6 +292,6 @@
       }); // uploadResult.onclick func
       
    }); // document ready
-</script> -->
+</script> 
 
 <%@include file="../includes/footer.jsp"%>

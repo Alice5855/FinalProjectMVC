@@ -1,5 +1,6 @@
 package com.spring.market.product.service;
 
+import java.io.Console;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
 		
 		product.getAttachList().forEach(attach -> {
 			attach.setPdNum(product.getPdNum());
+			System.out.println(product.getPdNum());
 			attachMapper.insert(attach);
 		});
 		

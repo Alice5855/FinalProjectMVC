@@ -131,7 +131,7 @@ public class UploadController {
 		    uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 		    log.info("Uploaded file name ===== " + uploadFileName);
 		    
-		    attachDTO.setP_fileName(uploadFileName);
+		    attachDTO.setPdName(uploadFileName);
 		    // Added (page517)
 		    
 		    UUID uuid = UUID.randomUUID();
@@ -146,10 +146,10 @@ public class UploadController {
 		    	File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
 				
-				attachDTO.setP_uuid(uuid.toString());
-				attachDTO.setP_uploadPath(getFolder());
+				attachDTO.setPdUuid(uuid.toString());
+				attachDTO.setPdPath(getFolder());
 				// Added (page517)
-				log.info(attachDTO.getP_uploadPath());
+				log.info(attachDTO.getPdPath());
 				
 				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "sthmb_" + uploadFileName));
 				
@@ -159,11 +159,11 @@ public class UploadController {
 				 
 				thumbnail.close();
 				
-				String uploadLink = attachDTO.getP_uploadPath().toString().replaceAll("\\+", "/");
-				attachDTO.setP_uploadPath(uploadLink);
+				String uploadLink = attachDTO.getPdPath().toString().replaceAll("\\+", "/");
+				attachDTO.setPdPath(uploadLink);
 				
 				
-				log.info("uploadLink ===== " + attachDTO.getP_uploadPath());
+				log.info("uploadLink ===== " + attachDTO.getPdPath());
 				
 				list.add(attachDTO);
 				// Added (page517)
