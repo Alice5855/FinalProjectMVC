@@ -19,4 +19,6 @@ public interface ProductMapper {
 	
 	public String getU_nameFromU_Email(String pdName);
 	public void setBoardImage(Long pdNum);
+	
+	
 }

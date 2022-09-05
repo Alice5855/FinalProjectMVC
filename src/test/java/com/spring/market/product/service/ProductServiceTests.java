@@ -26,22 +26,22 @@ public class ProductServiceTests {
 	private ProductService service;
 	
 
-//	@Test
-//	public void testInsert() {
-//		ProductVO product = new ProductVO();
-//		product.setPdName("되기를 바라");
-//		product.setPdPrice(200000L);
-//		product.setPdStock(300);
-//		product.setPdHit(20000);
-//		product.setPdKeyword("타워오브판타지");
-//		service.register(product);
-//	}
-//	
-//	@Test
-//	public void testRead() {
-//		long i = 1L;
-//		service.get(i);
-//	}
+	@Test
+	public void testInsert() {
+		ProductVO product = new ProductVO();
+		product.setPdName("되기를 바라");
+		product.setPdPrice(200000L);
+		product.setPdStock(300);
+		product.setPdHit(20000);
+		product.setPdKeyword("타워오브판타지");
+		service.register(product);
+	}
+	
+	@Test
+	public void testRead() {
+		long i = 1L;
+		service.get(i);
+	}
 	
 	@Test
 	public void testupdate() {
