@@ -7,7 +7,6 @@ import com.spring.market.product.domain.ProductAttachVO;
 import com.spring.market.product.domain.ProductVO;
 
 
-
 public interface ProductService {
 	
 	public void register(ProductVO product);

@@ -36,9 +36,9 @@ public class MemberServiceImplTests {
 		System.out.println("회원가입시작");
 		Member mem = new Member();
 		System.out.println("Memeber 맴버 담겨짐?" + mem);
-		mem.setMemName("김q2춘식");
-		mem.setMemEmail("ki2mc2hunsic@naver.com");
-		mem.setMemNickname("ki22mchunsic");
+		mem.setMemName("김q춘식");
+		mem.setMemEmail("ki2mchunsic@naver.com");
+		mem.setMemNickname("ki2mchunsic");
 		mem.setMemPw("ki2mchunsic");
 		mem.setMemAd("어쩌라구");
 		mem.setMemPh("010-2661-9397");
