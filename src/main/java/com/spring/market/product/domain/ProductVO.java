@@ -16,8 +16,15 @@ public class ProductVO {
 	private String pdKeyword;
 //	private String b_video;
 	private int pdHit;
+	private Date pdRegDate;
+	
+	
+	
 	
 	private List<ProductAttachVO> attachList;
+	
+	
+	
 	// data를 한번에 처리하기 위한 List 객체
 }
 
