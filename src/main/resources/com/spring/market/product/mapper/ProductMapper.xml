@@ -10,10 +10,10 @@
 				<trim prefix="or">
 					<choose>
 						<when test="type == 'T'.toString()">
-							b_title like '%'||#{keyword}||'%'
+							pdName like '%'||#{keyword}||'%'
 						</when>
 						<when test="type == 'C'.toString()">
-							b_text like '%'||#{keyword}||'%'
+							pdKeyword like '%'||#{keyword}||'%'
 						</when>
 						<when test="type == 'W'.toString()">
 							u_email like '%'||#{keyword}||'%'

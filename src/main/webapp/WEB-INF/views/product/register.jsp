@@ -256,7 +256,7 @@
 			
 			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
 			str += "<span> "+ obj.pdName + "</span>";
-			str += "<img class='thumbnail' src='/display?fileName=" + fileLink + "'>";
+			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
 			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
 			str += "</div></li>";
            }); // uploadResultArr.each

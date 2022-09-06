@@ -34,20 +34,19 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public void register(ProductVO product) {
-		log.info("registered ===== to " + product);
 		
 		mapper.insertSelectKey(product);
+		log.info("registered ===== to " + product);
 		
 		if(product.getAttachList() == null || product.getAttachList().size() <= 0) {
 			return;
 		}
 		
 		product.getAttachList().forEach(attach -> {
+			log.info(attach);
 			attach.setPdNum(product.getPdNum());
 			attachMapper.insert(attach);
 		});
-		
-		mapper.setBoardImage(product.getPdNum());
 	}
 
 	@Override
@@ -61,14 +60,6 @@ public class ProductServiceImpl implements ProductService {
 		return pvo;
 	}
 	
-	@Override
-	public ProductVO getRaw(Long pdNum) {
-		log.info("get ===== " + pdNum + " from board");
-		
-		ProductVO bvo = mapper.read(pdNum);
-		
-		return bvo;
-	}
 
 	// 첨부 file과 게시글의 수정이 함께 이루어지도록 Transactional 적용
 	@Transactional
@@ -129,18 +120,4 @@ public class ProductServiceImpl implements ProductService {
 		return attachMapper.findByPdNum(pdNum);
 	}
 
-	
-//	@Override
-//	public String getpdNameFromU_Email(String u_email) {
-//		log.info("get U_name from U_email");
-//		return mapper.getU_nameFromU_Email(u_email);
-//	}
-
-	@Override
-	public void setBoardImage(Long pdNum) {
-		mapper.setBoardImage(pdNum);
-	}
-
-	
-	
 }
