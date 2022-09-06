@@ -22,7 +22,7 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">Board Read Page</div>
+      <div class="panel-heading">상품정보 조회</div>
       <!-- /.panel-heading -->
       <div class="panel-body">
 
@@ -742,8 +742,8 @@ $(document).ready(function(){
             if(attach.fileType){
               var fileCallPath =  encodeURIComponent( attach.uploadPath+ "/s_"+attach.uuid +"_"+attach.fileName);
               
-              str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-              str += "<img src='/display?fileName="+fileCallPath+"'>";
+              str += "<li data-path='"+attach.pdPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+              str += "<img src='/product/display?fileName="+fileCallPath+"'>";
               str += "</div>";
               str +"</li>";
             }else{

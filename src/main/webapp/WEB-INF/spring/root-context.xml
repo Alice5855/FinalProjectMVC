@@ -44,6 +44,7 @@
    
    <tx:annotation-driven/>
    
+   
    <!-- package별로 mapper service 등록하세요 -->
    <mybatis-spring:scan base-package="com.spring.market.product.mapper"/>
 <!--    <mybatis-spring:scan base-package="com.spring.market"/> -->

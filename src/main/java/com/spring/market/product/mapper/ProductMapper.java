@@ -17,7 +17,7 @@ public interface ProductMapper {
 	public int update(ProductVO product);
 	public int getTotalCount(Criteria cri);
 	
-	public String getU_nameFromU_Email(String pdName);
+	public String getU_nameFromU_Email(String pdPathName);
 	public void setBoardImage(Long pdNum);
 	
 	

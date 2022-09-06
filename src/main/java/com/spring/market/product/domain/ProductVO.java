@@ -19,7 +19,7 @@ public class ProductVO {
 //	private String b_video;
 	private int pdHit;
 	private Date pdRegDate;
-	
+	private int reviewCnt;
 	
 	
 	

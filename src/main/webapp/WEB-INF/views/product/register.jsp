@@ -171,9 +171,15 @@
             console.log("===========================");
             console.log(jobj.data("filename"));
             
-            str += "<input type='hidden' name='attachList[" + i + "].pdName' value='" + jobj.data("pdName") + "'>";
-            str += "<input type='hidden' name='attachList[" + i + "].pdUuid' value='" + jobj.data("pdUuid") + "'>";
-            str += "<input type='hidden' name='attachList[" + i + "].pdPath' value='" + jobj.data("pdPath") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdName' value='" + jobj.data("filename") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdUuid' value='" + jobj.data("uuid") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdFolder' value='" + jobj.data("path") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdPath' value='" + jobj.data("link") + "'>";
+            
+            
+            
+            
+            
          }); // uploadResult ul li.each func
          console.log(str);
          formObj.append(str).submit();
@@ -217,19 +223,19 @@
 				return false;
 			}
 			
-			
 			formData.append("uploadFile", files[i]);
 			
 		}
-         
          
          $.ajax({
             url: '/product/uploadAjaxAction',
             processData: false, 
             contentType: false,
+            /*
             beforeSend: function(xhr){
 				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
+            */
             // csrf token을 data 전송 전에 header로 전송
             data: formData,
             type: 'POST',
@@ -251,12 +257,12 @@
          var str = "";
          
          $(uploadResultArr).each(function(i, obj){
-           	var filePath = obj.pdPath + "/sthmb_" + obj.pdUuid + "_" + obj.pdName;
+           	var filePath = obj.pdFolder + "/sthmb_" + obj.pdUuid + "_" + obj.pdName;
            	var fileLink = filePath.replace(new RegExp(/\\/g),"/");
 			
-			str += "<li data-path='" + obj.pdPath + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
+			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "'><div>";
 			str += "<span> "+ obj.pdName + "</span>";
-			str += "<img class='thumbnail' src='/display?fileName=" + fileLink + "'>";
+			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
 			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
 			str += "</div></li>";
            }); // uploadResultArr.each
@@ -274,7 +280,7 @@
          var targetLi = $(this).closest("li");
          
          $.ajax({
-            url: '/deleteFile',
+            url: '/product/deleteFile',
             beforeSend: function(xhr){
                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },

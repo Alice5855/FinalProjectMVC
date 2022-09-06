@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -104,6 +106,7 @@ public class UploadController {
 	    log.info("=== Upload File Handle with Ajax ===");
 	    String uploadFolder = "C:/Uploaded";
 	    
+	    
 	    // Page 509 getFolder() method 적용
 	    File uploadPath = new File(uploadFolder, getFolder());
 	    log.info("Upload Path ====== " + uploadPath);
@@ -147,8 +150,9 @@ public class UploadController {
 				multipartFile.transferTo(saveFile);
 				
 				attachDTO.setPdUuid(uuid.toString());
-				attachDTO.setPdPath(getFolder());
+				attachDTO.setPdFolder(getFolder());
 				// Added (page517)
+				
 				log.info(attachDTO.getPdPath());
 				
 				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "sthmb_" + uploadFileName));
@@ -159,11 +163,11 @@ public class UploadController {
 				 
 				thumbnail.close();
 				
-				String uploadLink = attachDTO.getPdPath().toString().replaceAll("\\+", "/");
+				String uploadLink = attachDTO.getPdFolder().toString().replaceAll("\\+", "/") + attachDTO.getPdUuid().toString()+ attachDTO.getPdName().toString();
 				attachDTO.setPdPath(uploadLink);
 				
 				
-				log.info("uploadLink ===== " + attachDTO.getPdPath());
+				log.info("uploadLink ===== " + attachDTO.getPdFolder());
 				
 				list.add(attachDTO);
 				// Added (page517)

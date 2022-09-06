@@ -71,9 +71,9 @@
 		
 		<select id="getListPaging" resultType="com.spring.market.product.domain.ProductVO">
 		<![CDATA[
- 			select pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit from  
+ 			select pdNum, pdName, pdPrice, pdStock, pdKeyword,pdRegDate, pdHit, reviewcnt from  
 			(select /*+ index_desc(PRODUCT_TABLE pk_product)*/
- 			rownum rn, pdNum, pdName, pdPrice,pdStock,pdKeyword,pdHit   
+ 			rownum rn, pdNum, pdName, pdPrice,pdStock,pdKeyword,pdRegDate,pdHit, reviewcnt   
  			from Product_Table 
 			where 
 		]]>
@@ -92,11 +92,11 @@
 <!-- 		]]> -->
 <!-- 	</select> -->
 
-<!-- 	<update id="setBoardImage"> -->
-<!-- 		<![CDATA[ -->
-<!-- 			update Board_table set b_img = (select b_uploadpath||'/'||b_uuid||'_'||b_filename from ATTACH_TABLE where b_number = #{b_number}) where b_number = #{b_number} -->
-<!-- 		]]> -->
-<!-- 	</update> -->
+	<update id="setBoardImage">
+		<![CDATA[
+ 			update attach_product set pdPath = (select pdFolder||'/'||pdUuid||'_'||pdName from ATTACH_TABLE where pdNum = #{pdNum}) where pdNum = #{pdNum} 
+ 		]]> 
+	</update>
 	
 	<update id="updateReplyCnt">
 		update product_table set replycnt = replycnt + #{amount} where pdnum = #{pdnum}
