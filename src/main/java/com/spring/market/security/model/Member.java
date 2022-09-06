@@ -6,15 +6,15 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
 @Data
-public class Member implements UserDetails{
-	
-	
-	private static final Long serialVesrionsUID =  1L;
-	
+public class Member implements UserDetails {
+
+	private static final Long serialVesrionsUID = 1L;
+
 	private Long memNum;
 	private String memName;
 	private String memEmail;
@@ -23,40 +23,33 @@ public class Member implements UserDetails{
 	private String memPh;
 	private String memAd;
 	private String memGender;
-	private String memPimg;
-	
-	
+	private String ChangeName;
+	private MultipartFile MF;
+
 	private Auth memAuth;
-	
-	
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
 		auth.add(new SimpleGrantedAuthority(memAuth.getMemAuth()));
-	    return auth;
+		return auth;
 	}
-	
-	
+
 	@Override
 	public String getPassword() {
 		return memPw;
 	}
-	
-	public String getEmail() {
-		return memEmail;
-	}
-	
-	public String getPimg() {
-		return memPimg;
-	}
-	
-	@Override
-	public String getUsername() {
+
+	public String getNickname() {
 		return memNickname;
 	}
 	
-	
+
+	@Override
+	public String getUsername() {
+		return memEmail;
+	}
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return true;
@@ -76,10 +69,5 @@ public class Member implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
-	
-	
-
-
-
 
 }

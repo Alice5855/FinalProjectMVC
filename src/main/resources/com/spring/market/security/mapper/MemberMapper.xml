@@ -11,7 +11,6 @@
 	<result property="memNickname" column="memNickname"/>	
 	<result property="memPw" column="memPw"/>	
 	<result property="memAd" column="memAd"/>	
-	<result property="memPimg" column="memPimg"/>
 	<result property="memGender" column="memGender"/>
 	<result property="memPh" column="memPh"/>
 	<collection property="memAuth" resultMap="authMap"></collection>	
@@ -22,17 +21,19 @@
 	<result property="memAuth" column="memAuth"/>
 	<result property="memNum" column="memNum"/>
 </resultMap>
-
+	
+	
+	<select id="getSeq" resultType="Long">
+			select seq_member.nextval from dual
+	</select>
+	
 
 	<insert id="signup">
-		<selectKey keyProperty="memNum" order="BEFORE" resultType="Long">
-			select seq_member.nextval from dual
-		</selectKey>
-		insert into membertable(memNum, memName, memEmail, memNickname, memPw, memAd, memPimg, memGender, memPh) values(#{memNum}, #{memName}, #{memEmail}, #{memNickname} , #{memPw}, #{memAd}, #{memPimg}, #{memGender}, #{memPh})
+		insert into membertable(memNum, memName, memEmail, memNickname, memPw, memAd, memGender, memPh) values(#{memNum}, #{memName}, #{memEmail}, #{memNickname} , #{memPw}, #{memAd}, #{memGender}, #{memPh})
 	</insert>
 	
 	<update id="update">
-		update membertable set memName = #{memName},memEmail = #{memEmail}, memNickname = #{memNickname}, memPw = #{memPw}, memAd = #{memAd}, memPimg = #{memPimg}, memGender = #{memGender}, memPh = #{memPh} where memNum = #{memNum}
+		update membertable set memName = #{memName},memEmail = #{memEmail}, memNickname = #{memNickname}, memPw = #{memPw}, memAd = #{memAd}, memGender = #{memGender}, memPh = #{memPh} where memNum = #{memNum}
 	
 	</update>
 	
@@ -42,7 +43,7 @@
 	
 	<select id="read" resultMap="MemberMap">
 		SELECT 
-		  mt.memNum, memName,memNickname, memEmail, memPw, memAd, memPimg, memGender, memPh, memAuth
+		  mt.memNum, memName,memNickname, memEmail, memPw, memAd, memGender, memPh, memAuth
 		FROM 
 		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNum = Auth.memNum 
 		WHERE mt.memNum = #{memNum} 
@@ -50,13 +51,21 @@
 	
 	<select id="findByMemberEmail" resultMap = "MemberMap">
 		SELECT 
-		  mt.memNum, memName, memNickname, memPw, memAd, memPimg, memGender, memPh, memAuth
+		  mt.memNum, memName, memNickname, memPw, memAd, memGender, memPh, memAuth
 		FROM 
 		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNum = Auth.memNum 
 		WHERE mt.memEmail = #{memEmail} 
 				
 	</select>
-
+	
+	<insert id="insertProfile" >
+		insert into Member_PROFILE(File_no, memNum, ChangeName) Values(Profile_seq.nextval, #{memNum}, #{ChangeName})
+	</insert>
+	
+	<select id="getMember">
+		select membertable m JOIN Member_PROFILE p on (m.memNum = p.memNum)
+		where memNum = #{memNum}
+	</select>
 
 
 
