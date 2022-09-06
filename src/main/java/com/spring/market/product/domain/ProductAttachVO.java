@@ -11,5 +11,3 @@ public class ProductAttachVO {
 	
 	private Long pdNum; // FK from product_board
 }
-
-

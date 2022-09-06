@@ -8,7 +8,7 @@
          시큐리티 관련 태그 라이브러리를 설정하도록 주의합니다. -->
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-<%@include file="../includes/header.jsp"%>  
+<%@include file="../header.jsp"%>  
 
 <div class="row">
   <div class="col-lg-12">
@@ -22,7 +22,7 @@
   <div class="col-lg-12">
     <div class="panel panel-default">
 
-      <div class="panel-heading">상품정보 조회</div>
+      <div class="panel-heading">Board Read Page</div>
       <!-- /.panel-heading -->
       <div class="panel-body">
 
@@ -742,8 +742,8 @@ $(document).ready(function(){
             if(attach.fileType){
               var fileCallPath =  encodeURIComponent( attach.uploadPath+ "/s_"+attach.uuid +"_"+attach.fileName);
               
-              str += "<li data-path='"+attach.pdPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
-              str += "<img src='/product/display?fileName="+fileCallPath+"'>";
+              str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"' ><div>";
+              str += "<img src='/display?fileName="+fileCallPath+"'>";
               str += "</div>";
               str +"</li>";
             }else{
@@ -811,4 +811,4 @@ $(document).ready(function(){
 
 
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../footer.jsp"%>

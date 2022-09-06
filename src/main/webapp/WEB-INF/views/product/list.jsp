@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
-<%@include file="../includes/header.jsp" %> 
+<%@include file="../header.jsp" %> 
 <style>
 	a {
 		color: black;
@@ -75,11 +75,11 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>상품번호</th>
-							<th>상품명</th>
-							<th>입고일</th>
-							<th>관심도</th>
-							
+							<th>#번호</th>
+							<th>제목</th>
+							<th>작성자</th>
+							<th>작성일</th>
+							<th>수정일</th>
 						</tr>
 					</thead>
 					<!-- Model에 담긴 데이터 출력 : '/board/list'를
@@ -97,19 +97,17 @@
 
 							<!-- Page 314 아래 jsp 소스 코딩할 때 아래 소스 추가 코딩 시작 -->
 							<td><a class='move' href='<c:out value="${product.pdNum}"/>'>
-									<c:out value="${product.pdName}" /> (<c:out value="${product.reviewCnt}" />) 
+									<c:out value="${product.pdName}" />
 									<!-- Page 486 소스 코딩 추가 -->
 <%-- 									<b>[<c:out value="${board.replyCnt}" /> ]</b> --%>
 							</a></td>
 							<!-- Page 314 아래 jsp 소스 코딩할 때 아래 소스 추가 코딩 끝 -->
 
-<%-- 							<td><c:out value="${product.pdName}" /></td> --%>
+							<td><c:out value="${product.pdName}" /></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd"
 									value="${product.pdRegDate}" /></td>
 <%-- 							<td><fmt:formatDate pattern="yyyy-MM-dd" --%>
 <%-- 									value="${board.updateDate}" /></td> --%>
-
-							<td> <c:out value="${product.pdHit}" /></td>
 						</tr>
 						<!-- Page254 아래 ~ Page255 위까지 소스 수정 코딩 끝 -->
 					</c:forEach>
@@ -353,4 +351,4 @@
 
         
 
-<%@include file="../includes/footer.jsp" %>
+<%@include file="../footer.jsp" %>

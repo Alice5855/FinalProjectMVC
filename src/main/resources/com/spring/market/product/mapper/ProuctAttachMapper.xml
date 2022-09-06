@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-				  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.market.product.mapper.ProductAttachMapper">
 
-	<insert id="insertAT">
-		insert into attach_product (pdUuid,pdPath,pdName,pdFolder,pdNum)values(#{pdUuid}, replace(#{pdPath},'\', '/'),#{pdName},#{pdFolder},#{pdNum})
-		
+	<insert id="insert">
+		insert into attach_product (pdUuid, pdFolder, pdName, pdNum)
+		values (#{pdUuid}, replace(#{pdFolder}, '\', '/'), #{pdName}, #{pdNum})
 	</insert>
 
 	<delete id="delete">
@@ -14,7 +15,7 @@
 
 	</delete>
 
-	<select id="findByB_number"
+	<select id="findByPdNum"
 		resultType="com.spring.market.product.mapper.ProductAttachMapper">
 		select * from attach_product where pdNum = #{pdNum}
 	</select>
@@ -28,7 +29,7 @@
 	<select id="getOldFiles"
 		resultType="com.spring.market.product.mapper.ProductAttachMapper">
 
-		select * from attach_product where pdPath = to_char(sysdate -1 ,'yyyy\mm\dd')
+		select * from attach_product where pdFolder = to_char(sysdate -1 ,'yyyy\mm\dd')
 
 	</select>
 	

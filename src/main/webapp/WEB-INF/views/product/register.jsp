@@ -6,7 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
-<%@include file="../includes/header.jsp"%>
+<%@include file="../header.jsp"%>
 
 <style>
       .uploadResult {
@@ -174,12 +174,6 @@
             str += "<input type='hidden' name='attachList[" + i + "].pdName' value='" + jobj.data("filename") + "'>";
             str += "<input type='hidden' name='attachList[" + i + "].pdUuid' value='" + jobj.data("uuid") + "'>";
             str += "<input type='hidden' name='attachList[" + i + "].pdFolder' value='" + jobj.data("path") + "'>";
-            str += "<input type='hidden' name='attachList[" + i + "].pdPath' value='" + jobj.data("link") + "'>";
-            
-            
-            
-            
-            
          }); // uploadResult ul li.each func
          console.log(str);
          formObj.append(str).submit();
@@ -260,7 +254,7 @@
            	var filePath = obj.pdFolder + "/sthmb_" + obj.pdUuid + "_" + obj.pdName;
            	var fileLink = filePath.replace(new RegExp(/\\/g),"/");
 			
-			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "'><div>";
+			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
 			str += "<span> "+ obj.pdName + "</span>";
 			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
 			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
@@ -300,4 +294,4 @@
    }); // document ready
 </script> 
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../footer.jsp"%>
