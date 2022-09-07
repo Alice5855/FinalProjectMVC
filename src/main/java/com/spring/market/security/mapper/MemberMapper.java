@@ -1,18 +1,25 @@
 package com.spring.market.security.mapper;
 
-import java.util.List;
-
 import com.spring.market.security.model.Member;
 
 public interface MemberMapper {
 	
-	public void signup(Member mem);
+	public Long getSeq();
 	
-	public Member read(String memNickname);
+	public Long signup(Member mem);
+	
+	public Member read(Long memNum);
+	
+	public Member getMember(Member mem);
 	
 	public int deleteMember(Long memNum);
 	
 	public int update(Member mem);
+	
+	public Member findByMemberEmail(String memEmail);
+	
+	public void insertProfile(Member mem);
+	
 	
 	
 	

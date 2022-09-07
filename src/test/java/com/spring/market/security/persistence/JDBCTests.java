@@ -22,7 +22,7 @@ public class JDBCTests {
 	
 	@Test
 	public void testConn() {
-		try (Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "mini_admin", "mini_admin")) {
+		try (Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:orcl", "FantasticFour", "FantasticFour")) {
 			log.info(con);
 		} catch (Exception e) {
 			fail(e.getMessage());
