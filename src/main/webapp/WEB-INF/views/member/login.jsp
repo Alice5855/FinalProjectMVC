@@ -9,8 +9,9 @@
 		<form action = "login" method = "post">
 	        아이디 : <input type = "text" name = "memEmail"/><br>
 	        비밀번호 : <input type = "password" name = "memPw"/><br>
-	        <input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
+		<div class="checkbox">
+				<label> <input name="remember-me" type="checkbox">Remember Me</label>
+		</div>
 	        <input type = "submit" value ="로그인"/>
 	    </form>
 		

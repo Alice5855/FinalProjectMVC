@@ -36,29 +36,29 @@ public class ProductServiceTests {
 //		product.setPdKeyword("타워오브판타지");
 //		service.register(product);
 //	}
-//	
+	
 //	@Test
 //	public void testRead() {
 //		long i = 1L;
 //		service.get(i);
 //	}
 	
-	@Test
-	public void testupdate() {
-		
-		
-		ProductVO product = service.get(3L);
-		
-		product.setPdName("상품명 수정");
-		product.setPdPrice(3000000L);
-		
-		service.modify(product);
-	}
-	
-	@Test
-	public void testDelete() {
+//	@Test
+//	public void testupdate() {
+//		
+//		
 //		ProductVO product = service.get(3L);
-		service.remove(3L);
-	}
+//		
+//		product.setPdName("상품명 수정");
+//		product.setPdPrice(3000000L);
+//		
+//		service.modify(product);
+//	}
+//	
+//	@Test
+//	public void testDelete() {
+//		ProductVO product = service.get(3L);
+//		service.remove(3L);
+//	}
 
 }
