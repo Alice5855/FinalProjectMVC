@@ -5,7 +5,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Welcome to Alternative Society</title>
+	<title>Welcome to AniBucket</title>
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 	<!-- Bootstrap JS -->
@@ -19,79 +19,106 @@
 	
 	
 	<style>
+		/* https://fonts.google.com/specimen/Do+Hyeon?subset=korean (OFL) */
+		/* 'Do Hyeon', sans-serif; */
+		@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+		/* https://fonts.google.com/specimen/IBM+Plex+Sans+KR?subset=korean (OFL) */
+		/* 'IBM Plex Sans KR', sans-serif; */
+		@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;700&display=swap');
 		body {
-		  padding-bottom: 20px;
+			padding-bottom: 20px;
+			font-family: 'IBM Plex Sans KR', sans-serif;
 		}
-		
+		.font2 {
+			font-family: 'Do Hyeon', sans-serif;
+		}
 		.navbar {
-		  margin-bottom: 20px;
+			margin-bottom: 20px;
 		}
-		.bd-placeholder-img {
-		  font-size: 1.125rem;
-		  text-anchor: middle;
-		  -webkit-user-select: none;
-		  -moz-user-select: none;
-		  user-select: none;
-		}
-		
-		@media (min-width: 768px) {
-		  .bd-placeholder-img-lg {
-		    font-size: 3.5rem;
-		  }
-		}
-		
-		.b-example-divider {
-		  height: 3rem;
-		  background-color: rgba(0, 0, 0, .1);
-		  border: solid rgba(0, 0, 0, .15);
-		  border-width: 1px 0;
-		  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-		}
-		
-		.b-example-vr {
-		  flex-shrink: 0;
-		  width: 1.5rem;
-		  height: 100vh;
-		}
-		
-		.bi {
-		  vertical-align: -.125em;
-		  fill: currentColor;
-		}
-		
 		.nav-scroller {
 		  position: relative;
 		  z-index: 2;
 		  height: 2.75rem;
 		  overflow-y: hidden;
 		}
-		
 		.nav-scroller .nav {
-		  display: flex;
-		  flex-wrap: nowrap;
-		  padding-bottom: 1rem;
-		  margin-top: -1px;
-		  overflow-x: auto;
-		  text-align: center;
-		  white-space: nowrap;
-		  -webkit-overflow-scrolling: touch;
+			display: flex;
+			flex-wrap: nowrap;
+			padding-bottom: 1rem;
+			margin-top: -1px;
+			overflow-x: auto;
+			text-align: center;
+			white-space: nowrap;
+			-webkit-overflow-scrolling: touch;
+		}
+		.btn-outline-primary {
+		    --bs-btn-color: #6FEDD6;
+		    --bs-btn-border-color: #6FEDD6;
+		    --bs-btn-hover-color: #FF7373;
+		    --bs-btn-hover-bg: #6FEDD6;
+		    --bs-btn-hover-border-color: #6FEDD6;
+		    --bs-btn-focus-shadow-rgb: 33,37,41;
+		    --bs-btn-active-color: #FF7373;
+		    --bs-btn-active-bg: #6FEDD6;
+		    --bs-btn-active-border-color: #6FEDD6;
+		    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+		    --bs-btn-disabled-color: #6FEDD6;
+		    --bs-btn-disabled-bg: transparent;
+		    --bs-btn-disabled-border-color: #6FEDD6;
+		    --bs-gradient: none;
+		}
+		.topbar{
+			z-index: 9999;
+		}
+		.btn-outline-primary2 {
+		    --bs-btn-color: #FF7373;
+		    --bs-btn-border-color: #FF7373;
+		    --bs-btn-hover-color: #6FEDD6;
+		    --bs-btn-hover-bg: #FF7373;
+		    --bs-btn-hover-border-color: #FF7373;
+		    --bs-btn-focus-shadow-rgb: 33,37,41;
+		    --bs-btn-active-color: #6FEDD6;
+		    --bs-btn-active-bg: #FF7373;
+		    --bs-btn-active-border-color: #FF7373;
+		    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+		    --bs-btn-disabled-color: #FF7373;
+		    --bs-btn-disabled-bg: transparent;
+		    --bs-btn-disabled-border-color: #FF7373;
+		    --bs-gradient: none;
+		}
+		.filler {
+			display: block;
+			width: 80%;
+			/* gotta change if you wanna use nav-link */
+		}
+		.nav-text {
+			color: #FF4A4A;
+		}
+		.nav-text:focus, .nav-text:hover {
+			color: #FF7373;
+		}
+		.ddmenu:focus, .ddmenu:hover {
+			background-color: rgba(255,255,255,0.7) !important;
 		}
     </style>
     
 </head>
 <body>
 
-<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-">
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-lg topbar" style="background-color: #FFAB77;">
 	    <div class="container-fluid px-4">
 	        <a class="navbar-brand" href="/">
-	        	<img class="img-fluid" alt="Logo" src="/resources/imgs/AniBucket-1.png" width="125px">
+	        	<img class="img-fluid" alt="Logo" src="/resources/imgs/AniBucket-1.png" width="90px">
 	        </a>
 	        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-	            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-	                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">상품</a></li>
-	                <li class="nav-item"><a class="nav-link" href="#!">장바구니</a></li>
+	        	<div class="filler"></div>
+	            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4 me-auto">
+	            	<!--
+	                <li class="nav-item"><a class="nav-link" aria-current="page" href="#!">상품</a></li>
+	                <li class="nav-item"><a class="nav-link" href="#!">장동이</a></li>
+	                -->
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -104,12 +131,51 @@
 	                </li>
 	            </ul>
 	            <form class="d-flex">
-	                <button class="btn btn-outline-dark" type="submit">
+	                <button class="btn btn-outline-primary" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
-						장바구니
-	                    <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+						장동이
+	                    <span class="badge ms-1 rounded-pill" style="background-color: #FF4A4A; color: #B9FFF8;">0</span>
 	                </button>
 	            </form>
 	        </div>
 	    </div>
 	</nav>
+	
+	<!-- fixed transparent navigation -->
+	<nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(0,0,0,0.1);">
+	    <div class="container-fluid px-4">
+	        <a class="navbar-brand" href="/">
+	        	<img class="img-fluid" alt="Logo" src="/resources/imgs/AniBucket-1.png" width="80px">
+	        </a>
+	        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	        	<div class="filler"></div>
+	            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4 me-auto">
+	            	<!--
+	                <li class="nav-item"><a class="nav-link nav-text" aria-current="page" href="#!">상품</a></li>
+	                <li class="nav-item"><a class="nav-link nav-text" href="#!">장동이</a></li>
+	                -->
+	                <li class="nav-item dropdown">
+	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
+	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(60,60,60,0.3);">
+	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그인</a></li>
+	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그아웃</a></li>
+	                        <li><hr class="dropdown-divider" /></li>
+	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">회원가입</a></li>
+	                    </ul>
+	                </li>
+	            </ul>
+	            <form class="d-flex">
+	                <button class="btn btn-outline-primary2" type="submit">
+	                    <i class="bi-cart-fill me-1"></i>
+						장동이
+	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
+	                </button>
+	            </form>
+	        </div>
+	    </div>
+	</nav>
+	
+<script type="text/javascript" charset="utf-8">
+	sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
+</script>

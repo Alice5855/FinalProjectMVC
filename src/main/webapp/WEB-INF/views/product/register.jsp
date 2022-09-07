@@ -6,7 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
-<%@include file="../includes/header.jsp"%>
+<%@include file="../header.jsp"%>
 
 <style>
       .uploadResult {
@@ -121,32 +121,34 @@
 	  </div>
 	  <!-- end panel -->
 	
-	<!-- file upload form -->
-<!-- 	<div class="row container-fluid"> -->
-<!-- 		<div class="col-lg-12"> -->
-<!-- 			<div class="panel panel-default"> -->
-<!-- 				<div class=""> -->
-<!-- 					<div class="form-group uploadDiv"> -->
-<!-- 						<label for="formFile" class="form-label">이미지 하나를 선택하세요</label> -->
-<!-- 						<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*"> -->
-<!-- 					</div> -->
-					
-<!-- 					<div class='uploadResult'>  -->
-<!-- 						<ul> -->
-						
-<!-- 						</ul> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				 end panel-body -->
-<!-- 			</div> -->
-<!-- 			<!--  end panel-body --> 
-<!-- 		</div> -->
-<!-- 		<!-- col-lg-12 --> 
-<!-- 	</div> -->
-<!-- 	<!-- /.row --> 
-<!-- </div> -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
 
-<!-- <script
+      <div class="panel-heading">File Attach</div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+        <div class="form-group uploadDiv">
+            <input type="file" name='uploadFile' multiple>
+        </div>
+        
+        <div class='uploadResult'> 
+          <ul>
+          
+          </ul>
+        </div>
+        
+        
+      </div>
+      <!--  end panel-body -->
+
+    </div>
+    <!--  end panel-body -->
+  </div>
+  <!-- end panel -->
+</div>
+
+ <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
@@ -169,9 +171,10 @@
             console.log("===========================");
             console.log(jobj.data("filename"));
             
-            str += "<input type='hidden' name='attachList[" + i + "].b_fileName' value='" + jobj.data("filename") + "'>";
-            str += "<input type='hidden' name='attachList[" + i + "].b_uuid' value='" + jobj.data("uuid") + "'>";
-            str += "<input type='hidden' name='attachList[" + i + "].b_uploadPath' value='" + jobj.data("path") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdName' value='" + jobj.data("filename") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdUuid' value='" + jobj.data("uuid") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdFolder' value='" + jobj.data("path") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdPath' value='" + jobj.data("link") + "'>";
          }); // uploadResult ul li.each func
          console.log(str);
          formObj.append(str).submit();
@@ -215,19 +218,19 @@
 				return false;
 			}
 			
-			
 			formData.append("uploadFile", files[i]);
 			
 		}
          
-         
          $.ajax({
-            url: '/uploadAjaxAction',
+            url: '/product/uploadAjaxAction',
             processData: false, 
             contentType: false,
+            /*
             beforeSend: function(xhr){
 				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
+            */
             // csrf token을 data 전송 전에 header로 전송
             data: formData,
             type: 'POST',
@@ -249,12 +252,12 @@
          var str = "";
          
          $(uploadResultArr).each(function(i, obj){
-           	var filePath = obj.b_uploadPath + "/sthmb_" + obj.b_uuid + "_" + obj.b_fileName;
+           	var filePath = obj.pdFolder + "/sthmb_" + obj.pdUuid + "_" + obj.pdName;
            	var fileLink = filePath.replace(new RegExp(/\\/g),"/");
 			
-			str += "<li data-path='" + obj.b_uploadPath + "' data-uuid='" + obj.b_uuid + "' data-filename='" + obj.b_fileName + "' ><div>";
-			str += "<span> "+ obj.b_fileName + "</span>";
-			str += "<img class='thumbnail' src='/display?fileName=" + fileLink + "'>";
+			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
+			str += "<span> "+ obj.pdName + "</span>";
+			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
 			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
 			str += "</div></li>";
            }); // uploadResultArr.each
@@ -272,7 +275,7 @@
          var targetLi = $(this).closest("li");
          
          $.ajax({
-            url: '/deleteFile',
+            url: '/product/deleteFile',
             beforeSend: function(xhr){
                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
@@ -290,6 +293,6 @@
       }); // uploadResult.onclick func
       
    }); // document ready
-</script> -->
+</script> 
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../footer.jsp"%>

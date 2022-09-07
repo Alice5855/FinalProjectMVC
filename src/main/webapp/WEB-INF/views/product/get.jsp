@@ -8,7 +8,7 @@
          시큐리티 관련 태그 라이브러리를 설정하도록 주의합니다. -->
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
-<%@include file="../includes/header.jsp"%>  
+<%@include file="../header.jsp"%>  
 
 <div class="row">
   <div class="col-lg-12">
@@ -39,7 +39,13 @@
         <div class="form-group">
           <label>상품가격</label>
           <input class="form-control" rows="3" name='pdPrice' type="number"
-            readonly="readonly" value="${product.pdPrice}"></textarea>
+            readonly="readonly" value="${product.pdPrice}">
+        </div>
+        
+         <div class="form-group">
+          <label>상품태그</label>
+          <input class="form-control" rows="3" name='pdKeyword' type="text"
+            readonly="readonly" value="${product.pdKeyword}">
         </div>
 
         <div class="form-group">
@@ -73,7 +79,7 @@
 
 <!-- page 317 jsp 소스 코딩 시작 : Page345 조회 페이지에서 검색 처리 jsp 소스 추가 코딩 시작 -->
 <form id='operForm' action="/product/modify" method="get">
-   <input type='hidden' id='bno' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
+   <input type='hidden' id='pdNum' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
    <input type='hidden' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
    <input type='hidden' name='amount' value='<c:out value="${cri.amount}"/>'>
    <input type='hidden' name='keyword' value='<c:out value="${cri.keyword}"/>'>
@@ -728,7 +734,7 @@ $(document).ready(function(){
          console.log(arr);
          
          // Page574 소스 코딩 시작
-   /* */      var str = "";
+         var str = "";
           
           $(arr).each(function(i, attach){
           
@@ -799,10 +805,10 @@ $(document).ready(function(){
    
    });
 
-
+ 
 </script>
 
 
 
 
-<%@include file="../includes/footer.jsp"%>
+<%@include file="../footer.jsp"%>

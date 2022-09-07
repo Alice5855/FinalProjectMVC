@@ -10,10 +10,10 @@
 				<trim prefix="or">
 					<choose>
 						<when test="type == 'T'.toString()">
-							b_title like '%'||#{keyword}||'%'
+							pdName like '%'||#{keyword}||'%'
 						</when>
 						<when test="type == 'C'.toString()">
-							b_text like '%'||#{keyword}||'%'
+							pdKeyword like '%'||#{keyword}||'%'
 						</when>
 						<when test="type == 'W'.toString()">
 							u_email like '%'||#{keyword}||'%'
@@ -26,7 +26,7 @@
 	
 	
 	<insert id="insert">
-		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, pdRegDate) 
+		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, pdRegDate)
 		values(seq_product.nextval, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit}, sysdate)
 	</insert>
 	
@@ -34,7 +34,7 @@
 		<selectKey keyProperty="pdNum" order="BEFORE" resultType="long">
 			select seq_product.nextval from dual
 		</selectKey>
-		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit)  values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit})
+		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit) values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit})
 	</insert>
 	
 	<select id="read" resultType="com.spring.market.product.domain.ProductVO">
@@ -59,21 +59,12 @@
  			pdNum > 0 
  		]]> 
 	</select>
-	
-<!--	<select id="getListPaging" resultType="com.spring.market.product.domain.ProductVO">
-		<![CDATA[
- 			select pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, b_img from  
-			(select /*+ index_desc(Product_Table pk_board_b_number) 
- 			rownum rn, b_number, b_title, b_text, u_email, b_regdate, b_updatedate, b_img  
- 			from Product_Table 
-			where 
-		]]> -->
 		
 		<select id="getListPaging" resultType="com.spring.market.product.domain.ProductVO">
 		<![CDATA[
  			select pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit from  
 			(select /*+ index_desc(PRODUCT_TABLE pk_product)*/
- 			rownum rn, pdNum, pdName, pdPrice,pdStock,pdKeyword,pdHit   
+ 			rownum rn, pdNum, pdName, pdPrice,pdStock,pdKeyword, pdHit   
  			from Product_Table 
 			where 
 		]]>
@@ -82,24 +73,12 @@
 		
 		<![CDATA[
  			rownum <= #{pageNum} * #{amount}) 
- 			where rn > (#{pageNum} - 1) * #{amount} 
+ 			where rn > (#{pageNum} - 1) * #{amount}
  		]]> 
 	</select>
 	
-<!-- 	<select id="getU_nameFromU_Email" resultType="string"> -->
-<!-- 		<![CDATA[ -->
-<!-- 			select u_name from user_table where u_email=#{u_email} -->
-<!-- 		]]> -->
-<!-- 	</select> -->
-
-<!-- 	<update id="setBoardImage"> -->
-<!-- 		<![CDATA[ -->
-<!-- 			update Board_table set b_img = (select b_uploadpath||'/'||b_uuid||'_'||b_filename from ATTACH_TABLE where b_number = #{b_number}) where b_number = #{b_number} -->
-<!-- 		]]> -->
-<!-- 	</update> -->
-	
-	<update id="updateReplyCnt">
-		update product_table set replycnt = replycnt + #{amount} where pdnum = #{pdnum}
+	<update id="updateReviewCnt">
+		update product_table set reviewcnt = reviewcnt + #{amount} where pdnum = #{pdnum}
 	</update>
 		
 </mapper>

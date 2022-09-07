@@ -81,12 +81,14 @@ public class ProductController {
 //	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String register(ProductVO product, RedirectAttributes ratt) {
-		log.info("register ===== " + product);
+		log.info("register ===== " + product.getPdNum());
 		
 		// adding file upload feature
 		if (product.getAttachList() != null) {
-			product.getAttachList().forEach(attach -> log.info(attach));
+			product.getAttachList().forEach(attach -> log.info("프로덕트콘트롤라 조건문 실행중임??"+attach));
 		}
+		
+		
 		service.register(product);
 		ratt.addFlashAttribute("result", product.getPdNum());
 		return "redirect:/product/list";
@@ -114,7 +116,7 @@ public class ProductController {
 	// 하여 글 내용을 표시함.
 	@GetMapping(value="/getModal", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<ProductVO> getModal(Long pdNum) {
+	public ResponseEntity<ProductVO> getModal(Long pdNum){
 		log.info("getModal ===== " + pdNum);
 		
 		return new ResponseEntity<ProductVO>(service.get(pdNum), HttpStatus.OK);
@@ -196,13 +198,13 @@ public class ProductController {
    
 		attachList.forEach(attach -> {
 			try {        
-				Path file  = Paths.get("C:\\Uploaded\\" + attach.getPdPath() + "\\" + attach.getPdUuid() + "_" + attach.getPdName());
+				Path file  = Paths.get("C:\\Uploaded\\" + attach.getPdFolder() + "\\" + attach.getPdUuid() + "_" + attach.getPdName());
    
 				Files.deleteIfExists(file);
    
 				if(Files.probeContentType(file).startsWith("image")) {
    
-					Path thumbNail = Paths.get("C:\\Uploaded\\" + attach.getPdPath() + "\\sthumb_" + attach.getPdUuid() + "_" + attach.getPdName());
+					Path thumbNail = Paths.get("C:\\Uploaded\\" + attach.getPdFolder() + "\\sthumb_" + attach.getPdUuid() + "_" + attach.getPdName());
              
 					Files.delete(thumbNail);
 				}

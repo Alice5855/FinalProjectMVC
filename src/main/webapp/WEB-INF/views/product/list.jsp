@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
-<%@include file="../includes/header.jsp" %> 
+<%@include file="../header.jsp" %> 
 <style>
 	a {
 		color: black;
@@ -351,4 +351,4 @@
 
         
 
-<%@include file="../includes/footer.jsp" %>
+<%@include file="../footer.jsp" %>
