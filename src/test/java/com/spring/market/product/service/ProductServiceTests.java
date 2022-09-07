@@ -29,7 +29,7 @@ public class ProductServiceTests {
 	public void testInsert() {
 		System.out.println("실행은함?");
 		ProductVO product = new ProductVO();
-		product.setPdName("아쿠아실물피규어");
+		product.setPdName("아쿠아실asdasd물피규어");
 		product.setPdPrice(180000L);
 		product.setPdStock(2);
 		product.setPdHit(587785);
