@@ -18,7 +18,6 @@ public class CustomDetailService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String memEmail) throws UsernameNotFoundException {
-		System.out.println("loadUserByusername 실행함?? " + memEmail);
 		Member mem = MemberMapper.findByMemberEmail(memEmail);
 		
 		if(mem == null) {

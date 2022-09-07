@@ -19,6 +19,8 @@ public class MemberController {
 		@Autowired
 		private MemberService service;
 		
+		
+		
 		@GetMapping("login")
 		public String login() {
 			return "member/login";
@@ -26,8 +28,8 @@ public class MemberController {
 		
 		@PostMapping("login")
 		public String login(Member member, HttpSession session) throws Exception{
-			System.out.println(member);
 			Member loginMember = service.login(member);
+			System.out.println(loginMember + "여기에 뭐 들어가나요?");
 			if(loginMember != null) {
 				//success -> session에 담기 -> home
 				session.setAttribute("loginMember", loginMember);
@@ -59,7 +61,12 @@ public class MemberController {
 			
 		}
 		
-		
+		@GetMapping("mypage")
+		public String mypage(HttpSession session, HttpServletRequest req) {
+			
+
+			return "member/mypage";
+		}
 		
 		@PostMapping("mypage")
 		public String mypage(Member member, HttpSession session) throws Exception{

@@ -51,7 +51,7 @@
 	
 	<select id="findByMemberEmail" resultMap = "MemberMap">
 		SELECT 
-		  mt.memNum, memName, memNickname, memPw, memAd, memGender, memPh, memAuth
+		  mt.memNum, memName, memNickname, memPw, memAd, memGender, memPh, memAuth, memEmail
 		FROM 
 		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNum = Auth.memNum 
 		WHERE mt.memEmail = #{memEmail} 

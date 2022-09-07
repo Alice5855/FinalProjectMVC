@@ -44,7 +44,11 @@ public class Member implements UserDetails {
 		return memNickname;
 	}
 	
-
+	public Long getmemNum() {
+		return memNum; 
+	}
+	
+	
 	@Override
 	public String getUsername() {
 		return memEmail;
