@@ -5,8 +5,8 @@
 <mapper namespace="com.spring.market.product.mapper.ProductAttachMapper">
 
 	<insert id="insert">
-		insert into attach_product (pdUuid, pdFolder, pdName, pdNum)
-		values (#{pdUuid}, replace(#{pdFolder}, '\', '/'), #{pdName}, #{pdNum})
+		insert into attach_product (pdUuid, pdFolder, pdName,pdPath,pdNum)
+		values (#{pdUuid}, replace(#{pdFolder}, '\', '/'), #{pdName},#{pdPath},#{pdNum})
 	</insert>
 
 	<delete id="delete">

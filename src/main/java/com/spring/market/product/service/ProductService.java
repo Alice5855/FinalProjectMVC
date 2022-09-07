@@ -30,4 +30,8 @@ public interface ProductService {
 	// 첨부 파일을 불러오기 위한 List
 	public List<ProductAttachVO> getAttachList(Long pdNum);
 	
+//	public String getU_nameFromU_Email(String u_email);
+	public void setBoardImage(Long pdNum);
+
+	ProductVO getRaw(Long pdNum);
 }

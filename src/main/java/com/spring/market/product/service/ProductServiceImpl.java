@@ -2,6 +2,8 @@ package com.spring.market.product.service;
 
 import java.util.List;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +25,10 @@ public class ProductServiceImpl implements ProductService {
 
 	// Spring 4.3 이상에서는 단일 parameter를 갖는 생성자의 경우 자동 처리됨
 	// (Parameter를 자동 주입)
-	// @Setter(onMethod_ = @Autowired)
+	@Setter(onMethod_ = {@Autowired})
 	private ProductMapper mapper;
 	
-	@Setter(onMethod_ = @Autowired)
+	@Setter(onMethod_ = {@Autowired})
 	private ProductAttachMapper attachMapper;
 	
 	// tbl_board에 게시글과 tbl_attach에 file upload가 함께 이루어져야 하기 때문에
@@ -37,16 +39,34 @@ public class ProductServiceImpl implements ProductService {
 		
 		mapper.insertSelectKey(product);
 		log.info("registered ===== to " + product);
+//		System.out.println("왜 안돼" + attachMapper.findByB_number(120L));
+//		attachMapper.findByB_number(120L);
 		
-		if(product.getAttachList() == null || product.getAttachList().size() <= 0) {
-			return;
-		}
+		System.out.println(product.getPdNum());
+		
+//		if(product.getAttachList() == null || product.getAttachList().size() <= 0) {
+//			return;
+//		}
 		
 		product.getAttachList().forEach(attach -> {
-			log.info(attach);
 			attach.setPdNum(product.getPdNum());
+			System.out.println("확인 실행 됐냐 어태치 PdNum : " + attach.getPdNum());
+			System.out.println("확인 실행 됐냐 어태치 PdName : " + attach.getPdName());
+			System.out.println("확인 실행 됐냐 어태치 PdFolder : " + attach.getPdFolder());
+			System.out.println("확인 실행 됐냐 어태치 PdUuid : " + attach.getPdUuid());
+			attach.setPdPath(attach.getPdFolder() + "/" + attach.getPdUuid() + "/" + attach.getPdName());
+			System.out.println("확인 실행 됐냐 어태치 PdPath : " + attach.getPdPath());
 			attachMapper.insert(attach);
+			
+				
+			
+				
+			
+			
+			
 		});
+		
+//		mapper.setBoardImage(product.getPdNum());
 	}
 
 	@Override
@@ -60,6 +80,14 @@ public class ProductServiceImpl implements ProductService {
 		return pvo;
 	}
 	
+	@Override
+	public ProductVO getRaw(Long pdNum) {
+		log.info("get ===== " + pdNum + " from board");
+		
+		ProductVO bvo = mapper.read(pdNum);
+		
+		return bvo;
+	}
 
 	// 첨부 file과 게시글의 수정이 함께 이루어지도록 Transactional 적용
 	@Transactional
@@ -117,7 +145,21 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductAttachVO> getAttachList(Long pdNum) {
 		log.info("get Attach list in ===== [pdNum]" + pdNum);
-		return attachMapper.findByPdNum(pdNum);
+		return attachMapper.findByB_number(pdNum);
 	}
 
+	
+//	@Override
+//	public String getpdNameFromU_Email(String u_email) {
+//		log.info("get U_name from U_email");
+//		return mapper.getU_nameFromU_Email(u_email);
+//	}
+
+	@Override
+	public void setBoardImage(Long pdNum) {
+		mapper.setBoardImage(pdNum);
+	}
+
+	
+	
 }
