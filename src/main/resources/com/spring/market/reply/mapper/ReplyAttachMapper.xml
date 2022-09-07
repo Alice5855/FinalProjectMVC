@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.market.reply.mapper.ReplyAttachMapper">
+
+	<insert id="insert">
+		insert into attach_review (rvUuid, rvFoler, rvName, rvNum, rvPath)
+		values (#{rvUuid}, replace(#{rvFolder}, '\', '/'), #{rvName}, #{rvNum}, replace(#{rvPath}, '\', '/'))
+	</insert>
+
+	<delete id="delete">
+
+		delete from attach_review where rvUuid = #{rvUuid}
+
+	</delete>
+
+	<select id="findByRvNum"
+		resultType="com.spring.market.reply.domain.ReplyAttachVO">
+		select * from attach_review where rvNum = #{rvNum}
+	</select>
+
+	<delete id="deleteAll">
+
+		delete attach_review where rvNum = #{rvNum}
+
+	</delete>
+
+	<select id="getOldFiles"
+		resultType="com.spring.market.reply.mapper.ReplyAttachMapper">
+
+		select * from attach_review where rvFolder = to_char(sysdate -1 ,'yyyy/mm/dd')
+
+	</select>
+	
+	
+</mapper>

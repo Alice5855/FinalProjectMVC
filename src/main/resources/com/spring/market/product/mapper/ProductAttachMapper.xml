@@ -5,8 +5,8 @@
 <mapper namespace="com.spring.market.product.mapper.ProductAttachMapper">
 
 	<insert id="insert">
-		insert into attach_product (pdUuid, pdFolder, pdName, pdNum)
-		values (#{pdUuid}, replace(#{pdFolder}, '\', '/'), #{pdName}, #{pdNum})
+		insert into attach_product (pdUuid, pdFolder, pdName, pdNum, pdPath)
+		values (#{pdUuid}, replace(#{pdFolder}, '\', '/'), #{pdName}, #{pdNum}, replace(#{pdPath}, '\', '/'))
 	</insert>
 
 	<delete id="delete">
@@ -16,13 +16,13 @@
 	</delete>
 
 	<select id="findByPdNum"
-		resultType="com.spring.market.product.mapper.ProductAttachMapper">
+		resultType="com.spring.market.product.domain.ProductAttachVO">
 		select * from attach_product where pdNum = #{pdNum}
 	</select>
 
 	<delete id="deleteAll">
 
-		delete attach_product where pdName = #{pdName}
+		delete attach_product where pdNum = #{pdNum}
 
 	</delete>
 

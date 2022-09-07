@@ -45,6 +45,8 @@ public class ProductServiceImpl implements ProductService {
 		product.getAttachList().forEach(attach -> {
 			log.info(attach);
 			attach.setPdNum(product.getPdNum());
+			attach.setPdPath(attach.getPdFolder() + "/" + attach.getPdUuid() + "_" + attach.getPdName());
+			// attach.setPdPath(attach.getPdFolder().replaceAll("\\+", "/") + "/" + attach.getPdUuid() + "_" + attach.getPdName());
 			attachMapper.insert(attach);
 		});
 	}
@@ -54,8 +56,6 @@ public class ProductServiceImpl implements ProductService {
 		log.info("get ===== " + pdNum + " from board");
 		
 		ProductVO pvo = mapper.read(pdNum);
-		pvo.getPdName();
-		// get service에서 u_email을 u_name으로 변환하여 vo를 생성하도록 함. 게시글에 작성자를 u_name으로 표시하기 위함
 		
 		return pvo;
 	}

@@ -8,9 +8,9 @@ import com.spring.market.product.domain.ProductAttachVO;
 
 public interface ProductAttachMapper {
 	public void insert(ProductAttachVO vo);
-	public void delete(String uuid);
+	public void delete(String pdUuid);
 	public List<ProductAttachVO> findByPdNum(Long pdNum);
-	// 첨부파일은 수정의 개념이 없기 때문에 CRD만 정의죔
+	// 첨부파일은 수정의 개념이 없기 때문에 CRD만 정의됨
 	
 	public void deleteAll(Long pdNum);
 	// 첨부 파일 일괄 삭제

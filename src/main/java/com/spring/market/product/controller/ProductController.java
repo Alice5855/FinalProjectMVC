@@ -9,7 +9,6 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,26 +92,15 @@ public class ProductController {
 	 * @GetMapping("/get")
 	 * public void get(@RequestParam("b_number") Long b_number, Model m) ...
 	 */
-	@GetMapping({"/get", "/modify"})
-	public void get(@RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, Model m) {
-		// @ModelAttribute : 자동으로 모델에 데이터를 지정한 이름으로 담아줌
-		// 어노테이션 없이도 parameter는 객체를 통해 전달이 되지만 명시적 지정을 위해
-		// 어노테이션을 사용
-		// log.info("get ===== " + b_number);
-		log.info("get or modify ===== " + pdNum);
-		m.addAttribute("product", pdNum);
-	}
-	
-	// Modal로 vo를 전달하기 위하여 JSON으로 data를 전송. List.jsp에서 
-	// JS의 $.GetJSON을 활용하여 data를 Modal에 HTML 형태로 Parse
-	// 하여 글 내용을 표시함.
-	@GetMapping(value="/getModal", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ResponseBody
-	public ResponseEntity<ProductVO> getModal(Long pdNum) {
-		log.info("getModal ===== " + pdNum);
-		
-		return new ResponseEntity<ProductVO>(service.get(pdNum), HttpStatus.OK);
-	}
+	   @GetMapping({"/get", "/modify"})
+	   public void get(@RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, Model m) {
+	      // @ModelAttribute : 자동으로 모델에 데이터를 지정한 이름으로 담아줌
+	      // 어노테이션 없이도 parameter는 객체를 통해 전달이 되지만 명시적 지정을 위해
+	      // 어노테이션을 사용
+	      // log.info("get ===== " + b_number);
+	      log.info("get or modify ===== " + pdNum);
+	      m.addAttribute("product", service.get(pdNum));
+	   }
 
 	// Page712 added need of authentication
 	// Only if author of entry is username can access to modify

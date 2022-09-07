@@ -152,7 +152,7 @@ public class UploadController {
 				attachDTO.setPdUuid(uuid.toString());
 				attachDTO.setPdFolder(getFolder());
 				// Added (page517)
-				log.info(attachDTO.getPdFolder());
+				log.info("attachDTO.getPdFolder() ===== " + attachDTO.getPdFolder());
 				
 				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "sthmb_" + uploadFileName));
 				
@@ -161,13 +161,13 @@ public class UploadController {
 				// 100 x 100 size 'sthmb_filename' 의 thumbnail file 생성
 				 
 				thumbnail.close();
-				
+				/*
 				String uploadLink = attachDTO.getPdFolder().toString().replaceAll("\\+", "/");
 				attachDTO.setPdPath(uploadLink);
 				
 				
 				log.info("uploadLink ===== " + attachDTO.getPdFolder());
-				
+				*/
 				list.add(attachDTO);
 				// Added (page517)
 			} catch (Exception e) {

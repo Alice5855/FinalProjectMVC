@@ -1,9 +1,13 @@
 package com.spring.market.reply.controller;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring.market.product.domain.Criteria;
+import com.spring.market.reply.domain.ReplyAttachVO;
 import com.spring.market.reply.domain.ReplyPageDTO;
 import com.spring.market.reply.domain.ReplyVO;
 import com.spring.market.reply.service.ReplyService;
@@ -22,7 +28,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @RestController
-@RequestMapping("/reviews/")
+@RequestMapping("/review/")
 @AllArgsConstructor
 @Log4j
 public class ReplyController {
@@ -38,6 +44,10 @@ public class ReplyController {
 	@PostMapping(value = "/new", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo){
 		log.info("ReplyVO ====== " + vo);
+		// adding file upload feature
+		if (vo.getAttachList() != null) {
+			vo.getAttachList().forEach(attach -> log.info(attach));
+		}
 		int insertCount = service.register(vo);
 		log.info("Reply insert count ===== " + insertCount);
 		return insertCount == 1 ? new ResponseEntity<>("Success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -52,16 +62,14 @@ public class ReplyController {
 	 * YetAnotherRestClient에서 확인, lecture70
 	 */
 	
-	// 목록 확인
-	/*
-	@GetMapping(value = "/pages/{bno}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<ReplyVO>> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno){
-		log.info("Reply getList ====== [page]" + page + "[bno]" + bno);
-		Criteria cri = new Criteria(page, 10);
-		log.info("Criteria =====" + cri);
-		return new ResponseEntity<>(service.getList(cri, bno),HttpStatus.OK);
+	// 첨부 파일 list를 읽어오기 위한 method
+	@GetMapping(value="/getAttachList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ReplyAttachVO>> getAttachList(Long rvNum) {
+		log.info("getAttachList from Reply ===== " + rvNum);
+		return new ResponseEntity<List<ReplyAttachVO>>(service.getAttachList(rvNum), HttpStatus.OK);
 	}
-	*/
+	
 	
 	/* Criteria를 이용하여 page parameter를 수집, '/{bno}/{page}'에서의
 	 * Variable path인 {page}를 직접 생성하여 ReplyServiceImpl의 getList()
@@ -72,20 +80,20 @@ public class ReplyController {
 	 */
 	
 	// page 435 : ReplyPageDTO를 활용하여 paging 처리된 댓글 list 처리
-	@GetMapping(value = "/pages/{rvnum}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page") int page, @PathVariable("pdnum") Long pdnum){
-		log.info("Reply getList with ReplyPageDTO ====== [page]" + page + "[pdnum]" + pdnum);
+	@GetMapping(value = "/pages/{pdNum}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page") int page, @PathVariable("pdNum") Long pdNum){
+		log.info("Reply getList with ReplyPageDTO ====== [page]" + page + "[pdNum]" + pdNum);
 		Criteria cri = new Criteria(page, 10);
-		log.info("get Reply List bno ===== " + pdnum);
+		log.info("get Reply List pdnum ===== " + pdNum);
 		log.info("Criteria =====" + cri);
-		return new ResponseEntity<>(service.getListPage(cri, pdnum),HttpStatus.OK);
+		return new ResponseEntity<>(service.getListPage(cri, pdNum),HttpStatus.OK);
 	}
 	
 	// 댓글 조회
-	@GetMapping(value = "/{rvnum}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rvnum){
-		log.info("Reply get ===== [rvnum]" + rvnum);
-		return new ResponseEntity<>(service.get(rvnum),HttpStatus.OK);
+	@GetMapping(value = "/{rvNum}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
+	public ResponseEntity<ReplyVO> get(@PathVariable("rvNum") Long rvNum){
+		log.info("Reply get ===== [rvNum]" + rvNum);
+		return new ResponseEntity<>(service.get(rvNum),HttpStatus.OK);
 	}
 	// http://localhost:8088/replies/1.json
 	
@@ -93,12 +101,21 @@ public class ReplyController {
 	// Page 732 replyer 검증절차를 위한 annotation(PreAuthorize), parameter(vo) 추가
 	// ajax에서 전송받은 JSON data를 VO 객체화 시키기 위해 @RequestBody를 적용함
 	// @PreAuthorize("principal.username == #vo.memnickname")
-	@DeleteMapping(value = "/{rvnum}", produces = MediaType.TEXT_PLAIN_VALUE)
-	public ResponseEntity<String> remove(@RequestBody ReplyVO vo, @PathVariable("rvnum") Long rvnum){
+	@DeleteMapping(value = "/{rvNum}", produces = MediaType.TEXT_PLAIN_VALUE)
+	public ResponseEntity<String> remove(@RequestBody ReplyVO vo, @PathVariable("rvNum") Long rvNum){
 		log.info("ReplyVO ===== " + vo);
-		log.info("replyer ===== " + vo.getMemnickname());
-		log.info("Reply remove ===== [rno]" + rvnum);
-		int removeCount = service.remove(rvnum);
+		log.info("replyer ===== " + vo.getMemNickname());
+		log.info("Reply remove ===== [rvNum]" + rvNum);
+		
+		List<ReplyAttachVO> attachList = service.getAttachList(rvNum);
+		// Added(page581)
+		
+		int removeCount = service.remove(rvNum);
+		
+		if (removeCount > 0) {
+			deleteFiles(attachList);
+		}
+		
 		log.info("Reply remove count ===== " + removeCount);
 		return removeCount == 1 ? new ResponseEntity<>("Success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -111,12 +128,40 @@ public class ReplyController {
 	 * 말도 안 되게 골치아픈 작업이 되었을 것 
 	 */
 	
+	private void deleteFiles(List<ReplyAttachVO> attachList) {
+		   
+		if(attachList == null || attachList.size() == 0) {
+			return;
+		}
+   
+		log.info("delete attach files...................");
+		log.info(attachList);
+   
+		attachList.forEach(attach -> {
+			try {        
+				Path file  = Paths.get("C:\\Uploaded\\" + attach.getRvFolder() + "\\" + attach.getRvUuid() + "_" + attach.getRvName());
+   
+				Files.deleteIfExists(file);
+   
+				if(Files.probeContentType(file).startsWith("image")) {
+   
+					Path thumbNail = Paths.get("C:\\Uploaded\\" + attach.getRvFolder() + "\\sthumb_" + attach.getRvUuid() + "_" + attach.getRvName());
+             
+					Files.delete(thumbNail);
+				}
+   
+			} catch (Exception e) {
+				log.error("delete file error" + e.getMessage());
+			} // catch
+		}); // forEach
+	}
+	
 	// 댓글 수정
 	// Page734 remove와 마찬가지로 replyer 검증을 위한 annotation 추가. vo는 이미 있었음
 	// @PreAuthorize("principal.username == #vo.memnickname")
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value="/{rvnum}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> modify(@RequestBody ReplyVO vo, @PathVariable("rvnum") Long rvnum){
-		vo.setRvnum(rvnum);
+		vo.setRvNum(rvnum);
 		log.info("Reply modify ===== [rvnum]" + rvnum + "[modify vo]" + vo);
 		return service.modify(vo) == 1 ? new ResponseEntity<>("Success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}

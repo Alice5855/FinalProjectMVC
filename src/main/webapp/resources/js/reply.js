@@ -11,14 +11,14 @@ console.log("Reply Module ===== activation check");
  * 바깥쪽에서 선언된 변수에 할당됨
  */
 var replyService = (function () {
-	function add(reply, callback){
+	function add(rvText, callback){
 		console.log("Reply.js inner function running");
 		// page 403 ajax를 이용하여 post method로 댓글 호출
 		
 		$.ajax({
 			type: 'post',
-			url: '/replies/new',
-			data: JSON.stringify(reply),
+			url: '/review/new',
+			data: JSON.stringify(rvText),
 			contentType: "application/json; charset=utf-8",
 			success: function (result, status, xhr) {
 				if (callback) {
@@ -35,10 +35,10 @@ var replyService = (function () {
 	// replyService.add(object, callback)로 호출
 	
 	function getList(param, callback, error) {
-		var bno = param.bno;
+		var pdNum = param.pdNum;
 		var page = param.page || 1;
 		
-		$.getJSON("/replies/pages/" + bno + "/" + page + ".json",
+		$.getJSON("/review/pages/" + pdNum + "/" + page + ".json",
 			function(data){
 				if (callback) {
 					// callback(data);
@@ -61,13 +61,13 @@ var replyService = (function () {
 	
 	
 	// function remove(rno, callback, error) {
-	function remove(rno, replyer, callback, error) {
+	function remove(rvNum, rvText, callback, error) {
 		$.ajax({
 			type: 'delete',
-			url: '/replies/' + rno,
+			url: '/review/' + rvNum,
 			// page731 replyer 검증과정 추가. devTools의 network tab에서
 			// (rno).json file이 생성됨을 확인
-			data: JSON.stringify({rno: rno, replyer: replyer}),
+			data: JSON.stringify({rvNum: rvNum, rvText: rvText}),
 			contentType: "application/json; charset=utf-8",
 			
 			success: function(deleteResult, status, xhr) {
@@ -87,13 +87,13 @@ var replyService = (function () {
 	// callback feature
 	// type: 'delete' / get, post, put, patch, delete method의 delete
 	
-	function update(reply, callback, error) {
-		console.log("rno : " + reply.rno);
+	function update(rvText, callback, error) {
+		console.log("rvNum : " + reply.rvNum);
 		
 		$.ajax({
 			type: 'put',
-			url: '/replies/' + reply.rno,
-			data: JSON.stringify(reply),
+			url: '/review/' + reply.rvNum,
+			data: JSON.stringify(rvText),
 			contentType: "application/json; charset=utf-8",
 			success: function(result, status, xhr){
 				if (callback) {
@@ -109,8 +109,8 @@ var replyService = (function () {
 	}
 	// page 410
 	
-	function get(rno, callback, error) {
-		$.get("/replies/" + rno + ".json", function(result) {
+	function get(rvNum, callback, error) {
+		$.get("/review/" + rvNum + ".json", function(result) {
 			if(callback) {
 				callback(result);
 			}
