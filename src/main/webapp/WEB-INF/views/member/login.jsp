@@ -6,11 +6,9 @@
 	<div id="div-main">
 		<h1>로그인 페이지</h1>
 	
-		<form action = "login" method = "post">
+		<form action = "/member/login" method = "post">
 	        아이디 : <input type = "text" name = "memEmail"/><br>
 	        비밀번호 : <input type = "password" name = "memPw"/><br>
-	        <input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />
 	        <input type = "submit" value ="로그인"/>
 	    </form>
 		
