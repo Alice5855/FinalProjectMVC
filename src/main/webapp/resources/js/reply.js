@@ -61,13 +61,13 @@ var replyService = (function () {
 	
 	
 	// function remove(rno, callback, error) {
-	function remove(rvNum, rvText, callback, error) {
+	function remove(rvNum, memNickname, callback, error) {
 		$.ajax({
 			type: 'delete',
 			url: '/review/' + rvNum,
 			// page731 replyer 검증과정 추가. devTools의 network tab에서
 			// (rno).json file이 생성됨을 확인
-			data: JSON.stringify({rvNum: rvNum, rvText: rvText}),
+			data: JSON.stringify({rvNum: rvNum, memNickname: memNickname}),
 			contentType: "application/json; charset=utf-8",
 			
 			success: function(deleteResult, status, xhr) {
@@ -87,13 +87,13 @@ var replyService = (function () {
 	// callback feature
 	// type: 'delete' / get, post, put, patch, delete method의 delete
 	
-	function update(rvText, callback, error) {
+	function update(reply, callback, error) {
 		console.log("rvNum : " + reply.rvNum);
 		
 		$.ajax({
 			type: 'put',
 			url: '/review/' + reply.rvNum,
-			data: JSON.stringify(rvText),
+			data: JSON.stringify(reply),
 			contentType: "application/json; charset=utf-8",
 			success: function(result, status, xhr){
 				if (callback) {

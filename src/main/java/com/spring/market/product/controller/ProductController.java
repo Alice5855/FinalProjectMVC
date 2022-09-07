@@ -1,10 +1,14 @@
 package com.spring.market.product.controller;
 
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -93,11 +97,16 @@ public class ProductController {
 	 * public void get(@RequestParam("b_number") Long b_number, Model m) ...
 	 */
 	   @GetMapping({"/get", "/modify"})
-	   public void get(@RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, Model m) {
+	   public void get(@RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, Model m, HttpServletRequest req) {
 	      // @ModelAttribute : 자동으로 모델에 데이터를 지정한 이름으로 담아줌
 	      // 어노테이션 없이도 parameter는 객체를 통해 전달이 되지만 명시적 지정을 위해
 	      // 어노테이션을 사용
 	      // log.info("get ===== " + b_number);
+		  String path = req.getServletContext().getRealPath("/src/main/webapp/resources/upload/profile/");
+		  String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\", "");
+		  
+		  log.info(path);
+		  log.info(newPath);
 	      log.info("get or modify ===== " + pdNum);
 	      m.addAttribute("product", service.get(pdNum));
 	   }

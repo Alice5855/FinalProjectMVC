@@ -277,7 +277,7 @@
 					}
 					
 					for(var i = 0, len = list.length || 0; i < len; i++){
-						str += "<li class='left clearfix' data-rvNum='" + list[i].rvNum + "'>";
+						str += "<li class='left clearfix' data-rvnum='" + list[i].rvNum + "'>";
 						// str += "<div><div class='header'><strong class='primary-font'>" + list[i].memNickname + "</strong>";
 						// str += "<small class='pull-right text-muted'>" + replyService.displayTime(list[i].replyDate) + "</small></div>";
 						str += "<p>" + list[i].rvText + "</p></li>";
@@ -354,6 +354,14 @@
 		var modalRemoveBtn = $("#modalRemoveBtn");
 		var modalRegisterBtn = $("#modalRegisterBtn");
 		
+		/*
+		var replyer = null;
+
+		<sec:authorize access="isAuthenticated()">
+			replyer = '<sec:authentication property="principal.username"/>';
+		</sec:authorize>
+		*/
+		
 		$("#addReplyBtn").on("click", function(e){
 			modal.find("input").val("");
 			// modalInputReplyDate.closest("div").hide();
@@ -388,13 +396,13 @@
 		
 		// page 425 event handler (Shows modify, remove btn)
 		$(".chat").on("click", "li", function(e){
-			var rvNum = $(this).data("rvNum");
+			var rvNum = $(this).data("rvnum");
 			
 			replyService.get(rvNum, function(reply){
 				modalInputRvText.val(reply.rvText);
 				modalInputMemNickname.val(reply.memNickname);
 				//modalInputReplyDate.val(replyService.displayTime(reply.replyDate)).attr("readonly", "readonly");
-				modal.data("rvNum", reply.rvNum);
+				modal.data("rvnum", reply.rvNum);
 				
 				modal.find("button[id != 'modalCloseBtn']").hide();
 				modalModBtn.show();
@@ -406,7 +414,30 @@
 		
 		// page 427
 		modalModBtn.on("click", function(e){
-			var reply = {rno:modal.data("rvNum"), rvText: modalInputRvText.val()};
+			var reply = {rvNum:modal.data("rvnum"), rvText: modalInputRvText.val()};
+			
+			/*
+			var originalReplyer = modalInputReplyer.val();
+			
+			// 검증을 위해 replyer data를 추가
+			// var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
+			var reply = {rno: modal.data("rno"),
+					reply: modalInputReply.val(),
+					replyer: originalReplyer};
+			if(!replyer) {
+				alert("You have to be logged in to modify");
+				modal.modal("hide");
+				return;
+			}
+			
+			console.log("Original Replyer: " + originalReplyer);
+			
+			if(replyer != originalReplyer) {
+				alert("You can only modify your replies");
+				modal.modal("hide");
+				return;
+			}
+			*/
 			replyService.update(reply, function(result){
 				alert(result);
 				modal.modal("hide");
@@ -416,9 +447,30 @@
 		});
 		
 		modalRemoveBtn.on("click", function(e){
-			var rvNum = modal.data("rvNum");
+			var rvNum = modal.data("rvnum");
+			var memNickname = modalInputMemNickname.val();
 			
-			replyService.remove(rvNum, function(result){
+			/* after security
+			if(!replyer){
+	           alert("You have to be logged in to remove");
+	           modal.modal("hide");
+	           return;
+	        }
+	        
+	        var originalReplyer = modalInputReplyer.val();
+	        
+	        console.log("Original Replyer: " + originalReplyer);
+	        
+	        if(replyer != originalReplyer){
+	           
+	           alert("You can only remove your replies");
+	           modal.modal("hide");
+	           return;
+	           
+	        }
+	        */
+			
+			replyService.remove(rvNum, memNickname, function(result){
 				alert(result);
 				modal.modal("hide");
 				// showList(1);
@@ -434,75 +486,6 @@
 	});
 	// document.ready function
 </script>
-
-<!--
-<script type="text/javascript">
-/*
-	$(document).ready(function() {
-		console.log(replyService);
-		// variable from reply.js
-	});
-*/
-/*
-	console.log("=======================");
-	console.log("JS REPLY TEST")
-	
-	var bnoValue = '<c:out value="${board.bno}"/>';
-*/
-/*
-	replyService.add(
-			{reply: "JS Test", replyer: "Randolph", bno: bnoValue},
-			// reply
-			function (result) {
-				alert("Result: " + result);
-			}
-			// callback
-	);
-*/
-/*
-	replyService.getList({bno:bnoValue, page:1}, function(list){
-		for(var i = 0, len = list.length || 0; i < len; i++){
-			console.log(list[i]);
-		}
-	});
-*/
-	// function(list)가 getList 함수의 callback 함수가 된다. reply.js 참고
-/*
-	replyService.remove(10, function(count){
-		console.log(count);
-		
-		if (count === 'Success') {
-			alert("Successfully removed");
-		}
-	}, function(error){
-		alert("Error occurred. reply is not exist or synthetic error");
-	});
-*/
-	// if (count === 'string')에 들어가는 문자열은 ReplyController의 81행의 log
-	// 문구와 일치해야 한다. log의 text를 검증하여 alert를 띄우는 방식이기 때문
-
-/*
-	replyService.update({
-		rno: 11,
-		bno: bnoValue,
-		reply: "Modify test via javascript"
-	}, function(result){
-		alert("Successfully modified reply");
-	});
-*/
-	/* update(reply, callback, error)
-	 * reply에 rno, bno, reply속성값을 대입하여 callback 함수인 function(result)
-	 * 를 유효성 검증 이후 실행. error scenario는 생성하지 않음
-	 */
-	 
-/*
-	 replyService.get(21, function(data){
-		 console.log(data);
-	 });
-	 // simple as that
-*/	 
-</script>
--->
 
 <script type="text/javascript">
 	$(document).ready(function(){

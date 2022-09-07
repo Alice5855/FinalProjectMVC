@@ -51,19 +51,19 @@
 			-webkit-overflow-scrolling: touch;
 		}
 		.btn-outline-primary {
-		    --bs-btn-color: #6FEDD6;
-		    --bs-btn-border-color: #6FEDD6;
+		    --bs-btn-color: #52FBFF;
+		    --bs-btn-border-color: #52FBFF;
 		    --bs-btn-hover-color: #FF7373;
-		    --bs-btn-hover-bg: #6FEDD6;
-		    --bs-btn-hover-border-color: #6FEDD6;
+		    --bs-btn-hover-bg: #52FBFF;
+		    --bs-btn-hover-border-color: #52FBFF;
 		    --bs-btn-focus-shadow-rgb: 33,37,41;
 		    --bs-btn-active-color: #FF7373;
-		    --bs-btn-active-bg: #6FEDD6;
-		    --bs-btn-active-border-color: #6FEDD6;
+		    --bs-btn-active-bg: #52FBFF;
+		    --bs-btn-active-border-color: #52FBFF;
 		    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-		    --bs-btn-disabled-color: #6FEDD6;
+		    --bs-btn-disabled-color: #52FBFF;
 		    --bs-btn-disabled-bg: transparent;
-		    --bs-btn-disabled-border-color: #6FEDD6;
+		    --bs-btn-disabled-border-color: ##52FBFF;
 		    --bs-gradient: none;
 		}
 		.topbar{
@@ -131,7 +131,7 @@
 	            <form class="d-flex">
 	                <button class="btn btn-outline-primary" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
-						장동이
+						<span class="bucket">장동이</span>
 	                    <span class="badge ms-1 rounded-pill" style="background-color: #FF4A4A; color: #B9FFF8;">0</span>
 	                </button>
 	            </form>
@@ -166,7 +166,7 @@
 	            <form class="d-flex">
 	                <button class="btn btn-outline-primary2" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
-						장동이
+						<span class="bucket2">장동이</span>
 	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
 	                </button>
 	            </form>
