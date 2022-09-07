@@ -34,7 +34,8 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member login(Member mem) {
 		//DB에서 회원 정보 조회
-		Member	dbMember = memMapper.getMember(mem);
+		System.out.println("써비쓰임플에서 실행"+mem);
+		Member dbMember = memMapper.getMember(mem);
 		
 		//비번 일치 체크
 		if(bCryptPasswordEncoder.matches(mem.getMemPw(), dbMember.getMemPw())) {

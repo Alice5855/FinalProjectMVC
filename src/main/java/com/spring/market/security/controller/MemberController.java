@@ -26,6 +26,7 @@ public class MemberController {
 		
 		@PostMapping("login")
 		public String login(Member member, HttpSession session) throws Exception{
+			System.out.println(member);
 			Member loginMember = service.login(member);
 			if(loginMember != null) {
 				//success -> session에 담기 -> home
