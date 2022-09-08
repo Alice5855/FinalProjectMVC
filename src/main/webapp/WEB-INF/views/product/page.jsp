@@ -60,10 +60,8 @@
 				<div class="col mb-5 mx-4">
 					<div class="card h-100">
 					    <!-- Product image-->
-					    <div class='uploadResult'> 
-				          		
-			        	</div>
-<!-- 					    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
+					   
+ 					    <img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="..." /> 
 					    <!-- Product details-->
 					    <div class="card-body p-4">
 							<div class="text-center">
@@ -76,7 +74,7 @@
 										value="${product.pdRegDate}" />
 							    </h5>
 							    <!-- Product price-->
-							    <c:out value="${product.pdPrice}"/>
+							    <c:out value="${product.pdPrice}원"/>
 							</div>
 					    </div>
 					    <!-- Product actions-->
@@ -159,7 +157,6 @@
 	  wrap: false
 	});
 </script>
-
 
 <script type="text/javascript">
 	// Page 246 소스 코딩 시작
@@ -269,71 +266,8 @@
 						// Page 342 자바스크립트 소스 코딩 끝
 </script>
 
-<script type="text/javascript">
-	$(document).ready(function(){
-		(function(){
- 			var pdNum = '<c:out value="${list.get(pdNum).pdNum}"/>';
-// 			var pdNum = '<c:forEach items="${list}" var="product"><c:out value="${product.pdNum}"/></c:forEach>';
-				
-				
-			
-		    $.getJSON("/product/getAttachListZero", {pdNum: pdNum}, function(arr){
-				console.log(arr);
-				
-				var str = "";
-			    
-				$(arr).each(function(i, attach){
-// 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
-					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
-					
-					str += "<div data-pdFolder='" + attach.pdFolder + "' data-pdUuid='" + attach.pdUuid + "' data-pdName='" + attach.pdName + "' >";
-					str += "<img class='card-img-top' src='/product/display?fileName=" + fileCallPath + "'>";
-					str += "</div>";
-// 					str += "</li>";
-					
-				});
-				
-				$(".uploadResult").html(str);
-			    
-			}); // getjson
-			
-		})(); // function
-		
-		$(".uploadResult").on("click","li", function(e){
-			console.log("view image");
-			
-			var liObj = $(this);
-			
-			var path = encodeURIComponent(liObj.data("pdFolder") + "/" + liObj.data("pdUuid") + "_" + liObj.data("pdName"));
-			
-			// if(liObj.data("type")){
-			showImage(path.replace(new RegExp(/\\/g),"/"));
-			/*
-			} else {
-				//download 
-				self.location ="/download?fileName="+path
-			}
-			*/
-		});
-		
-		function showImage(fileCallPath){
-			console.log(fileCallPath);
-			
-			$(".bigPictureWrapper").css("display","flex").show();
-			
-			$(".bigPicture")
-			.html("<img src='/display?fileName=" + fileCallPath + "' >")
-			.animate({width:'100%', height: '100%'}, 150);
-		}
-		
-		$(".bigPictureWrapper").on("click", function(e){
-			$(".bigPicture").animate({width:'0%', height: '0%'}, 150);
-			setTimeout(function(){
-				$('.bigPictureWrapper').hide();
-			}, 150);
-		});
-	}); // document ready
-</script>
+
+
 
 
 <%@ include file="../footer.jsp" %>

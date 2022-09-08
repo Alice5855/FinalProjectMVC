@@ -22,6 +22,7 @@ public interface ProductMapper {
 	public String getU_nameFromU_Email(String pdPathName);
 	public void setBoardImage(Long pdNum);
 	
+	public void inserpdPath(ProductVO product);
 	
 	
 	

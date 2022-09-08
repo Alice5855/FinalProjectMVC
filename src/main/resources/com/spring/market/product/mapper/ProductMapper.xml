@@ -34,7 +34,7 @@
 		<selectKey keyProperty="pdNum" order="BEFORE" resultType="long">
 			select seq_product.nextval from dual
 		</selectKey>
-		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit) values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit})
+		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit,pdRegDate) values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit}, sysdate)
 	</insert>
 	
 	<select id="read" resultType="com.spring.market.product.domain.ProductVO">
@@ -62,9 +62,9 @@
 		
 		<select id="getListPaging" resultType="com.spring.market.product.domain.ProductVO">
 		<![CDATA[
- 			select pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit from  
+ 			select pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, pdPath from  
 			(select /*+ index_desc(PRODUCT_TABLE pk_product)*/
- 			rownum rn, pdNum, pdName, pdPrice,pdStock,pdKeyword, pdHit   
+ 			rownum rn, pdNum, pdName, pdPrice,pdStock,pdKeyword, pdHit,pdPath   
  			from Product_Table 
 			where 
 		]]>
@@ -79,6 +79,10 @@
 	
 	<update id="updateReviewCnt">
 		update product_table set reviewcnt = reviewcnt + #{amount} where pdnum = #{pdnum}
+	</update>
+	
+	<update id ="inserpdPath">
+		update product_table set pdPath = #{pdPath} where pdNum = #{pdNum}
 	</update>
 	
 	

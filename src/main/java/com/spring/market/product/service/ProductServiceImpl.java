@@ -56,17 +56,19 @@ public class ProductServiceImpl implements ProductService {
 			System.out.println("확인 실행 됐냐 어태치 PdUuid : " + attach.getPdUuid());
 			
 //			attach.setPdPath(attach.getPdFolder().replaceAll("\\+", "/") + "/" + attach.getPdUuid() + "_" + attach.getPdName());
-			attach.setPdPath(attach.getPdFolder()+ "/" + attach.getPdUuid() + "_" + attach.getPdName());
+			attach.setPdPath(attach.getPdFolder().replace('\\', '/')+ "/" + attach.getPdUuid() + "_" + attach.getPdName());
 			System.out.println("확인 실행 됐냐 어태치 PdPath : " + attach.getPdPath());
 			attachMapper.insert(attach);
 			
-				
-			
+			product.setPdPath(attach.getPdPath());
+			mapper.inserpdPath(product);
 				
 			
 			
 			
 		});
+		
+		
 		
 //		mapper.setBoardImage(product.getPdNum());
 	}
