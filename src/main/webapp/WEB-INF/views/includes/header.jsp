@@ -208,6 +208,7 @@
 					</a>
 					<ul class="dropdown-menu text-small shadow">
 						<!-- c:if not logged in -->
+						<li><a class="dropdown-item signIn" href="/bucket">장바구니</a></li>
 						<li><a class="dropdown-item signIn" href="/customLogin">로그인</a></li>
 						<li><a class="dropdown-item signUp" href="#">회원가입</a></li>
 						<!-- c:if logged in -->

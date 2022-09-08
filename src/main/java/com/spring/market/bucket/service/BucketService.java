@@ -12,6 +12,8 @@ public interface BucketService {
 	
 	public void removeBucket(Long memNum, Long pdNum); // memNum에 있는 pdNum 상품 장바구니에서 제거
 	
+	public ProductVO getBucketInfo(Long pdNum);
+	
 	public int getBucketCount(Long memNum);
 	
 }

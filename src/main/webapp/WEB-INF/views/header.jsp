@@ -122,6 +122,7 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	                        <li><a class="dropdown-item" href="${root}/bucket">장바구니</a></li>
 	                        <li><a class="dropdown-item" href="${root}/member/login">로그인</a></li>
 	                        <li><a class="dropdown-item" href="${root}/member/loout">로그아웃</a></li>
 	                        <li><a class="dropdown-item" href="${root}/member/mypage">MyPage</a></li>

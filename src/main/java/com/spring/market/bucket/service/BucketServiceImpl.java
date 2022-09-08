@@ -37,6 +37,7 @@ public class BucketServiceImpl implements BucketService{
 		
 		for(int i = 0; i<pdNumList.size(); i++) { // 장바구니에 넣은 품목 개수만큼 반복
 			resultVO.add(mapper.getBucketInfo(pdNumList.get(i))); // 리턴할 리스트에 품목 정보 저장
+			System.out.println("버킷 서비스임플에서 실행 : " + resultVO.get(i).getPdNum());
 		}
 		
 		return resultVO; // 저장한 리스트 리턴
@@ -45,6 +46,11 @@ public class BucketServiceImpl implements BucketService{
 	@Override
 	public void removeBucket(Long memNum, Long pdNum) {
 		mapper.removeBucket(pdNum, memNum);
+	}
+	
+	public ProductVO getBucketInfo(Long pdNum) {
+		ProductVO result = mapper.getBucketInfo(pdNum);
+		return result;
 	}
 
 	@Override

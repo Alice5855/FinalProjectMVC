@@ -21,6 +21,7 @@
 		<security:form-login login-page="/member/login" login-processing-url="/member/login"
 					username-parameter="memEmail" password-parameter="memPw"/>
 		<security:intercept-url pattern="/member/mypage" access="hasRole('ROLE_MEMBER')"/>
+		<security:intercept-url pattern="/bucket" access="hasRole('ROLE_MEMBER')"/>
 		<!-- Handler를 error page를 class를 등록한 bean으로 변경 -->
 		<security:access-denied-handler/>
 		<!-- name=_csrf, value=random value. CSRF 토큰으로 특정 값의 토큰을

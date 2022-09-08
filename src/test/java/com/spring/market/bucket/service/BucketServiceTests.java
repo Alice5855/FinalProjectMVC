@@ -23,15 +23,16 @@ public class BucketServiceTests {
 	@Setter(onMethod_ = @Autowired)
 	private BucketService service;
 	
-//	@Test
+	@Test
 	public void testReg() {
 		ProductVO testPdVO = new ProductVO();
-		testPdVO.setPdNum(7);
+		testPdVO.setPdNum(32L);
 		
 		Member testMemVO = new Member();
-		testMemVO.setMemNum(1L);
+		testMemVO.setMemNum(23L);
 		
-		service.registerBucket(testPdVO.getPdNum(), testMemVO.getMemNum());
+		service.registerBucket(22L, 32L);
+		service.registerBucket(23L, 32L);
 	}
 	
 //	@Test
@@ -41,7 +42,7 @@ public class BucketServiceTests {
 		
 		List<ProductVO> testPdVO = new ArrayList<ProductVO>();
 		
-		testPdVO = service.showBucket(testMemVO.getMemNum());
+		testPdVO = service.showBucket(testMemVO.getmemNum());
 		
 		System.out.println("가져온 상품 정보 : ");
 		for (ProductVO productVO : testPdVO) {
@@ -61,7 +62,7 @@ public class BucketServiceTests {
 		service.removeBucket(testMemVO.getMemNum(), 0L);
 	}
 	
-	@Test
+//	@Test
 	public void testSelectCount() {
 		Member testMemVO = new Member();
 		testMemVO.setMemNum(1L);
