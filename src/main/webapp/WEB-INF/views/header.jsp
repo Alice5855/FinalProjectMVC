@@ -67,7 +67,7 @@
 		    --bs-gradient: none;
 		}
 		.topbar{
-			z-index: 9999;
+			z-index: 1031;
 		}
 		.btn-outline-primary2 {
 		    --bs-btn-color: #FF7373;

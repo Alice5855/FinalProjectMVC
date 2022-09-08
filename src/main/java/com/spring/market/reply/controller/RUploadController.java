@@ -65,6 +65,7 @@ public class RUploadController {
 			} // catch
 		} // for
 	} // uploadFormPost
+	// *DEPRECATED* (unused)
 	
 	// Page 500 ajax 활용 file upload
 	// Ajax 활용 시 FormData 객체 사용

@@ -33,8 +33,48 @@
 		.uploadResult ul li img {
 		   cursor: pointer;
 		}
+		
+		.rvUploadResult {
+		   width: 100%;
+		   background-color: #F5F5F5;
+		}
+		
+		.rvUploadResult ul {
+		   display: flex;
+		   flex-flow: row;
+		   justify-content: center;
+		   align-items: center;
+		}
+		
+		.rvUploadResult ul li {
+		   list-style: none;
+		   padding: 10px;
+		}
+		
+		.rvUploadResult ul li img.icon {
+		   width: 100px;
+		}
+		
+		.rvUploadResult ul li img.thumbnail {
+		   width: 100px;
+		}
+		.rvUploadResult ul li img {
+		   cursor: pointer;
+		}
+		
 		.btn-icon {
 			margin-left: 5%;
+		}
+		.reply-item {
+			cursor: pointer;
+		}
+		.reply-item:hover, .reply-item:focus {
+			background-color: #D9D9D9;
+		}
+		.reply-heading {
+			font-size: 1rem;
+			color: #6FEDD6 !important;
+    		background-color: #FF4A4A !important;
 		}
 </style>
 <style>
@@ -66,144 +106,124 @@
 			cursor: pointer;
 		}
 </style>
-
-<div class="row">
-  <div class="col-lg-12">
-    <h1 class="page-header">Board Read</h1>
-  </div>
-  <!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-
-      <div class="panel-heading">Board Read Page</div>
-      <!-- /.panel-heading -->
-      <div class="panel-body">
-
-        <div class="form-group">
-          <label>상품번호</label> <input class="form-control" name='pdNum' value='<c:out value="${product.pdNum}" />' readonly="readonly">
-        </div>
-
-        <div class="form-group">
-          <label>상품명</label> <input class="form-control" name='pdName' value='<c:out value="${product.pdName}" />' readonly="readonly">
-        </div>
-
-        <div class="form-group">
-          <label>상품가격</label>
-          <input class="form-control" rows="3" name='pdPrice' type="number" readonly="readonly" value="${product.pdPrice}">
-        </div>
-
-        <div class="form-group">
-          <label>상품태그</label>
-          <input class="form-control" rows="3" name='pdKeyword' type="text" readonly="readonly" value="${product.pdKeyword}">
-        </div>
-        
-        <div class="form-group">
-          <label>수량</label> <input class="form-control" name='pdStock' value='<c:out value="${product.pdStock}" />' readonly="readonly">
-        </div>
-
-
-		<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
-		<button data-oper='list' class="btn btn-info" onclick="location.href='/product/list'">List</button>
-		
-		
-		<form id='operForm' action="/product/modify" method="get">
-			<input type='hidden' id='pdNum' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
-			<input type='hidden' id='pageNum' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-			<input type='hidden' id='amount' name='amount' value='<c:out value="${cri.amount}"/>'>
-			<!-- 345 page code added -->
-			<input type='hidden' id='type' name='type' value='<c:out value="${cri.type}"/>'>
-			<input type='hidden' id='keyword' name='keyword' value='<c:out value="${cri.keyword}"/>'>
-		</form>
-		<!-- 317 page -->
-
-      </div>
-      <!--  end panel-body -->
-
-    </div>
-    <!--  end panel -->
-  </div>
-  <!-- end panel -->
-</div>
-<!-- /.row -->
-<div class='bigPictureWrapper'>
-	<div class='bigPicture'>
-		
+<div class="container-fluid">
+	<div class="row">
+	  <div class="col-lg-12">
+	    <h1 class="page-header">Product</h1>
+	  </div>
+	  <!-- /.col-lg-12 -->
 	</div>
-</div>
-
-<!-- page414 댓글 목록 box -->
-<div class='row'>
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<!-- Page 419 coding 시 주석처리됨 -->
-			<!--
-			<div class="panel-heading">
-				<i class="fa fa-comments fa-fw"></i> Reply
-			</div>
-			-->
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="panel panel-default">
-				      	<div class="panel-heading">Files</div>
-				      	<!-- /.panel-heading -->
-				      	<div class="panel-body">
-				        
-				        	<div class='uploadResult'> 
-				          		<ul>
-				          		</ul>
-				        	</div>
-				      	</div>
-				      	<!--  end panel-body -->
-			    	</div>
-			    	<!--  end panel-body -->
-			  	</div>
-			  	<!-- end panel -->
-			</div>
-			<!-- /.row -->
+	<!-- /.row -->
+	
+	<div class="row">
+	  <div class="col-lg-12">
+	    <div class="panel panel-default">
+	
+	        <div class="form-group">
+	          <label>상품번호</label> <input class="form-control" name='pdNum' value='<c:out value="${product.pdNum}" />' readonly="readonly">
+	        </div>
+	
+	        <div class="form-group">
+	          <label>상품명</label> <input class="form-control" name='pdName' value='<c:out value="${product.pdName}" />' readonly="readonly">
+	        </div>
+	
+	        <div class="form-group">
+	          <label>상품가격</label>
+	          <input class="form-control" rows="3" name='pdPrice' type="number" readonly="readonly" value="${product.pdPrice}">
+	        </div>
+	
+	        <div class="form-group">
+	          <label>상품태그</label>
+	          <input class="form-control" rows="3" name='pdKeyword' type="text" readonly="readonly" value="${product.pdKeyword}">
+	        </div>
+	        
+	        <div class="form-group">
+	          <label>수량</label> <input class="form-control" name='pdStock' value='<c:out value="${product.pdStock}" />' readonly="readonly">
+	        </div>
+	
+	
+			<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
+			<button data-oper='list' class="btn btn-info" onclick="location.href='/product/list'">List</button>
 			
-			<!-- new entry button added -->
-			<div class="panel-heading">
-				<i class="fa fa-comments fa-fw"></i> Reply
-				<button id="addReplyBtn" class="btn btn-default btn-xs pull-right">New Reply</button>
-			</div>
 			
-			<!-- /.panel-heading -->
-			<div class="panel-body">        
-				<ul class="chat">
-					<!-- reply entries -->
-					
-					<!-- 댓글 출력 부분 js에서 html출력으로 대체하기 때문에 주석처리됨 -->
-					<!-- 댓글 번호를 받기 위한 data-rno attribute -->
-					<!--
-					<li class="left clearfix" data-rno='12'>
-						<div>
-							<div class="header">
-								<strong class="primary-font">user00</strong>
-								<small class="pull-right text-muted">2022-08-04 14:56</small>
-							</div>
-							<p>yeah baby that's what i'm talkin about</p>
-						</div>
-					</li>
-					-->
-					<!-- /reply entries -->
-				</ul>
-				<!-- /ul.chat -->
-			</div>
-			<!-- /.panel-body -->
-			<!-- Page 439에서 추가한 source -->
-			<div class="panel-footer">
+			<form id='operForm' action="/product/modify" method="get">
+				<input type='hidden' id='pdNum' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
+				<input type='hidden' id='pageNum' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+				<input type='hidden' id='amount' name='amount' value='<c:out value="${cri.amount}"/>'>
+				<!-- 345 page code added -->
+				<input type='hidden' id='type' name='type' value='<c:out value="${cri.type}"/>'>
+				<input type='hidden' id='keyword' name='keyword' value='<c:out value="${cri.keyword}"/>'>
+			</form>
+			<!-- 317 page -->
+	
+	    </div>
+	    <!--  end panel -->
+	  </div>
+	  <!-- end panel -->
+	</div>
+	<!-- /.row -->
+	<div class='bigPictureWrapper'>
+		<div class='bigPicture'>
 			
-			</div>
-			<!-- /.panel-footer -->
 		</div>
-		<!-- /.panel -->
 	</div>
+	
+	<!-- page414 댓글 목록 box -->
+	<div class='row'>
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<!-- Page 419 coding 시 주석처리됨 -->
+				<!--
+				<div class="panel-heading">
+					<i class="fa fa-comments fa-fw"></i> Reply
+				</div>
+				-->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+					      	<div class="panel-heading">Files</div>
+					      	<!-- /.panel-heading -->
+					      	<div class="panel-body">
+					        
+					        	<div class='uploadResult'> 
+					          		<ul>
+					          		</ul>
+					        	</div>
+					      	</div>
+					      	<!--  end panel-body -->
+				    	</div>
+				    	<!--  end panel-body -->
+				  	</div>
+				  	<!-- end panel -->
+				</div>
+				<!-- /.row -->
+				
+				<!-- new entry button added -->
+				<div class="mb-4">
+					<span class="badge text-bg-info reply-heading">Review</span>
+					<button id="addReplyBtn" class="btn btn-secondary btn-sm float-end">New Review</button>
+				</div>
+				
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<ul class="chat list-group">
+						<!-- reply entries -->
+						
+					</ul>
+					<!-- /ul.chat -->
+				</div>
+				<!-- /.panel-body -->
+				<!-- Page 439에서 추가한 source -->
+				<div class="panel-footer">
+				
+				</div>
+				<!-- /.panel-footer -->
+			</div>
+			<!-- /.panel -->
+		</div>
+	</div>
+	<!-- /.row -->
 </div>
-<!-- /.row -->
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -211,7 +231,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">REPLY MODAL</h4>
+				<h4 class="modal-title" id="myModalLabel">REVIEW</h4>
             </div>
             <div class="modal-body">
 				<div class="form-group">
@@ -222,12 +242,16 @@
 					<label>memNickname</label> 
 					<input class="form-control" name='memNickname' value='memNickname'>
 				</div>
-				<!--
+				<!-- file -->
 				<div class="form-group">
-					<label>Reply Date</label> 
-					<input class="form-control" name='replyDate' value='2018-01-01 13:13'>
+					<label for="formFile" class="form-label">업로드 하실 이미지를 선택해주세요</label>
+					<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*">
 				</div>
-				-->      
+				<div class='rvUploadResult'> 
+					<ul>
+					
+					</ul>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
@@ -277,7 +301,7 @@
 					}
 					
 					for(var i = 0, len = list.length || 0; i < len; i++){
-						str += "<li class='left clearfix' data-rvnum='" + list[i].rvNum + "'>";
+						str += "<li class='list-group-item ps-3 reply-item' data-rvnum='" + list[i].rvNum + "'>";
 						// str += "<div><div class='header'><strong class='primary-font'>" + list[i].memNickname + "</strong>";
 						// str += "<small class='pull-right text-muted'>" + replyService.displayTime(list[i].replyDate) + "</small></div>";
 						str += "<p>" + list[i].rvText + "</p></li>";
@@ -309,10 +333,10 @@
 				next = true;
 			}
 			
-			var str = "<ul class='pagination pull-right'>";
+			var str = "<ul class='pagination ms-5 mt-2'>";
 			
 			if(prev) {
-				str += "<li class='page-item'><a class='page-link' href='" + (startNum - 1) + "'>Previous</a></li>";
+				str += "<li class='page-item'><a class='page-link' href='" + (startNum - 1) + "' aria-label='Previous'><span aria-hidden='true'>&laquo;</span></a></li>";
 			}
 			
 			for(var i = startNum; i <= endNum; i++) {
@@ -322,7 +346,7 @@
 			}
 			
 			if(next) {
-				str += "<li class='page-item'><a class='page-link' href='" + (endNum + 1) + "'>Next</a></li>";
+				str += "<li class='page-item'><a class='page-link' href='" + (endNum + 1) + "' aria-label='Next'><span aria-hidden='true'>&raquo;</span></a></li>";
 			}
 			
 			str += "</ul></div>";
@@ -361,6 +385,116 @@
 			replyer = '<sec:authentication property="principal.username"/>';
 		</sec:authorize>
 		*/
+		// added
+		var regex = new RegExp("(.*?)\.(jpg|jpeg|gif|png|bmp|webp)$");
+		var maxSize = 5242880; // 5MB
+		
+		var formFile = $("input[type='file']");
+		
+		
+		function checkExtension(fileName, fileSize) {
+			if(fileSize >= (maxSize * 4)) { // Up to 20MB
+				alert("업로드 파일은 20MB를 초과할 수 없습니다");
+				return false;
+			}
+			if(!regex.test(fileName)){
+				// RegEx(정규표현식)으로 file의 이름을 검증
+				alert("올바르지 않은 유형의 파일입니다");
+				return false;
+			}
+			return true;
+		};
+		
+		$("input[type='file']").change(function(e){
+			   
+			var formData = new FormData();
+			var inputFile = $("input[name='uploadFile']");
+			var files = inputFile[0].files;
+	
+			for(var i = 0; i < files.length; i++){
+				
+				console.log(files[i]);
+				
+				if(!checkExtension(files[i].name, files[i].size) ){
+					return false;
+				}
+				
+				formData.append("uploadFile", files[i]);
+				
+			}
+
+			$.ajax({
+				url: '/review/uploadAjaxAction',
+				processData: false, 
+				contentType: false,
+				/*
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				*/
+				// csrf token을 data 전송 전에 header로 전송
+				data: formData,
+				type: 'POST',
+				dataType:'json',
+				success: function(result){
+					console.log(result);
+					showUploadResult(result);
+				}
+			}); // ajax
+		}); // input.change
+		
+		function showUploadResult(uploadResultArr){
+			if(!uploadResultArr || uploadResultArr.length == 0){
+	    		return;
+	    	}
+	          
+			var uploadUL = $(".rvUploadResult ul");
+	         
+			var str = "";
+	        
+			$(uploadResultArr).each(function(i, obj){
+				var filePath = obj.rvFoler + "/sthmb_" + obj.rvUuid + "_" + obj.rvName;
+	           	var fileLink = filePath.replace(new RegExp(/\\/g),"/");
+				
+				str += "<li data-rvfolder='" + obj.rvFolder + "' data-rvuuid='" + obj.rvUuid + "' data-rvName='" + obj.rvName + "' ><div>";
+				str += "<span> "+ obj.rvName + "</span>";
+				str += "<img class='thumbnail' src='/review/display?fileName=" + fileLink + "'>";
+				str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
+				str += "</div></li>";
+			}); // uploadResultArr.each
+			uploadUL.append(str);
+		} // showUploadResult func
+		
+		// delete btn handle
+		$(".rvUploadResult").on("click", "button", function(e){
+		   
+			console.log("delete file");
+		   
+			var targetFile = $(this).data("file");
+			// var type = $(this).data("type");
+			
+			var targetLi = $(this).closest("li");
+		   
+			$.ajax({
+				url: '.review/deleteFile',
+				/*
+				beforeSend: function(xhr){
+					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+				},
+				*/
+				// csrf token을 data 전송 전에 header로 전송
+				data: {fileName: targetFile},
+				dataType:'text',
+				type: 'POST',
+				success: function(result){
+					alert(result);
+					
+					targetLi.remove();
+					// ListItem을 삭제하여 업로드한 file이 보이지 않도록 함
+				}
+			}); //$.ajax
+		}); // uploadResult.onclick func
+		// added
 		
 		$("#addReplyBtn").on("click", function(e){
 			modal.find("input").val("");
@@ -374,11 +508,33 @@
 		
 		// page 423 modal registerbtn
 		modalRegisterBtn.on("click", function(e){
+			// added
+			console.log("Submit Button Clicked");
+			
+			var uploadUL = $(".rvUploadResult ul");
+			var str = "";
+			   
+			$(".rvUploadResult ul li").each(function(i, obj){
+				var jobj = $(obj);
+				
+				console.dir(jobj);
+				console.log("===========================");
+				console.log(jobj.data("filename"));
+				
+				str += "<input type='hidden' name='attachList[" + i + "].rvName' value='" + jobj.data("rvname") + "'>";
+				str += "<input type='hidden' name='attachList[" + i + "].rvUuid' value='" + jobj.data("rvuuid") + "'>";
+				str += "<input type='hidden' name='attachList[" + i + "].rvFolder' value='" + jobj.data("rvfolder") + "'>";
+			}); // uploadResult ul li.each func
+			console.log(str);
+			uploadUL.append(str);
+			// added
+			
+			
 			var reply = {
-					rvText: modalInputRvText.val(),
-					memNickname: modalInputMemNickname.val(),
-					pdNum: pdNumValue
-				};
+				rvText: modalInputRvText.val(),
+				memNickname: modalInputMemNickname.val(),
+				pdNum: pdNumValue
+			};
 			replyService.add(reply, function(result){
 				alert(result);
 				
@@ -485,6 +641,20 @@
 		
 	});
 	// document.ready function
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(e){
+		
+		$("#modalRegisterBtn").on("click", function(e){
+			// e.preventDefault();
+			
+		}); // submit button on click
+		
+		
+	      
+		
+	}); // documentready
 </script>
 
 <script type="text/javascript">

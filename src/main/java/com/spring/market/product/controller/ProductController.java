@@ -1,7 +1,5 @@
 package com.spring.market.product.controller;
 
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -102,12 +100,6 @@ public class ProductController {
 	      // 어노테이션 없이도 parameter는 객체를 통해 전달이 되지만 명시적 지정을 위해
 	      // 어노테이션을 사용
 	      // log.info("get ===== " + b_number);
-		  String path = req.getServletContext().getRealPath("/src/main/webapp/resources/upload/profile/");
-		  String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\", "");
-		  
-		  log.info(path);
-		  log.info(newPath);
-	      log.info("get or modify ===== " + pdNum);
 	      m.addAttribute("product", service.get(pdNum));
 	   }
 
