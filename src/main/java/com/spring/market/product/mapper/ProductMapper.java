@@ -22,9 +22,7 @@ public interface ProductMapper {
 	public String getU_nameFromU_Email(String pdPathName);
 	public void setBoardImage(Long pdNum);
 	
-	//여기서부터 attach에서 사용하는 메서드
-	public void insertAttach(ProductAttachVO attach);
-	public void findpdNum(Long pdNum);
-	public void deleteAttachAll(Long pdNum);
-	public List<ProductAttachVO> getOldFiles();
+	
+	
+	
 }

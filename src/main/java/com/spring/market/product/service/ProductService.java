@@ -32,6 +32,8 @@ public interface ProductService {
 	
 //	public String getU_nameFromU_Email(String u_email);
 	public void setBoardImage(Long pdNum);
+	
+	public List<ProductAttachVO> selectAll(Long pdNum);
 
-	ProductVO getRaw(Long pdNum);
+//	public void attachGet(Long pdNum);
 }

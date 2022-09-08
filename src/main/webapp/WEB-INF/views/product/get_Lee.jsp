@@ -543,11 +543,10 @@
 				var str = "";
 			    
 				$(arr).each(function(i, attach){
-// 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
 					
 					str += "<li data-pdFolder='" + attach.pdFolder + "' data-pdUuid='" + attach.pdUuid + "' data-pdName='" + attach.pdName + "' ><div>";
-					str += "<img src='/product/display?fileName=" + fileCallPath + "'>";
+					str += "<img src='/display?fileName=" + fileCallPath + "'>";
 					str += "</div>";
 					str += "</li>";
 					

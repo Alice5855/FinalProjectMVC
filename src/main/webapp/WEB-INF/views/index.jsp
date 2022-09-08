@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="header.jsp" %>
+<c:set var ="context"><%=request.getContextPath()%></c:set>
 
 <!-- Carousel -->
 <div class="container py-3">
@@ -47,208 +48,107 @@
 </div>
 <!-- Carousel -->
 
+
+
 <section class="py-5 border-top mt-5">
-	<div class="container px-4 px-lg-5 mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-			<div class="col mb-5">
-				<div class="card h-100">
-				    <!-- Product image-->
-				    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-				    <!-- Product details-->
-				    <div class="card-body p-4">
-						<div class="text-center">
-						    <!-- Product name-->
-						    <h5 class="fw-bolder">Fancy Product</h5>
-						    <!-- Product price-->
-						    $40.00 - $80.00
-						</div>
-				    </div>
-				    <!-- Product actions-->
-				    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-				        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-				    </div>
+	<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+		<c:forEach items="${list}" var="product">
+			
+				<div class="col mb-5 mx-4">
+					<div class="card h-100">
+					    <!-- Product image-->
+					    <div class='uploadResult'> 
+				          		<ul>
+				          		</ul>
+			        	</div>
+<!-- 					    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." /> -->
+					    <!-- Product details-->
+					    <div class="card-body p-4">
+							<div class="text-center">
+							    <!-- Product name-->
+							    <h5 class="fw-bolder">
+							    	<a class='move' href='<c:out value="${product.pdNum}"/>'>
+										<c:out value="${product.pdName}" />
+									</a>
+									<fmt:formatDate pattern="yyyy-MM-dd"
+										value="${product.pdRegDate}" />
+							    </h5>
+							    <!-- Product price-->
+							    <c:out value="${product.pdPrice}"/>
+							</div>
+					    </div>
+					    <!-- Product actions-->
+					    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+					        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+					    </div>
+					</div>
+				</div>
+			
+		
+		</c:forEach>
+	</div>
+
+</section>
+
+
+<div class="row">
+					<div class="col-lg-12">
+						<form id="searchForm" action="/product/list" method="get">
+						<select name="type">
+							<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
+							<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>제목</option>
+							<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : '' }"/>>내용</option>
+							<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : '' }"/>>작성자</option>
+							<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' : '' }"/>>제목 or 내용</option>
+							<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : '' }"/>>제목 or 작성자</option>
+							<option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' : '' }"/>>제목 or 내용 or 작성</option>
+						</select>
+						<input type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
+						<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
+						<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
+						<button class="btn btn-default">Search Now!</button>						
+					</form>
 				</div>
 			</div>
-		    <div class="col mb-5">
-		        <div class="card h-100">
-		            <!-- Sale badge-->
-		            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-		            <!-- Product image-->
-		            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-		            <!-- Product details-->
-		            <div class="card-body p-4">
-		                <div class="text-center">
-		                    <!-- Product name-->
-		                    <h5 class="fw-bolder">Special Item</h5>
-		                    <!-- Product reviews-->
-		                    <div class="d-flex justify-content-center small text-warning mb-2">
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                    </div>
-		                    <!-- Product price-->
-		                    <span class="text-muted text-decoration-line-through">$20.00</span>
-		                    $18.00
-		                </div>
-		            </div>
-		            <!-- Product actions-->
-		            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-		                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-		            </div>
-		        </div>
-		    </div>
-		    <div class="col mb-5">
-		        <div class="card h-100">
-		            <!-- Sale badge-->
-		            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-		            <!-- Product image-->
-		            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-		            <!-- Product details-->
-		            <div class="card-body p-4">
-		                <div class="text-center">
-		                    <!-- Product name-->
-		                    <h5 class="fw-bolder">Sale Item</h5>
-		                    <!-- Product price-->
-		                    <span class="text-muted text-decoration-line-through">$50.00</span>
-		                    $25.00
-		                </div>
-		            </div>
-		            <!-- Product actions-->
-		            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-		                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-		            </div>
-		        </div>
-		    </div>
-		    <div class="col mb-5">
-		        <div class="card h-100">
-		            <!-- Product image-->
-		            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-		            <!-- Product details-->
-		            <div class="card-body p-4">
-		                <div class="text-center">
-		                    <!-- Product name-->
-		                    <h5 class="fw-bolder">Popular Item</h5>
-		                    <!-- Product reviews-->
-		                    <div class="d-flex justify-content-center small text-warning mb-2">
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                    </div>
-		                    <!-- Product price-->
-		                    $40.00
-		                </div>
-		            </div>
-		            <!-- Product actions-->
-		            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-		                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-		            </div>
-		        </div>
-		    </div>
-		    <div class="col mb-5">
-		        <div class="card h-100">
-		            <!-- Sale badge-->
-		            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-		            <!-- Product image-->
-		            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-		            <!-- Product details-->
-		            <div class="card-body p-4">
-		                <div class="text-center">
-		                    <!-- Product name-->
-		                    <h5 class="fw-bolder">Sale Item</h5>
-		                    <!-- Product price-->
-		                    <span class="text-muted text-decoration-line-through">$50.00</span>
-		                    $25.00
-		                </div>
-		            </div>
-		            <!-- Product actions-->
-		            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-		                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-		            </div>
-		        </div>
-		    </div>
-		    <div class="col mb-5">
-		        <div class="card h-100">
-		            <!-- Product image-->
-		            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-		            <!-- Product details-->
-		            <div class="card-body p-4">
-		                <div class="text-center">
-		                    <!-- Product name-->
-		                    <h5 class="fw-bolder">Fancy Product</h5>
-		                    <!-- Product price-->
-		                    $120.00 - $280.00
-		                </div>
-		            </div>
-		            <!-- Product actions-->
-		            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-		                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-		            </div>
-		        </div>
-		    </div>
-		    <div class="col mb-5">
-		        <div class="card h-100">
-		            <!-- Sale badge-->
-		            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-		            <!-- Product image-->
-		            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-		            <!-- Product details-->
-		            <div class="card-body p-4">
-		                <div class="text-center">
-		                    <!-- Product name-->
-		                    <h5 class="fw-bolder">Special Item</h5>
-		                    <!-- Product reviews-->
-		                    <div class="d-flex justify-content-center small text-warning mb-2">
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                    </div>
-		                    <!-- Product price-->
-		                    <span class="text-muted text-decoration-line-through">$20.00</span>
-		                    $18.00
-		                </div>
-		            </div>
-		            <!-- Product actions-->
-		            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-		                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-		            </div>
-		        </div>
-		    </div>
-		    <div class="col mb-5">
-		        <div class="card h-100">
-		            <!-- Product image-->
-		            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-		            <!-- Product details-->
-		            <div class="card-body p-4">
-		                <div class="text-center">
-		                    <!-- Product name-->
-		                    <h5 class="fw-bolder">Popular Item</h5>
-		                    <!-- Product reviews-->
-		                    <div class="d-flex justify-content-center small text-warning mb-2">
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                        <div class="bi-star-fill"></div>
-		                    </div>
-		                    <!-- Product price-->
-		                    $40.00
-		                </div>
-		            </div>
-		            <!-- Product actions-->
-	                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-	                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</div>
-</section>
+
+
+				<div class='pull-right'>
+					<ul class="pagination">
+					
+						<c:if test="${pageMaker.prev}">
+							<li class="paginate_button previous"><a
+								href="${pageMaker.startPage -1}">Previous</a></li>
+						</c:if>
+
+						<c:forEach var="num" begin="${pageMaker.startPage}"
+							end="${pageMaker.endPage}">
+							<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active" : ""} ">
+								<a href="${num}">${num}</a>
+							</li>
+						</c:forEach>
+
+						<c:if test="${pageMaker.next}">
+							<li class="paginate_button next"><a
+								href="${pageMaker.endPage +1 }">Next</a></li>
+						</c:if>
+					<!-- Page310 위에 소스 코딩 끝 -->
+
+					</ul>
+				</div>
+				
+			<form id='actionForm' action="main" method='get'>
+				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+			<!-- form 종료 태그 : Page 311 위에 소스 코딩 끝 -->
+
+			<!-- Page 344 중간 jsp 소스 코딩 추가 시작 : 소스 문제 없는데 붉은색 표시나면 구문 잘라내기 후에 다시 붙여넣기 저장해 보시기 바랍니다. -->
+			<!-- 다음의 구문 코딩 후에 웹브라우저 실행해서, 검색 이후에 페이지를 이동해서 동일한
+			     검색 조건과 키워드가 유지되는지 확인 바랍니다. -->
+				<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
+				<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
+			<!-- Page 344 중간 jsp 소스 코딩 추가 끝 -->
+
+			</form>
 
 <script type="text/javascript">
 	var myCarousel = document.querySelector('#carousel')
@@ -256,6 +156,257 @@
 	  interval: 3000,
 	  wrap: false
 	});
+</script>
+
+
+<script type="text/javascript">
+	// Page 246 소스 코딩 시작
+	// 새로운 게시물의 번호는 BoardController의 addFlashAttribute() 메서드로
+	// 저장되었기 때문에 한 번도 사용된 적이 없다면 사용자가 "/board/list"를 호출하거나,
+	// '새로고침'을 통해서 호출하는 경우 아무런 내용이 없게 됩니다.
+	// 또한, addFlashAttribute() 메서드를 이용해서 일회성으로만 데이터를 사용할 수 
+	// 있으므로 이를 이용하여 경고창이나 모달창 등을 보여주는 방식으로 처리할 수 있습니다.
+	$(document).ready(function() {
+		var result = '<c:out value="${result}"/>';
+	// }); Page 246 소스 코딩 끝 
+	
+						// Page 248 아래 자바스크립트 소스 코딩 시작
+						// 모달창 관련 자바스크립트 소스 코딩(시작)	
+						// checkModal() 함수는 파라미터에 따라서 모달창을 보여주거나 내용을 수정한 뒤
+						// 보이도록 처리합니다. checkModal()에서는 새로운 게시글이 작성되는 경우
+						// RedirectAttributes로 게시물의 번호가 전송되므로 이를 이용해서 모달창의 내용을
+						// 수정 처리합니다. $("#modal").modal('show')를 호출하면 모달창이 보이게 됩니다.
+						// 실행 확인은 웹 프로젝트 실행 후 '/board/register'를 이용해서 새로운 게시물을 작성하고
+						// 나면 자동으로 '/board/list'로 이동하면서 모달창이 보이게 됩니다.
+						checkModal(result);
+
+						// Page257 중간 window.history 객체, replaceState() 메서드 소스 추가 코딩
+						history.replaceState({}, null, null);
+
+						function checkModal(result) {
+
+							if (result === '' || history.state) {
+								return;
+							}
+
+							if (parseInt(result) > 0) {
+								$(".modal-body").html(
+										"게시글 " + parseInt(result)
+												+ " 번이 등록되었습니다.");
+							}
+
+							$("#myModal").modal("show");
+							// 모달창 관련 자바스크립트 소스 코딩(종료)
+						}
+						
+						
+						// }); Page 248 아래 자바스크립트 소스 코딩 끝
+
+						// Page 250 아래 자바스크립트 소스 코딩 시작
+						// list.jsp에서  Register New Board 버튼 클릭하면
+						// 게시물의 등록 웹페이지로 이동 처리 합니다.
+						$("#regBtn").on("click", function() {
+							self.location = "/product/register";
+							
+						});
+						// Page 250 아래 자바스크립트 소스 코딩 끝
+
+						// Page 312 위에 자바스크립트 소스 코딩 시작
+						var actionForm = $("#actionForm");
+
+						$(".paginate_button a").on(
+								"click",
+								function(e) {
+
+									e.preventDefault();
+
+									console.log('click');
+									// }); Page 312 위에 자바스크립트 소스 코딩 끝
+									
+									// Page 312 아래 자바스크립트 소스 코딩 시작
+									actionForm.find("input[name='pageNum']")
+											.val($(this).attr("href"));
+									actionForm.submit(); // actionForm 자체를 submit() 처리 시켜줍니다.
+								});
+								// Page 312 아래 자바스크립트 소스 코딩 끝						
+
+						// Page 315 자바스크립트 소스 코딩 시작
+						$(".move").on("click",function(e) {
+								e.preventDefault();
+								actionForm.append("<input type='hidden' name='pdNum' value='"
+															+ $(this).attr("href") + "'>");
+								actionForm.attr("action","/product/get");
+								actionForm.submit();
+								});
+						// Page 315 자바스크립트 소스 코딩 끝
+
+						// Page 342 자바스크립트 소스 코딩 시작
+						var searchForm = $("#searchForm");
+						
+						$("#searchForm button").on("click", function(e) {
+							if(!searchForm.find("option:selected").val()){
+								alert("검색 종류를 선택해 주시기 바랍니다!");
+								return false;
+							}
+							
+							if(!searchForm.find("input[name='keyword']").val()){
+								alert("키워드를 입력해 주시기 바랍니다!");
+								return false;
+							}
+							
+							// 여러 문제들 중에서 검색 버튼을 클릭하면 검색은
+							// 1페이지를 하도록 수정 처리합니다.
+							searchForm.find("input[name='pageNum']").val("1");
+							// 브라우저에서 검색 버튼을 클릭하면 form 태그의
+							// 전송은 막고, 페이지의 번호는 1이 되도록 처리합니다.
+							// 화면에서 키워드가 없다면 검색을 하지 않도록 제어합니다.
+							e.preventDefault();
+							searchForm.submit();			
+						});
+					});
+						// Page 342 자바스크립트 소스 코딩 끝
+</script>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		(function(){
+			var pdNum = '<c:out value="${product.pdNum}"/>';
+			
+		    $.getJSON("/product/getAttachList", {pdNum: pdNum}, function(arr){
+				console.log(arr);
+				
+				var str = "";
+			    
+				$(arr).each(function(i, attach){
+// 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
+					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
+					
+					str += "<li data-pdFolder='" + attach.pdFolder + "' data-pdUuid='" + attach.pdUuid + "' data-pdName='" + attach.pdName + "' ><div>";
+					str += "<img src='/product/display?fileName=" + fileCallPath + "'>";
+					str += "</div>";
+					str += "</li>";
+					
+				});
+				
+				$(".uploadResult ul").html(str);
+			    
+			}); // getjson
+			
+		})(); // function
+		
+		$(".uploadResult").on("click","li", function(e){
+			console.log("view image");
+			
+			var liObj = $(this);
+			
+			var path = encodeURIComponent(liObj.data("pdFolder") + "/" + liObj.data("pdUuid") + "_" + liObj.data("pdName"));
+			
+			// if(liObj.data("type")){
+			showImage(path.replace(new RegExp(/\\/g),"/"));
+			/*
+			} else {
+				//download 
+				self.location ="/download?fileName="+path
+			}
+			*/
+		});
+		
+		function showImage(fileCallPath){
+			console.log(fileCallPath);
+			
+			$(".bigPictureWrapper").css("display","flex").show();
+			
+			$(".bigPicture")
+			.html("<img src='/display?fileName=" + fileCallPath + "' >")
+			.animate({width:'100%', height: '100%'}, 150);
+		}
+		
+		$(".bigPictureWrapper").on("click", function(e){
+			$(".bigPicture").animate({width:'0%', height: '0%'}, 150);
+			setTimeout(function(){
+				$('.bigPictureWrapper').hide();
+			}, 150);
+		});
+	}); // document ready
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		(function(){
+			var pdNum = '<c:out value="${product.pdNum}"/>';
+			
+		    $.getJSON("/product/getAttachList", {pdNum: pdNum}, function(arr){
+				console.log(arr);
+				
+				var str = "";
+			    
+				$(arr).each(function(i, attach){
+// 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
+					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
+					
+					str += "<li data-pdFolder='" + attach.pdFolder + "' data-pdUuid='" + attach.pdUuid + "' data-pdName='" + attach.pdName + "' ><div>";
+					str += "<img src='/product/display?fileName=" + fileCallPath + "'>";
+					str += "</div>";
+					str += "</li>";
+					
+				});
+				
+				$(".uploadResult ul").html(str);
+			    
+			}); // getjson
+			
+		})(); // function
+		
+// 		$(".uploadResult").on("click","li", function(e){
+// 			console.log("view image");
+			
+// 			var liObj = $(this);
+			
+// 			var path = encodeURIComponent(liObj.data("pdFolder") + "/" + liObj.data("pdUuid") + "_" + liObj.data("pdName"));
+			
+// 			// if(liObj.data("type")){
+// 			showImage(path.replace(new RegExp(/\\/g),"/"));
+// 			/*
+// 			} else {
+// 				//download 
+// 				self.location ="/download?fileName="+path
+// 			}
+// 			*/
+// 		});
+		
+		$(".uploadResult").on("click","li", function(e){
+			console.log("view image");
+			
+			var liObj = $(this);
+			
+			var path = encodeURIComponent(liObj.data("pdFolder") + "/" + liObj.data("pdUuid") + "_" + liObj.data("pdName"));
+			
+			// if(liObj.data("type")){
+			showImage(path.replace(new RegExp(/\\/g),"/"));
+			/*
+			} else {
+				//download 
+				self.location ="/download?fileName="+path
+			}
+			*/
+		});
+		
+		function showImage(fileCallPath){
+			console.log(fileCallPath);
+			
+			$(".bigPictureWrapper").css("display","flex").show();
+			
+			$(".bigPicture")
+			.html("<img src='/display?fileName=" + fileCallPath + "' >")
+			.animate({width:'100%', height: '100%'}, 150);
+		}
+		
+		$(".bigPictureWrapper").on("click", function(e){
+			$(".bigPicture").animate({width:'0%', height: '0%'}, 150);
+			setTimeout(function(){
+				$('.bigPictureWrapper').hide();
+			}, 150);
+		});
+	}); // document ready
 </script>
 
 <%@ include file="footer.jsp" %>

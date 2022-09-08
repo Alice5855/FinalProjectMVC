@@ -80,5 +80,7 @@
 	<update id="updateReviewCnt">
 		update product_table set reviewcnt = reviewcnt + #{amount} where pdnum = #{pdnum}
 	</update>
+	
+	
 		
 </mapper>

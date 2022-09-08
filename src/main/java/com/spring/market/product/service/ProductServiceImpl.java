@@ -54,7 +54,9 @@ public class ProductServiceImpl implements ProductService {
 			System.out.println("확인 실행 됐냐 어태치 PdName : " + attach.getPdName());
 			System.out.println("확인 실행 됐냐 어태치 PdFolder : " + attach.getPdFolder());
 			System.out.println("확인 실행 됐냐 어태치 PdUuid : " + attach.getPdUuid());
-			attach.setPdPath(attach.getPdFolder() + "/" + attach.getPdUuid() + "/" + attach.getPdName());
+			
+//			attach.setPdPath(attach.getPdFolder().replaceAll("\\+", "/") + "/" + attach.getPdUuid() + "_" + attach.getPdName());
+			attach.setPdPath(attach.getPdFolder()+ "/" + attach.getPdUuid() + "_" + attach.getPdName());
 			System.out.println("확인 실행 됐냐 어태치 PdPath : " + attach.getPdPath());
 			attachMapper.insert(attach);
 			
@@ -80,14 +82,7 @@ public class ProductServiceImpl implements ProductService {
 		return pvo;
 	}
 	
-	@Override
-	public ProductVO getRaw(Long pdNum) {
-		log.info("get ===== " + pdNum + " from board");
-		
-		ProductVO bvo = mapper.read(pdNum);
-		
-		return bvo;
-	}
+	
 
 	// 첨부 file과 게시글의 수정이 함께 이루어지도록 Transactional 적용
 	@Transactional
@@ -133,6 +128,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductVO> getList(Criteria cri) {
 		log.info("getList ===== Entry List from product with paging " + cri);
+		
 		return mapper.getListPaging(cri);
 	}
 
@@ -145,7 +141,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductAttachVO> getAttachList(Long pdNum) {
 		log.info("get Attach list in ===== [pdNum]" + pdNum);
-		return attachMapper.findByB_number(pdNum);
+		return attachMapper.findByPdNum(pdNum);
 	}
 
 	
@@ -160,6 +156,20 @@ public class ProductServiceImpl implements ProductService {
 		mapper.setBoardImage(pdNum);
 	}
 
+	@Override
+	public List<ProductAttachVO> selectAll(Long pdNum) {
+		log.info("프로덕트랑 어태치테이블 다 고를게~" + pdNum);
+		return attachMapper.selectAll(pdNum);
+	}
+
+//	@Override
+//	public void attachGet(Long pdNum) {
+//		attachMapper.findByB_number(pdNum);
+//		
+//	}
+
+	
+	
 	
 	
 }

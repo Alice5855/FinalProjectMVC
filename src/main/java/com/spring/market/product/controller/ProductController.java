@@ -40,6 +40,8 @@ public class ProductController {
 	private ProductService service;
 	
 	
+	
+	
 //	private UserMapper usermapper;
 	
 	// register 입력 page와 등록 처리
@@ -108,7 +110,8 @@ public class ProductController {
 		// 어노테이션을 사용
 		// log.info("get ===== " + b_number);
 		log.info("get or modify ===== " + pdNum);
-		m.addAttribute("product", service.getRaw(pdNum));
+		m.addAttribute("product", service.get(pdNum));
+		m.addAttribute("productAttach", service.getAttachList(pdNum));
 	}
 	
 	// Modal로 vo를 전달하기 위하여 JSON으로 data를 전송. List.jsp에서 
