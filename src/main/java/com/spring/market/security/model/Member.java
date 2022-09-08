@@ -22,6 +22,7 @@ public class Member implements UserDetails {
 	private String memPw;
 	private String memPh;
 	private String memAd;
+	private String memAddetail;
 	private String memGender;
 	private String ChangeName;
 	private MultipartFile MF;

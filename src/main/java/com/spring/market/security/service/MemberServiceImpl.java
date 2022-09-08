@@ -77,12 +77,16 @@ public class MemberServiceImpl implements MemberService {
  			System.out.println(MF.getContentType());
  			System.out.println("=============");
  			
- 			String path = req.getServletContext().getRealPath("/resources/upload/profile/");
+			String path = req.getSession().getServletContext().getRealPath("/FinalProject/FinalProjectMVC/src/main/webapp/resources/upload/profile/");
+			String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\controller", "");
+			String pathing = req.getServletContext().getRealPath("/src/main/webapp/resources/upload/profile/");
+			System.out.println("어디서부터 어디까지 읽냐? " + pathing);
  			System.out.println(path);
+ 			System.out.println(req.getServletContext());
  			//파일을 서버에 저장
  			//getRealPath == /srpingshopping/src/main/webapp
- 			File file = new File(path + changName);
- 			System.out.println(file);
+ 			File file = new File(newPath + changName);
+ 			System.out.println(file + "뻐큐머겅"); 
  			MF.transferTo(file);
  			
  			memMapper.insertProfile(mem);

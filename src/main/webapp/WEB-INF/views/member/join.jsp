@@ -30,7 +30,10 @@
 			<p>
 			주소 : <br />
 				 <input type="text" id="address_kakao" name="memAd" />
-				 <input id="Address_box" name="memAd" placeholder="상세 주소">
+			</p>
+			<p>
+			상세주소: <br />
+				 	<input id="Address_box" name="memAddetail" placeholder="상세 주소">
 			</p>
 			<p>
 			사진 : <input type = "file" name = "MF" accept=".jpg, .png"/><br>
@@ -91,7 +94,7 @@
         new daum.Postcode({
             oncomplete: function(data) { //선택시 입력값 세팅
                 document.getElementById("address_kakao").value = data.address; // 주소 넣기
-                document.querySelector("input[name=memAd]").focus(); //상세입력 포커싱
+                document.querySelector("input[name=memAddetail]").focus(); //상세입력 포커싱
             }
         }).open();
     });
