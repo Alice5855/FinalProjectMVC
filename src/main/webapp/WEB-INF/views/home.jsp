@@ -14,7 +14,7 @@
 	<P>  The time on the server is ${serverTime}. </P>
 	<!-- Page738 list로 redirect -->
 	<script type="text/javascript">
-		self.location="/product/list";
+		self.location="/product/main";
 	</script>
 </body>
 </html>

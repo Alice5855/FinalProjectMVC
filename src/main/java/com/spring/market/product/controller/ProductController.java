@@ -1,10 +1,14 @@
 package com.spring.market.product.controller;
 
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -71,12 +75,30 @@ public class ProductController {
 	}
 	
 	// 첨부 파일 list를 읽어오기 위한 method
+	@GetMapping(value="/getAttachListZero", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ProductAttachVO>> getAttachListZero(Long pdNum) {
+		ProductAttachVO paVO = new ProductAttachVO();
+		List<ProductAttachVO> result = new ArrayList<ProductAttachVO>();
+		
+		paVO = service.getAttachList(pdNum).get(0);
+		result.add(paVO);
+		
+		log.info("getAttachList ===== " + pdNum);
+		return new ResponseEntity<List<ProductAttachVO>>(result, HttpStatus.OK);
+	}
+	
+	
+	
 	@GetMapping(value="/getAttachList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<ProductAttachVO>> getAttachList(Long pdNum) {
 		log.info("getAttachList ===== " + pdNum);
 		return new ResponseEntity<List<ProductAttachVO>>(service.getAttachList(pdNum), HttpStatus.OK);
 	}
+	
+	
+	
 	
 	// Page712 added need of authentication
 	// Only Logged in user can access
@@ -228,4 +250,58 @@ public class ProductController {
 //		
 //		return "userUpdate";
 //	}
+	
+	@GetMapping("/main")
+	public String home(Locale locale, Model model,Long pdNum) {
+		
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		//여기서부터 product 코딩
+		
+		
+		
+		List<ProductVO> productVOList = new ArrayList<ProductVO>();
+		Criteria cri = new Criteria();
+		productVOList = service.getList(cri);
+		
+		
+		
+		 for (ProductVO productVO : productVOList) {
+		    	productVO.setPdNum(productVO.getPdNum());
+		    }
+		 model.addAttribute("list", productVOList);
+		
+			int total = service.getTotal(cri);
+		 model.addAttribute("pageMaker", new PageDTO(cri, total));
+		 
+		 
+		 
+//		 List<ProductAttachVO> productAttachList = new ArrayList<ProductAttachVO>();
+//		 productAttachList = service.selectAll(pdNum);
+		 
+		 
+//		 model.addAttribute("attachList", productAttachList);
+		
+		return "index";
+	}
+	
+	@GetMapping("/page")
+	public void page(Criteria cri, Model m) {
+	    List<ProductVO> productVOList = new ArrayList<ProductVO>();
+	    productVOList = service.getList(cri);
+	    for (ProductVO productVO : productVOList) {
+	    	productVO.setPdNum(productVO.getPdNum());
+	    }
+	    m.addAttribute("list", productVOList);
+		int total = service.getTotal(cri);
+		log.info("total ===== " + total);
+		m.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+    }
 }
