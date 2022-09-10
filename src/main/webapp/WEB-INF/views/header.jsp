@@ -51,19 +51,19 @@
 			-webkit-overflow-scrolling: touch;
 		}
 		.btn-outline-primary {
-		    --bs-btn-color: #52FBFF;
-		    --bs-btn-border-color: #52FBFF;
-		    --bs-btn-hover-color: #FF7373;
-		    --bs-btn-hover-bg: #52FBFF;
-		    --bs-btn-hover-border-color: #52FBFF;
+		    --bs-btn-color: #FF7373;
+		    --bs-btn-border-color: #FF7373;
+		    --bs-btn-hover-color: #6FEDD6;
+		    --bs-btn-hover-bg: #FF7373;
+		    --bs-btn-hover-border-color: #FF7373;
 		    --bs-btn-focus-shadow-rgb: 33,37,41;
-		    --bs-btn-active-color: #FF7373;
-		    --bs-btn-active-bg: #52FBFF;
-		    --bs-btn-active-border-color: #52FBFF;
+		    --bs-btn-active-color: #6FEDD6;
+		    --bs-btn-active-bg: #FF7373;
+		    --bs-btn-active-border-color: #FF7373;
 		    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-		    --bs-btn-disabled-color: #52FBFF;
+		    --bs-btn-disabled-color: #FF7373;
 		    --bs-btn-disabled-bg: transparent;
-		    --bs-btn-disabled-border-color: ##52FBFF;
+		    --bs-btn-disabled-border-color: #FF7373;
 		    --bs-gradient: none;
 		}
 		.topbar{
@@ -105,7 +105,7 @@
 <body>
 
 	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg topbar" style="background-color: #FFAB77;">
+	<nav class="navbar navbar-expand-lg topbar bg-light">
 	    <div class="container-fluid px-4">
 	        <a class="navbar-brand" href="/">
 	        	<img class="img-fluid" alt="Logo" src="/resources/imgs/AniBucket-1.png" width="90px">
@@ -119,7 +119,7 @@
 	                <li class="nav-item"><a class="nav-link" href="#!">장동이</a></li>
 	                -->
 	                <li class="nav-item dropdown">
-	                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
+	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 	                        <li><a class="dropdown-item" href="#!">로그인</a></li>
 	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
@@ -132,7 +132,7 @@
 	                <button class="btn btn-outline-primary" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
 						<span class="bucket">장동이</span>
-	                    <span class="badge ms-1 rounded-pill" style="background-color: #FF4A4A; color: #B9FFF8;">0</span>
+	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
 	                </button>
 	            </form>
 	        </div>
@@ -140,7 +140,7 @@
 	</nav>
 	
 	<!-- fixed transparent navigation -->
-	<nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(0,0,0,0.1);">
+	<nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(255,255,255,0.8);">
 	    <div class="container-fluid px-4">
 	        <a class="navbar-brand" href="/">
 	        	<img class="img-fluid" alt="Logo" src="/resources/imgs/AniBucket-1.png" width="80px">
@@ -155,7 +155,7 @@
 	                -->
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
-	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(60,60,60,0.3);">
+	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(255,255,255,0.8);">
 	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그인</a></li>
 	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그아웃</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
