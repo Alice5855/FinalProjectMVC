@@ -44,6 +44,9 @@ public class ReplyController {
 	@PostMapping(value = "/new", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo){
 		log.info("ReplyVO ====== " + vo);
+		
+		log.info(vo.getAttachList());
+		
 		// adding file upload feature
 		if (vo.getAttachList() != null) {
 			vo.getAttachList().forEach(attach -> log.info(attach));

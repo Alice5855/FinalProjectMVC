@@ -82,6 +82,7 @@ public class ProductController {
 		if (product.getAttachList() != null) {
 			product.getAttachList().forEach(attach -> log.info(attach));
 		}
+		log.info(product.getAttachList());
 		service.register(product);
 		ratt.addFlashAttribute("result", product.getPdNum());
 		return "redirect:/product/list";

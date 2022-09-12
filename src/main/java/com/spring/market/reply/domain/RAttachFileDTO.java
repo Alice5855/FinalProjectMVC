@@ -9,4 +9,5 @@ public class RAttachFileDTO {
 	private String rvFolder;
 	private String rvName;
 	private String rvPath;
+	private Long rvNum;
 }

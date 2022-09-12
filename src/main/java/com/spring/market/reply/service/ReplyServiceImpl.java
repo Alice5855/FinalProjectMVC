@@ -44,15 +44,14 @@ public class ReplyServiceImpl implements ReplyService {
 
 		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
 			return 1;
-		} else {
-			vo.getAttachList().forEach(attach -> {
-				log.info(attach);
-				attach.setRvNum(vo.getRvNum());
-				attach.setRvPath(attach.getRvFolder() + "/" + attach.getRvUuid() + "_" + attach.getRvName());
-				rAttachMapper.insert(attach);
-			});
-			return 1;
 		}
+		vo.getAttachList().forEach(attach -> {
+			log.info(attach);
+			attach.setRvNum(vo.getRvNum());
+			attach.setRvPath(attach.getRvFolder() + "/" + attach.getRvUuid() + "_" + attach.getRvName());
+			rAttachMapper.insert(attach);
+		});
+		return 1;
 	}
 
 	@Override

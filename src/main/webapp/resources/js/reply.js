@@ -11,14 +11,14 @@ console.log("Reply Module ===== activation check");
  * 바깥쪽에서 선언된 변수에 할당됨
  */
 var replyService = (function () {
-	function add(rvText, callback){
+	function add(reply, callback){
 		console.log("Reply.js inner function running");
 		// page 403 ajax를 이용하여 post method로 댓글 호출
 		
 		$.ajax({
 			type: 'post',
 			url: '/review/new',
-			data: JSON.stringify(rvText),
+			data: JSON.stringify(reply),
 			contentType: "application/json; charset=utf-8",
 			success: function (result, status, xhr) {
 				if (callback) {

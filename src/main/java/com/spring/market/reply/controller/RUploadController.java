@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.market.reply.domain.RAttachFileDTO;
+import com.spring.market.reply.domain.ReplyAttachVO;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -98,8 +99,8 @@ public class RUploadController {
 	// @PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<RAttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-		List<RAttachFileDTO> list = new ArrayList<RAttachFileDTO>();
+	public ResponseEntity<List<ReplyAttachVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+		List<ReplyAttachVO> list = new ArrayList<ReplyAttachVO>();
 		// Added (page517)
 		
 	    log.info("=== Upload File Handle with Ajax ===");
@@ -116,7 +117,7 @@ public class RUploadController {
 	    // year/month/day 경로에 저장됨
 	   
 	    for (MultipartFile multipartFile : uploadFile) {
-	    	RAttachFileDTO attachDTO = new RAttachFileDTO();
+	    	ReplyAttachVO attachvo = new ReplyAttachVO();
 	    	// Added (page517)
 	   
 		    log.info("========================================");
@@ -132,7 +133,7 @@ public class RUploadController {
 		    uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 		    log.info("Uploaded file name ===== " + uploadFileName);
 		    
-		    attachDTO.setRvName(uploadFileName);
+		    attachvo.setRvName(uploadFileName);
 		    // Added (page517)
 		    
 		    UUID uuid = UUID.randomUUID();
@@ -147,10 +148,10 @@ public class RUploadController {
 		    	File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
 				
-				attachDTO.setRvUuid(uuid.toString());
-				attachDTO.setRvFolder(getFolder());
+				attachvo.setRvUuid(uuid.toString());
+				attachvo.setRvFolder(getFolder());
 				// Added (page517)
-				log.info(attachDTO.getRvFolder());
+				log.info(attachvo.getRvFolder());
 				
 				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "sthmb_" + uploadFileName));
 				
@@ -166,14 +167,16 @@ public class RUploadController {
 				
 				log.info("uploadLink ===== " + attachDTO.getRvfolder());
 				*/
-				list.add(attachDTO);
+				list.add(attachvo);
 				// Added (page517)
 			} catch (Exception e) {
 				log.error(e.getMessage());
 			} // catch
 		    
+		    log.info(list);
+		    
 	    } // for
-	    return new ResponseEntity<List<RAttachFileDTO>>(list, HttpStatus.OK);
+	    return new ResponseEntity<List<ReplyAttachVO>>(list, HttpStatus.OK);
     } // uploadAjaxPost
 	
 	// Page 526 Thumbnail data transfer

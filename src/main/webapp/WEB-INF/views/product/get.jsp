@@ -114,37 +114,60 @@
 	  <!-- /.col-lg-12 -->
 	</div>
 	<!-- /.row -->
-	
 	<div class="row">
-	  <div class="col-lg-12">
-	    <div class="panel panel-default">
-	
-	        <div class="form-group">
-	          <label>상품번호</label> <input class="form-control" name='pdNum' value='<c:out value="${product.pdNum}" />' readonly="readonly">
-	        </div>
-	
-	        <div class="form-group">
-	          <label>상품명</label> <input class="form-control" name='pdName' value='<c:out value="${product.pdName}" />' readonly="readonly">
-	        </div>
-	
-	        <div class="form-group">
-	          <label>상품가격</label>
-	          <input class="form-control" rows="3" name='pdPrice' type="number" readonly="readonly" value="${product.pdPrice}">
-	        </div>
-	
-	        <div class="form-group">
-	          <label>상품태그</label>
-	          <input class="form-control" rows="3" name='pdKeyword' type="text" readonly="readonly" value="${product.pdKeyword}">
-	        </div>
-	        
-	        <div class="form-group">
-	          <label>수량</label> <input class="form-control" name='pdStock' value='<c:out value="${product.pdStock}" />' readonly="readonly">
-	        </div>
-	
+		<div class="col-lg-12">
+			<section class="py-5">
+				<div class="container-fluid px-4 px-lg-5 my-5">
+					<div class="row gx-4 gx-lg-5 align-items-center">
+					    <div class="col-md-6">
+					    	<!-- pdImgPath? -->
+					    	<img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="product image" />
+				    	</div>
+					    <div class="col-md-6">
+					    	<div class="form-group">
+					        	<div class="small mb-1">
+					        		PD[<c:out value="${product.pdNum}" />]
+					        	</div>
+					        </div>
+					        <div class="form-group">
+					        	<h1 class="display-5 fw-bolder">
+					        		<c:out value="${product.pdName}" />
+				        		</h1>
+					        </div>
+					        <div class="form-group">
+					        	<div class="fs-5 mb-5">
+					        		<span class="text-decoration-line-through me-2">
+					        			<!-- 세일하는척 오졌고 -->
+					        			<c:out value="${product.pdPrice + 5}" />원
+					        		</span>
+									<span>
+										<c:out value="${product.pdPrice}" />원
+									</span>
+								</div>
+					        </div>
+					        <p class="lead">테스트 상품입니다. 이거 근데 상품설명 상품마다 달라질텐데 어떡함?? DB에 필요한 거 아닌가?</p>
+					        <div class="form-group mt-4">
+								<p class="mb-0">태그</p>
+								<a href="#" style="text-decoration: none;">#<c:out value="${product.pdKeyword}" /></a>
+					        </div>
+					        
+					        <div class="d-flex align-middle mt-2">
+					        	<span class="lead me-2 pt-1">잔여 수량</span>
+					            <div class="form-group">
+									<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" value='<c:out value="${product.pdStock}" />' readonly="readonly" style="max-width: 3rem">
+						        </div>
+					            <button class="btn btn-outline-dark flex-shrink-0" type="button" style="height: 2.5rem">
+					            	<i class="bi-cart-fill me-1"></i>
+					            	장동이에 담기
+					            </button>
+					        </div>
+					    </div>
+					</div>
+				</div>
+			</section>
 	
 			<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
 			<button data-oper='list' class="btn btn-info" onclick="location.href='/product/list'">List</button>
-			
 			
 			<form id='operForm' action="/product/modify" method="get">
 				<input type='hidden' id='pdNum' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
@@ -160,8 +183,7 @@
 	    <!--  end panel -->
 	  </div>
 	  <!-- end panel -->
-	</div>
-	<!-- /.row -->
+
 	<div class='bigPictureWrapper'>
 		<div class='bigPicture'>
 			
@@ -181,7 +203,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
-					      	<div class="panel-heading">Files</div>
+					      	<div class="panel-heading">상품 이미지</div>
 					      	<!-- /.panel-heading -->
 					      	<div class="panel-body">
 					        
@@ -224,6 +246,7 @@
 	</div>
 	<!-- /.row -->
 </div>
+<!-- /.container-fluid -->
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -453,10 +476,10 @@
 			var str = "";
 	        
 			$(uploadResultArr).each(function(i, obj){
-				var filePath = obj.rvFoler + "/sthmb_" + obj.rvUuid + "_" + obj.rvName;
+				var filePath = obj.rvFolder + "/sthmb_" + obj.rvUuid + "_" + obj.rvName;
 	           	var fileLink = filePath.replace(new RegExp(/\\/g),"/");
 				
-				str += "<li data-rvfolder='" + obj.rvFolder + "' data-rvuuid='" + obj.rvUuid + "' data-rvName='" + obj.rvName + "' ><div>";
+				str += "<li data-rvfolder='" + obj.rvFolder + "' data-rvuuid='" + obj.rvUuid + "' data-rvname='" + obj.rvName + "' ><div>";
 				str += "<span> "+ obj.rvName + "</span>";
 				str += "<img class='thumbnail' src='/review/display?fileName=" + fileLink + "'>";
 				str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
@@ -476,7 +499,7 @@
 			var targetLi = $(this).closest("li");
 		   
 			$.ajax({
-				url: '.review/deleteFile',
+				url: '/review/deleteFile',
 				/*
 				beforeSend: function(xhr){
 					xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
@@ -528,7 +551,9 @@
 			console.log(str);
 			uploadUL.append(str);
 			// added
-			
+			var attachName = modal.find("input[name='attachList[0].rvName']");
+			var attachUuid = modal.find("input[name='attachList[0].rvUuid']");
+			var attachFolder = modal.find("input[name='attachList[0].rvFolder']");
 			
 			var reply = {
 				rvText: modalInputRvText.val(),
