@@ -4,6 +4,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="includes/header.jsp" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
+<style>
+	.pd-img-wrapper {
+		width: 100%;
+		height: 50%;
+		overflow: hidden;
+	}
+	.pd-img-wrapper img {
+		height: 100%;
+		object-fit: cover;
+	}
+</style>
 <div class="container-fluid">
 	<!-- Carousel -->
 	<div class="container py-3">
@@ -15,6 +26,7 @@
 			</div>
 			<div class="carousel-inner">
 				<div class="carousel-item active">
+					<!-- *BANNER IMAGE MUST BE 1270 x 570 SIZE* -->
 					<img src="/resources/imgs/bannersample1.png" class="d-block w-100" alt="banner1">
 					<div class="carousel-caption d-none d-md-block">
 						<h5>First slide label</h5>
@@ -61,25 +73,23 @@
 					<div class="col mb-5 mx-4">
 						<div class="card h-100">
 						    <!-- Product image-->
-	 					    <img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" /> 
+						    <div class="pd-img-wrapper">
+	 					    	<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
+	 					    </div> 
 						    <!-- Product details-->
 						    <div class="card-body p-4">
 								<div class="text-center">
 								    <!-- Product name-->
-								    <h5 class="fw-bolder">
-								    	<a class='move' href='<c:out value="${product.pdNum}"/>'>
+								    <h2 class="fw-bold">
+								    	<a class='move' href='<c:out value="${product.pdNum}"/>' style="text-decoration: none; color: #FF4A4A;">
 											<c:out value="${product.pdName}" />
 										</a>
-										<fmt:formatDate pattern="yyyy-MM-dd"
+										<fmt:formatDate pattern="yyyy/MM/dd"
 											value="${product.pdRegDate}" />
-								    </h5>
+								    </h2>
 								    <!-- Product price-->
 								    <c:out value="${product.pdPrice}원"/>
 								</div>
-						    </div>
-						    <!-- Product actions-->
-						    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-						        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
 						    </div>
 						</div>
 					</div>
@@ -151,7 +161,7 @@
 
 <script type="text/javascript">
 	var myCarousel = document.querySelector('#carousel');
-	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle')), {
+	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle'), {
 	  interval: 3000,
 	  wrap: false
 	});

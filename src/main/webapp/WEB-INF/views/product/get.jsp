@@ -106,24 +106,45 @@
 		/*object-fit: contain;*/
 		cursor: pointer;
 	}
+	.carousel {
+		height: 50vh;
+		position: relative;
+		overflow: hidden;
+	}
+	.carousel-item img {
+		height: auto;
+		object-fit: cover;
+	}
 </style>
-<div class="container-fluid">
-	<div class="row">
-	  <div class="col-lg-12">
-	    <h1 class="page-header">Product</h1>
-	  </div>
-	  <!-- /.col-lg-12 -->
-	</div>
-	<!-- /.row -->
+<div class="container">
 	<div class="row">
 		<div class="col-lg-12">
 			<section class="py-5">
-				<div class="container-fluid px-4 px-lg-5 my-5">
+				<div class="container px-4 px-lg-5 my-5">
 					<div class="row gx-4 gx-lg-5 align-items-center">
-					    <div class="col-md-6 uploadResult">
-					    	<!-- pdImgPath? -->
-							<ul>
-							</ul>
+					    <div class="col-md-6">
+						    <div class="container-fluid py-3">
+								<div id="carousel" class="carousel slide" data-bs-ride="carousel">
+									<div class="carousel-indicators">
+										<button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+										<button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+										<button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+									</div>
+									<div class="carousel-inner">
+										<div class="carousel-item active uploadResult">
+										</div>
+									</div>
+									<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span>
+									</button>
+									<button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span>
+									</button>
+								</div>
+							</div>
+							<!-- Carousel -->
 				    	</div>
 					    <div class="col-md-6">
 					    	<div class="form-group">
@@ -192,7 +213,7 @@
 	</div>
 	
 	<!-- page414 댓글 목록 box -->
-	<div class='row'>
+	<div class='row mt-5'>
 		<div class="col-lg-12">
 			<div class="panel panel-default">
 				<!-- Page 419 coding 시 주석처리됨 -->
@@ -475,7 +496,7 @@
 	    		return;
 	    	}
 	          
-			var uploadUL = $(".rvUploadResult ul");
+			var upload = $(".rvUploadResult ul");
 	         
 			var str = "";
 	        
@@ -489,7 +510,7 @@
 				str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
 				str += "</div></li>";
 			}); // uploadResultArr.each
-			uploadUL.append(str);
+			upload.append(str);
 		} // showUploadResult func
 		
 		// delete btn handle
@@ -714,14 +735,14 @@
 				$(arr).each(function(i, attach){
 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
 					
-					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' ><div>";
-					str += "<img src='/product/display?fileName=" + fileCallPath + "'>";
+					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div>";
+					str += "<img src='/product/display?fileName=" + fileCallPath + "' class='d-block w-100' alt='banner1'>";
 					str += "</div>";
 					str += "</li>";
 					
 				});
 				
-				$(".uploadResult ul").html(str);
+				$(".uploadResult").html(str);
 			    
 			}); // getjson
 			
