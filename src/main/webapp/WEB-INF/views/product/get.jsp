@@ -4,107 +4,108 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
-<%@include file="../header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 <style>
-		.uploadResult {
-		   width: 100%;
-		   background-color: #F5F5F5;
-		}
-		
-		.uploadResult ul {
-		   display: flex;
-		   flex-flow: row;
-		   justify-content: center;
-		   align-items: center;
-		}
-		
-		.uploadResult ul li {
-		   list-style: none;
-		   padding: 10px;
-		}
-		
-		.uploadResult ul li img.icon {
-		   width: 100px;
-		}
-		
-		.uploadResult ul li img.thumbnail {
-		   width: 100px;
-		}
-		.uploadResult ul li img {
-		   cursor: pointer;
-		}
-		
-		.rvUploadResult {
-		   width: 100%;
-		   background-color: #F5F5F5;
-		}
-		
-		.rvUploadResult ul {
-		   display: flex;
-		   flex-flow: row;
-		   justify-content: center;
-		   align-items: center;
-		}
-		
-		.rvUploadResult ul li {
-		   list-style: none;
-		   padding: 10px;
-		}
-		
-		.rvUploadResult ul li img.icon {
-		   width: 100px;
-		}
-		
-		.rvUploadResult ul li img.thumbnail {
-		   width: 100px;
-		}
-		.rvUploadResult ul li img {
-		   cursor: pointer;
-		}
-		
-		.btn-icon {
-			margin-left: 5%;
-		}
-		.reply-item {
-			cursor: pointer;
-		}
-		.reply-item:hover, .reply-item:focus {
-			background-color: #D9D9D9;
-		}
-		.reply-heading {
-			font-size: 1rem;
-			color: #6FEDD6 !important;
-    		background-color: #FF4A4A !important;
-		}
+	/*
+	.uploadResult {
+	   width: 100%;
+	   background-color: #F5F5F5;
+	}
+	
+	.uploadResult ul {
+	   display: flex;
+	   flex-flow: row;
+	   justify-content: center;
+	   align-items: center;
+	}
+	*/
+	.uploadResult ul li {
+	   list-style: none;
+	   /*padding: 10px;*/
+	}
+	/*
+	.uploadResult ul li img.icon {
+	   width: 100px;
+	}
+	
+	.uploadResult ul li img.thumbnail {
+	   width: 100px;
+	}
+	.uploadResult ul li img {
+	   cursor: pointer;
+	}
+	*/
+	.rvUploadResult {
+	   width: 100%;
+	   background-color: #F5F5F5;
+	}
+	
+	.rvUploadResult ul {
+	   display: flex;
+	   flex-flow: row;
+	   justify-content: center;
+	   align-items: center;
+	}
+	
+	.rvUploadResult ul li {
+	   list-style: none;
+	   padding: 10px;
+	}
+	
+	.rvUploadResult ul li img.icon {
+	   width: 100px;
+	}
+	
+	.rvUploadResult ul li img.thumbnail {
+	   width: 100px;
+	}
+	.rvUploadResult ul li img {
+	   cursor: pointer;
+	}
+	
+	.btn-icon {
+		margin-left: 5%;
+	}
+	.reply-item {
+		cursor: pointer;
+	}
+	.reply-item:hover, .reply-item:focus {
+		background-color: #D9D9D9;
+	}
+	.reply-heading {
+		font-size: 1rem;
+		color: #6FEDD6 !important;
+   		background-color: #FF4A4A !important;
+	}
 </style>
 <style>
-		.bigPictureWrapper {
-			position: absolute;
-			display: none;
-			justify-content: center;
-			align-items: center;
-			top:0%;
-			left:0%;
-			width:100%;
-			height:100%;
-			background: rgba(0,0,0,0.2);
-			z-index: 9999;
-			margin: 0;
-		}
-		
-		.bigPicture {
-			position: relative;
-			display:flex;
-			justify-content: center;
-			align-items: center;
-			/*overflow: hidden;*/
-		}
-		
-		.bigPicture img {
-			width: 600px;
-			/*object-fit: contain;*/
-			cursor: pointer;
-		}
+	.bigPictureWrapper {
+		position: absolute;
+		display: none;
+		justify-content: center;
+		align-items: center;
+		top:0%;
+		left:0%;
+		width:100%;
+		height:100%;
+		background: rgba(0,0,0,0.2);
+		z-index: 9999;
+		margin: 0;
+	}
+	
+	.bigPicture {
+		position: relative;
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		/*overflow: hidden;*/
+	}
+	
+	.bigPicture img {
+		width: 600px;
+		/*object-fit: contain;*/
+		cursor: pointer;
+	}
 </style>
 <div class="container-fluid">
 	<div class="row">
@@ -119,9 +120,10 @@
 			<section class="py-5">
 				<div class="container-fluid px-4 px-lg-5 my-5">
 					<div class="row gx-4 gx-lg-5 align-items-center">
-					    <div class="col-md-6">
+					    <div class="col-md-6 uploadResult">
 					    	<!-- pdImgPath? -->
-					    	<img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="product image" />
+							<ul>
+							</ul>
 				    	</div>
 					    <div class="col-md-6">
 					    	<div class="form-group">
@@ -138,14 +140,13 @@
 					        	<div class="fs-5 mb-5">
 					        		<span class="text-decoration-line-through me-2">
 					        			<!-- 세일하는척 오졌고 -->
-					        			<c:out value="${product.pdPrice + 5}" />원
+					        			<c:out value="${product.pdPrice + 5000}" />원
 					        		</span>
 									<span>
 										<c:out value="${product.pdPrice}" />원
 									</span>
 								</div>
 					        </div>
-					        <p class="lead">테스트 상품입니다. 이거 근데 상품설명 상품마다 달라질텐데 어떡함?? DB에 필요한 거 아닌가?</p>
 					        <div class="form-group mt-4">
 								<p class="mb-0">태그</p>
 								<a href="#" style="text-decoration: none;">#<c:out value="${product.pdKeyword}" /></a>
@@ -200,6 +201,7 @@
 					<i class="fa fa-comments fa-fw"></i> Reply
 				</div>
 				-->
+				<%--
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="panel panel-default">
@@ -219,7 +221,7 @@
 				  	<!-- end panel -->
 				</div>
 				<!-- /.row -->
-				
+				--%>
 				<!-- new entry button added -->
 				<div class="mb-4">
 					<span class="badge text-bg-info reply-heading">Review</span>
@@ -289,7 +291,9 @@
 </div>
 <!-- /.modal -->
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="/resources/js/reply.js"></script>
+<script type="text/javascript" src="/resources/js/get_script.js"></script>
 
 <script type="text/javascript">
 	// page 415 reply event handler
@@ -668,19 +672,6 @@
 	// document.ready function
 </script>
 
-<script type="text/javascript">
-	$(document).ready(function(e){
-		
-		$("#modalRegisterBtn").on("click", function(e){
-			// e.preventDefault();
-			
-		}); // submit button on click
-		
-		
-	      
-		
-	}); // documentready
-</script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -772,4 +763,4 @@
 	}); // document ready
 </script>
 
-<%@include file="../footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>

@@ -6,7 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
-<%@include file="../header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 
 <style>
 		.uploadResult {
@@ -370,4 +370,4 @@
 	});
 </script>  -->
 
-<%@include file="../footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>

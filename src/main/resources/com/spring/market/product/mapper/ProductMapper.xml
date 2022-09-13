@@ -77,10 +77,6 @@
  		]]> 
 	</select>
 	
-	<update id="updateReviewCnt">
-		update product_table set reviewcnt = reviewcnt + #{amount} where pdnum = #{pdnum}
-	</update>
-	
 	<update id ="inserpdPath">
 		update product_table set pdPath = #{pdPath} where pdNum = #{pdNum}
 	</update>

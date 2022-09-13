@@ -4,14 +4,10 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Welcome to AniBucket</title>
 </head>
 <body>
-	<h1>
-		Hello world!  
-	</h1>
-	
-	<P>  The time on the server is ${serverTime}. </P>
+
 	<!-- Page738 list로 redirect -->
 	<script type="text/javascript">
 		self.location="/product/main";

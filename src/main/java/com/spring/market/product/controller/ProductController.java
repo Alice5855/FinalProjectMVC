@@ -135,17 +135,6 @@ public class ProductController {
 		m.addAttribute("product", service.get(pdNum));
 		m.addAttribute("productAttach", service.getAttachList(pdNum));
 	}
-	
-	// Modal로 vo를 전달하기 위하여 JSON으로 data를 전송. List.jsp에서 
-	// JS의 $.GetJSON을 활용하여 data를 Modal에 HTML 형태로 Parse
-	// 하여 글 내용을 표시함.
-	@GetMapping(value="/getModal", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
-	@ResponseBody
-	public ResponseEntity<ProductVO> getModal(Long pdNum){
-		log.info("getModal ===== " + pdNum);
-		
-		return new ResponseEntity<ProductVO>(service.get(pdNum), HttpStatus.OK);
-	}
 
 	// Page712 added need of authentication
 	// Only if author of entry is username can access to modify
@@ -252,7 +241,7 @@ public class ProductController {
 //	}
 	
 	@GetMapping("/main")
-	public String home(Locale locale, Model model,Long pdNum) {
+	public String home(Locale locale, Model model, Long pdNum) {
 		
 		
 		Date date = new Date();
@@ -265,11 +254,9 @@ public class ProductController {
 		//여기서부터 product 코딩
 		
 		
-		
 		List<ProductVO> productVOList = new ArrayList<ProductVO>();
 		Criteria cri = new Criteria();
 		productVOList = service.getList(cri);
-		
 		
 		
 		 for (ProductVO productVO : productVOList) {
@@ -279,7 +266,6 @@ public class ProductController {
 		
 			int total = service.getTotal(cri);
 		 model.addAttribute("pageMaker", new PageDTO(cri, total));
-		 
 		 
 		 
 //		 List<ProductAttachVO> productAttachList = new ArrayList<ProductAttachVO>();

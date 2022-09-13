@@ -37,9 +37,6 @@ public class ReplyServiceImpl implements ReplyService {
 	public int register(ReplyVO vo) {
 		log.info("Reply register ===== " + vo);
 		
-		pMapper.updateReviewCnt(vo.getPdNum(), 1);
-		// replycnt 칼럼 추가된 후 추가된 code
-		
 		rmapper.insert(vo);
 
 		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
@@ -71,10 +68,6 @@ public class ReplyServiceImpl implements ReplyService {
 	public int remove(Long rvNum) {
 		log.info("Reply remove ===== " + rvNum);
 		
-		ReplyVO vo = rmapper.read(rvNum);
-		// replycnt 칼럼 추가된 후 추가된 code
-		pMapper.updateReviewCnt(vo.getPdNum(), -1);
-		// replycnt 칼럼 추가된 후 추가된 code
 		
 		return rmapper.delete(rvNum);
 	}
