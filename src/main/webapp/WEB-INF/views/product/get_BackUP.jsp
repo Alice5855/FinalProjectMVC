@@ -3,21 +3,39 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
-<link href="/resources/css/get.css" rel="stylesheet" />
 
 <%@include file="../header.jsp"%>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-
 <style>
+		.uploadResult {
+		   width: 100%;
+		   background-color: #F5F5F5;
+		}
 		
+		.uploadResult ul {
+		   display: flex;
+		   flex-flow: row;
+		   justify-content: center;
+		   align-items: center;
+		}
 		
 		.uploadResult ul li {
 		   list-style: none;
-		
+		   padding: 10px;
 		}
 		
-	
+		.uploadResult ul li img.icon {
+		   width: 100px;
+		}
+		
+		.uploadResult ul li img.thumbnail {
+		   width: 100px;
+		}
+		.uploadResult ul li img {
+		   cursor: pointer;
+		}
+		.btn-icon {
+			margin-left: 5%;
+		}
 </style>
 <style>
 		.bigPictureWrapper {
@@ -49,47 +67,68 @@
 		}
 </style>
 
+<div class="row">
+  <div class="col-lg-12">
+    <h1 class="page-header">Board Read</h1>
+  </div>
+  <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+
+      <div class="panel-heading">Board Read Page</div>
+      <!-- /.panel-heading -->
+      <div class="panel-body">
+
+        <div class="form-group">
+          <label>상품번호</label> <input class="form-control" name='pdNum' value='<c:out value="${product.pdNum}" />' readonly="readonly">
+        </div>
+
+        <div class="form-group">
+          <label>상품명</label> <input class="form-control" name='pdName' value='<c:out value="${product.pdName}" />' readonly="readonly">
+        </div>
+
+        <div class="form-group">
+          <label>상품가격</label>
+          <input class="form-control" rows="3" name='pdPrice' type="number" readonly="readonly" value="${product.pdPrice}">
+        </div>
+
+        <div class="form-group">
+          <label>상품태그</label>
+          <input class="form-control" rows="3" name='pdKeyword' type="text" readonly="readonly" value="${product.pdKeyword}">
+        </div>
+        
+        <div class="form-group">
+          <label>수량</label> <input class="form-control" name='pdStock' value='<c:out value="${product.pdStock}" />' readonly="readonly">
+        </div>
 
 
-   
-        
-        
-        
-        
-          <section class="py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="row gx-4 gx-lg-5 align-items-center">
-                    <div class="col-md-6 uploadResult">
-                    	<ul>
-		          		</ul>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="small mb-1" style="display: none;">
-                        	<c:out value="${product.pdNum}" />
-                        </div>
-                        <h1 class="display-5 fw-bolder"><c:out value="${product.pdName}" /></h1>
-                        <div class="fs-5 mb-5">
-                            <span><c:out value="${product.pdPrice}원" /></span>
-                            
-                        </div>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis delectus ipsam minima ea iste laborum vero?</p>
-                        <div class="d-flex">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="<c:out value="${product.pdStock}" />" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                                <i class="bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
+		<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
+		<button data-oper='list' class="btn btn-info" onclick="location.href='/product/list'">List</button>
 		
+		
+		<form id='operForm' action="/product/modify" method="get">
+			<input type='hidden' id='bno' name='bno' value='<c:out value="${product.pdNum}"/>'>
+			<input type='hidden' id='pageNum' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
+			<input type='hidden' id='amount' name='amount' value='<c:out value="${cri.amount}"/>'>
+			<!-- 345 page code added -->
+			<input type='hidden' id='type' name='type' value='<c:out value="${cri.type}"/>'>
+			<input type='hidden' id='keyword' name='keyword' value='<c:out value="${cri.keyword}"/>'>
+		</form>
+		<!-- 317 page -->
 
+      </div>
+      <!--  end panel-body -->
 
-
+    </div>
+    <!--  end panel -->
+  </div>
+  <!-- end panel -->
+</div>
+<!-- /.row -->
 <div class='bigPictureWrapper'>
 	<div class='bigPicture'>
 		
@@ -106,7 +145,25 @@
 				<i class="fa fa-comments fa-fw"></i> Reply
 			</div>
 			-->
-	
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+				      	<div class="panel-heading">Files</div>
+				      	<!-- /.panel-heading -->
+				      	<div class="panel-body">
+				        
+				        	<div class='uploadResult'> 
+				          		<ul>
+				          		</ul>
+				        	</div>
+				      	</div>
+				      	<!--  end panel-body -->
+			    	</div>
+			    	<!--  end panel-body -->
+			  	</div>
+			  	<!-- end panel -->
+			</div>
+			<!-- /.row -->
 			
 			<!-- new entry button added -->
 			<div class="panel-heading">
@@ -185,9 +242,7 @@
 </div>
 <!-- /.modal -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="/resources/js/reply.js"></script>
-<script type="text/javascript" src="/resources/js/get_script.js"></script>
 
 <script type="text/javascript">
 	// page 415 reply event handler
@@ -380,7 +435,74 @@
 	// document.ready function
 </script>
 
+<!--
+<script type="text/javascript">
+/*
+	$(document).ready(function() {
+		console.log(replyService);
+		// variable from reply.js
+	});
+*/
+/*
+	console.log("=======================");
+	console.log("JS REPLY TEST")
+	
+	var bnoValue = '<c:out value="${board.bno}"/>';
+*/
+/*
+	replyService.add(
+			{reply: "JS Test", replyer: "Randolph", bno: bnoValue},
+			// reply
+			function (result) {
+				alert("Result: " + result);
+			}
+			// callback
+	);
+*/
+/*
+	replyService.getList({bno:bnoValue, page:1}, function(list){
+		for(var i = 0, len = list.length || 0; i < len; i++){
+			console.log(list[i]);
+		}
+	});
+*/
+	// function(list)가 getList 함수의 callback 함수가 된다. reply.js 참고
+/*
+	replyService.remove(10, function(count){
+		console.log(count);
+		
+		if (count === 'Success') {
+			alert("Successfully removed");
+		}
+	}, function(error){
+		alert("Error occurred. reply is not exist or synthetic error");
+	});
+*/
+	// if (count === 'string')에 들어가는 문자열은 ReplyController의 81행의 log
+	// 문구와 일치해야 한다. log의 text를 검증하여 alert를 띄우는 방식이기 때문
 
+/*
+	replyService.update({
+		rno: 11,
+		bno: bnoValue,
+		reply: "Modify test via javascript"
+	}, function(result){
+		alert("Successfully modified reply");
+	});
+*/
+	/* update(reply, callback, error)
+	 * reply에 rno, bno, reply속성값을 대입하여 callback 함수인 function(result)
+	 * 를 유효성 검증 이후 실행. error scenario는 생성하지 않음
+	 */
+	 
+/*
+	 replyService.get(21, function(data){
+		 console.log(data);
+	 });
+	 // simple as that
+*/	 
+</script>
+-->
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -472,5 +594,5 @@
 		});
 	}); // document ready
 </script>
- 
+
 <%@include file="../footer.jsp"%>
