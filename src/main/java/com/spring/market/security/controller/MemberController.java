@@ -32,20 +32,7 @@ public class MemberController {
 			return "member/login";
 		}
 		
-//		@PostMapping("login")
-//		public String login(Member member, HttpSession session) throws Exception{
-//			Member loginMember = service.login(member);
-//			System.out.println(loginMember + "여기에 뭐 들어가나요?");
-//			if(loginMember != null) {
-//				//success -> session에 담기 -> home
-//				session.setAttribute("loginMember", loginMember);
-//				return "redirect:/";
-//			}else {
-//				//fail -> login
-//				System.out.println("설마 널값이여서 여기로왔니?");
-//				return "member/login";
-//			}
-//		}
+		
 		
 		@GetMapping("join")
 		public String join() {
@@ -82,11 +69,10 @@ public class MemberController {
 		}
 		
 		@PostMapping("mypage")
-		public String mypage(Member member, HttpSession session) throws Exception{
+		public String mypage(Member member, HttpServletRequest req ) throws Exception{
 			//update 처리하기
-			Member mem = service.updateMember(member);
-			if(mem != null) {
-				session.setAttribute("loginMember", mem);
+			boolean result = service.updateMember(member, req);
+			if(result == true) {
 				return "redirect:/member/mypage";
 			}else {
 				return "redirect:/member/mypagez";

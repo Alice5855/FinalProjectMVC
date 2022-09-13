@@ -1,6 +1,5 @@
 <body>
-
-
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ include file="/WEB-INF/views/header.jsp" %>
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -47,6 +46,7 @@
 	    <hr><hr><hr>
 	    
 	</div>
+<%@ include file="/WEB-INF/views/footer.jsp" %>
 	
 	<script type="text/javascript">
 	

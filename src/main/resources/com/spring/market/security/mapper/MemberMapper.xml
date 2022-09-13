@@ -36,7 +36,7 @@
 	</insert>
 	
 	<update id="update">
-		update membertable set memName = #{memName},memEmail = #{memEmail}, memNickname = #{memNickname}, memPw = #{memPw}, memAd = #{memAd}, memGender = #{memGender}, memPh = #{memPh} where memNum = #{memNum}
+		update membertable set memName = #{memName}, memNickname = #{memNickname}, memAd = #{memAd}, memAddetail = #{memAddetail}, memGender = #{memGender}, memPh = #{memPh} where memNum = #{memNum}
 	
 	</update>
 	
@@ -46,7 +46,7 @@
 	
 	<select id="read" resultMap="MemberMap">
 		SELECT 
-		  mt.memNum, memName,memNickname, memEmail, memPw, memAd, memGender, memPh, memAuth
+		  mt.memNum, memName, memNickname, memPw, memAd, memGender, memPh, memAuth, memEmail, memAddetail
 		FROM 
 		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNum = Auth.memNum 
 		WHERE mt.memNum = #{memNum} 
@@ -73,6 +73,9 @@
 		where p.memNum = #{memNum}
 	</select>
 
+	<update id="changeProfile">
+		update Member_PROFILE set ChangeName = #{ChangeName} Where memNum = #{memNum}	
+	</update>
 
 
 

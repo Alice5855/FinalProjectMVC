@@ -10,7 +10,7 @@ public interface MemberMapper {
 	
 	public Member read(Long memNum);
 	
-	public Member getMember(long pr);
+	public Member getMember(long pf);
 	
 	public int deleteMember(Long memNum);
 	
@@ -20,6 +20,7 @@ public interface MemberMapper {
 	
 	public void insertProfile(Member mem);
 	
+	public int changeProfile(Member mem);
 	
 	
 	

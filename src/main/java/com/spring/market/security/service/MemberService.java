@@ -1,5 +1,7 @@
 package com.spring.market.security.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.spring.market.security.model.Member;
@@ -17,6 +19,7 @@ public interface MemberService {
 	
 	public Member login(Member mem);
 	
-	public Member updateMember(Member mem);
+	public boolean updateMember(Member mem,HttpServletRequest req);
+
 	
 }

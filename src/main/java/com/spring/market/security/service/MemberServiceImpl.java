@@ -1,6 +1,9 @@
 package com.spring.market.security.service;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,6 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 import sun.print.PeekGraphics;
+import sun.security.pkcs11.Secmod.DbMode;
 
 @Service
 @Log4j
@@ -34,7 +38,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member login(Member mem) {
 		//DB에서 회원 정보 조회
-		Member	dbMember = memMapper.getMember(mem);
+		Member	dbMember = memMapper.read(mem.getmemNum());
 		
 		//비번 일치 체크
 		if(bCryptPasswordEncoder.matches(mem.getMemPw(), dbMember.getMemPw())) {
@@ -121,21 +125,57 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public Member updateMember(Member mem) {
-		if(mem.getMemPw().length()>0) {
-			mem.setMemPw(bCryptPasswordEncoder.encode(mem.getMemPw()));
-		}
-		int result = memMapper.update(mem);
-		Member m = null;
-		if(result > 0) {
-			m = memMapper.getMember(mem);
-		}
-		return m;
+	public boolean updateMember(Member mem, HttpServletRequest req) {
+		Member	dbMember = memMapper.read(mem.getmemNum());
+			if(bCryptPasswordEncoder.matches(mem.getMemPw(), dbMember.getMemPw())) {
+				MultipartFile MF = mem.getMF();
+				System.out.println(MF + "%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+				if(!MF.isEmpty()) {
+					//원래 이름 -> db에 저장
+					//변경된 이름 -> db에 저장
+					//서비스 레이어에서 작업하도록
+		 			String changName = System.currentTimeMillis() + "_" + MF.getOriginalFilename();
+		 			mem.setChangeName(changName);
+		 			System.out.println(changName + "$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+		 			//사이즈, 타입 
+		 			System.out.println("=============");
+		 			System.out.println(MF.getOriginalFilename());
+		 			System.out.println(MF.getSize());
+		 			System.out.println(MF.getContentType());
+		 			System.out.println("=============");
+		 			
+					String path = req.getSession().getServletContext().getRealPath("/FinalProject/FinalProjectMVC/src/main/webapp/resources/upload/profile/");
+					String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\controller", "");
+					String pathing = req.getServletContext().getRealPath("/src/main/webapp/resources/upload/profile/");
+					System.out.println("어디서부터 어디까지 읽냐? " + pathing);
+		 			System.out.println(path);
+		 			System.out.println(req.getServletContext());
+		 			//파일을 서버에 저장
+		 			//getRealPath == /srpingshopping/src/main/webapp
+		 			File file = new File(newPath + changName);
+		 			System.out.println(file + "뻐큐머겅"); 
+		 			try {
+						MF.transferTo(file);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+		 			
+		 			memMapper.changeProfile(mem);
+				}
+				boolean result = memMapper.update(mem) == 1; 
+				
+				
+				return result;
+				
+			}else {
+				return (Boolean) null;
+			}	
 	}
 
 
 
-	
 	
 	
 }
