@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class RAttachFileDTO {
 	// Page 516 첨부 file 정보를 저장하는 DataTransferObject
-	private String rvuuid;
-	private String rvfolder;
-	private String rvname;
-	private String rvpath;
+	private String rvUuid;
+	private String rvFolder;
+	private String rvName;
+	private String rvPath;
+	private Long rvNum;
 }

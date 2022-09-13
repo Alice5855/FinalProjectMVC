@@ -25,13 +25,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.market.product.domain.AttachFileDTO;
+import com.spring.market.reply.domain.RAttachFileDTO;
+import com.spring.market.reply.domain.ReplyAttachVO;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
-@RequestMapping("/reviews/*")
+@RequestMapping("/review/*")
 @Log4j
 public class RUploadController {
 	// Page 494 Get, Post method로 file upload를 처리
@@ -65,6 +66,7 @@ public class RUploadController {
 			} // catch
 		} // for
 	} // uploadFormPost
+	// *DEPRECATED* (unused)
 	
 	// Page 500 ajax 활용 file upload
 	// Ajax 활용 시 FormData 객체 사용
@@ -97,8 +99,8 @@ public class RUploadController {
 	// @PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-		List<AttachFileDTO> list = new ArrayList<AttachFileDTO>();
+	public ResponseEntity<List<ReplyAttachVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+		List<ReplyAttachVO> list = new ArrayList<ReplyAttachVO>();
 		// Added (page517)
 		
 	    log.info("=== Upload File Handle with Ajax ===");
@@ -115,7 +117,7 @@ public class RUploadController {
 	    // year/month/day 경로에 저장됨
 	   
 	    for (MultipartFile multipartFile : uploadFile) {
-	    	AttachFileDTO attachDTO = new AttachFileDTO();
+	    	ReplyAttachVO attachvo = new ReplyAttachVO();
 	    	// Added (page517)
 	   
 		    log.info("========================================");
@@ -131,7 +133,7 @@ public class RUploadController {
 		    uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 		    log.info("Uploaded file name ===== " + uploadFileName);
 		    
-		    attachDTO.setP_fileName(uploadFileName);
+		    attachvo.setRvName(uploadFileName);
 		    // Added (page517)
 		    
 		    UUID uuid = UUID.randomUUID();
@@ -146,10 +148,10 @@ public class RUploadController {
 		    	File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
 				
-				attachDTO.setP_uuid(uuid.toString());
-				attachDTO.setP_uploadPath(getFolder());
+				attachvo.setRvUuid(uuid.toString());
+				attachvo.setRvFolder(getFolder());
 				// Added (page517)
-				log.info(attachDTO.getP_uploadPath());
+				log.info(attachvo.getRvFolder());
 				
 				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "sthmb_" + uploadFileName));
 				
@@ -158,21 +160,23 @@ public class RUploadController {
 				// 100 x 100 size 'sthmb_filename' 의 thumbnail file 생성
 				 
 				thumbnail.close();
+				/*
+				String uploadLink = attachDTO.getRvfolder().toString().replaceAll("\\+", "/");
+				attachDTO.setRvfolder(uploadLink);
 				
-				String uploadLink = attachDTO.getP_uploadPath().toString().replaceAll("\\+", "/");
-				attachDTO.setP_uploadPath(uploadLink);
 				
-				
-				log.info("uploadLink ===== " + attachDTO.getP_uploadPath());
-				
-				list.add(attachDTO);
+				log.info("uploadLink ===== " + attachDTO.getRvfolder());
+				*/
+				list.add(attachvo);
 				// Added (page517)
 			} catch (Exception e) {
 				log.error(e.getMessage());
 			} // catch
 		    
+		    log.info(list);
+		    
 	    } // for
-	    return new ResponseEntity<List<AttachFileDTO>>(list, HttpStatus.OK);
+	    return new ResponseEntity<List<ReplyAttachVO>>(list, HttpStatus.OK);
     } // uploadAjaxPost
 	
 	// Page 526 Thumbnail data transfer

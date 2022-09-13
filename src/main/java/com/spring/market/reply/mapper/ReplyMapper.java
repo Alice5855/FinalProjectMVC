@@ -12,17 +12,17 @@ public interface ReplyMapper {
 	public int insert(ReplyVO vo);
 	
 	// R
-	public ReplyVO read(Long rvnum);
+	public ReplyVO read(Long rvNum);
 	
 	// U
 	public int update(ReplyVO vo);
 	// 댓글 수정 시 updateDate를 수정해야함
 	
 	// D
-	public int delete(Long rvnum);
+	public int delete(Long rvNum);
 	
 	// List
-	public List<ReplyVO> getListWithPaging(@Param("cri") Criteria cri, @Param("pdnum") Long pdnum);
+	public List<ReplyVO> getListWithPaging(@Param("cri") Criteria cri, @Param("pdNum") Long pdNum);
 	/* page 387 @Param Annotation과 댓글 List 구형 : 댓글 목록의 페이징 처리는
 	 * 게시물의 페이징처리와 유사하나 특정한 게시물의 댓글들만을 대상으로 한다는 특성상
 	 * 추가로 bno가 필요하게 된다. MyBatis에서 두 개 이상의 Parameter를 전달하기 위해서는
@@ -34,5 +34,5 @@ public interface ReplyMapper {
 	 */
 	
 	// page 432 : paging 처리를 위하여 특정 bno의 reply count를 위해 method 추가
-	public int getCountByBno(Long pdnum);
+	public int getCountByPdNum(Long pdNum);
 }
