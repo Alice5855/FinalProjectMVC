@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -21,15 +23,18 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.market.product.domain.AttachFileDTO;
+import com.spring.market.product.domain.ProductAttachVO;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
 
 @Controller
+@RequestMapping("/product/*")
 @Log4j
 public class UploadController {
 	// Page 494 Get, Post method로 file upload를 처리
@@ -95,12 +100,13 @@ public class UploadController {
 	// @PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-		List<AttachFileDTO> list = new ArrayList<AttachFileDTO>();
+	public ResponseEntity<List<ProductAttachVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+		List<ProductAttachVO> list = new ArrayList<ProductAttachVO>();
 		// Added (page517)
 		
 	    log.info("=== Upload File Handle with Ajax ===");
 	    String uploadFolder = "C:/Uploaded";
+	    
 	    
 	    // Page 509 getFolder() method 적용
 	    File uploadPath = new File(uploadFolder, getFolder());
@@ -113,7 +119,7 @@ public class UploadController {
 	    // year/month/day 경로에 저장됨
 	   
 	    for (MultipartFile multipartFile : uploadFile) {
-	    	AttachFileDTO attachDTO = new AttachFileDTO();
+	    	ProductAttachVO attachDTO = new ProductAttachVO();
 	    	// Added (page517)
 	   
 		    log.info("========================================");
@@ -129,7 +135,7 @@ public class UploadController {
 		    uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 		    log.info("Uploaded file name ===== " + uploadFileName);
 		    
-		    attachDTO.setP_fileName(uploadFileName);
+		    attachDTO.setPdName(uploadFileName);
 		    // Added (page517)
 		    
 		    UUID uuid = UUID.randomUUID();
@@ -144,10 +150,11 @@ public class UploadController {
 		    	File saveFile = new File(uploadPath, uploadFileName);
 				multipartFile.transferTo(saveFile);
 				
-				attachDTO.setP_uuid(uuid.toString());
-				attachDTO.setP_uploadPath(getFolder());
+				attachDTO.setPdUuid(uuid.toString());
+				attachDTO.setPdFolder(getFolder());
 				// Added (page517)
-				log.info(attachDTO.getP_uploadPath());
+				
+				log.info(attachDTO.getPdPath());
 				
 				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "sthmb_" + uploadFileName));
 				
@@ -157,11 +164,11 @@ public class UploadController {
 				 
 				thumbnail.close();
 				
-				String uploadLink = attachDTO.getP_uploadPath().toString().replaceAll("\\+", "/");
-				attachDTO.setP_uploadPath(uploadLink);
+				String uploadLink = attachDTO.getPdFolder().toString().replaceAll("\\+", "/") + attachDTO.getPdUuid().toString()+ attachDTO.getPdName().toString();
+				attachDTO.setPdPath(uploadLink);
 				
 				
-				log.info("uploadLink ===== " + attachDTO.getP_uploadPath());
+				log.info("uploadLink ===== " + attachDTO.getPdFolder());
 				
 				list.add(attachDTO);
 				// Added (page517)
@@ -170,7 +177,7 @@ public class UploadController {
 			} // catch
 		    
 	    } // for
-	    return new ResponseEntity<List<AttachFileDTO>>(list, HttpStatus.OK);
+	    return new ResponseEntity<List<ProductAttachVO>>(list, HttpStatus.OK);
     } // uploadAjaxPost
 	
 	// Page 526 Thumbnail data transfer

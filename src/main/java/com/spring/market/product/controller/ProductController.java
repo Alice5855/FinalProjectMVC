@@ -3,7 +3,6 @@ package com.spring.market.product.controller;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +31,7 @@ import lombok.extern.log4j.Log4j;
 
 @Controller // Spring의 bean에서 Controller로 인식할 수 있도록 함
 @Log4j
-@RequestMapping("/board/*") // '/board/'로 url pattern 정의
+@RequestMapping("/product/*") // '/board/'로 url pattern 정의
 @AllArgsConstructor // 생성자 자동 생성
 public class ProductController {
 	// BoardController가 BoardService에 의존적이기 때문에 
@@ -79,18 +78,20 @@ public class ProductController {
 	
 	// Page712 added need of authentication
 	// Only Logged in user can access
-	@PreAuthorize("isAuthenticated()")
+//	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String register(ProductVO product, RedirectAttributes ratt) {
-		log.info("register ===== " + product);
+		log.info("register ===== " + product.getPdNum());
 		
 		// adding file upload feature
 		if (product.getAttachList() != null) {
-			product.getAttachList().forEach(attach -> log.info(attach));
+			product.getAttachList().forEach(attach -> log.info("프로덕트콘트롤라 조건문 실행중임??"+attach));
 		}
+		
+		
 		service.register(product);
 		ratt.addFlashAttribute("result", product.getPdNum());
-		return "redirect:/board/list";
+		return "redirect:/product/list";
 	}
 	
 	/* 조회시 등록과 유사하게 BoardController를 이용해 처리할 수 있음. 특별한 경우를
@@ -107,7 +108,7 @@ public class ProductController {
 		// 어노테이션을 사용
 		// log.info("get ===== " + b_number);
 		log.info("get or modify ===== " + pdNum);
-		m.addAttribute("board", service.getRaw(pdNum));
+		m.addAttribute("product", service.getRaw(pdNum));
 	}
 	
 	// Modal로 vo를 전달하기 위하여 JSON으로 data를 전송. List.jsp에서 
@@ -115,7 +116,7 @@ public class ProductController {
 	// 하여 글 내용을 표시함.
 	@GetMapping(value="/getModal", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<ProductVO> getModal(Long pdNum) {
+	public ResponseEntity<ProductVO> getModal(Long pdNum){
 		log.info("getModal ===== " + pdNum);
 		
 		return new ResponseEntity<ProductVO>(service.get(pdNum), HttpStatus.OK);
@@ -124,7 +125,7 @@ public class ProductController {
 	// Page712 added need of authentication
 	// Only if author of entry is username can access to modify
 	// #board.writer : BoardVO(board)의 writer를 명시하여 검증절차
-	@PreAuthorize("principal.username == #board.u_email")
+//	@PreAuthorize("principal.username == #board.u_email")
 	// update의 경우 BoardVO parameter로 내용을 설정하고 BoardService를 호출
 	@PostMapping("/modify")
 	public String modify(ProductVO product, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt) {
@@ -142,13 +143,13 @@ public class ProductController {
 		ratt.addAttribute("type", cri.getType());
 		ratt.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect:/board/list";
+		return "redirect:/product/list";
 	}
 	
 	// Page712 added need of authentication
 	// Only if author of entry is username can access to remove
 	// Parameter로 writer를 받아 검증절차
-	@PreAuthorize("principal.username == #u_email")
+//	@PreAuthorize("principal.username == #u_email")
 	// remove()로 삭제 처리 한 후 RedirectAttributes로 list페이지로 이동시킴
 	@PostMapping("/remove")
 	public String remove(@RequestParam("pdName") String pdName, @RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt) {
@@ -178,7 +179,7 @@ public class ProductController {
 		
 		return "redirect:/board/list";
 		*/
-		return "redirect:/board/list" + cri.getListLink();
+		return "redirect:/product/list" + cri.getListLink();
 		// Criteria에 새로 생성한 method 사용(page 581)
 	}
 	

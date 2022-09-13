@@ -48,8 +48,15 @@
    <!-- package별로 mapper service 등록하세요 -->
    <mybatis-spring:scan base-package="com.spring.market.product.mapper"/>
    <mybatis-spring:scan base-package="com.spring.market.security.mapper"/>
+   <mybatis-spring:scan base-package="com.spring.market.reply.mapper"/>
+   <mybatis-spring:scan base-package="com.spring.market.bucket.mapper"/>
+   <mybatis-spring:scan base-package="com.spring.market.purchase.mapper"/>
+   
+   <context:component-scan base-package="com.spring.market.bucket.service" />
+   <context:component-scan base-package="com.spring.market.purchase.service" />
    <context:component-scan base-package="com.spring.market.product.service" />
    <context:component-scan base-package="com.spring.market.security.service" />
+   <context:component-scan base-package="com.spring.market.reply.service" />
    
    <task:annotation-driven/>
    

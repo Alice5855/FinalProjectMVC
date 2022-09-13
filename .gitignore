@@ -2,11 +2,4 @@
 .classpath
 .settings/*
 target/*
-src/main/webapp/resources/upload/profile/1662612656359_KakaoTalk_20220906_134327393.png
-src/main/webapp/resources/upload/profile/1662613862444_KakaoTalk_20220906_134327393.png
-src/main/webapp/resources/upload/profile/1663046156988_unnamed.jpg
-src/main/webapp/resources/upload/profile/1663048341225_KakaoTalk_20220906_134327393.png
-src/main/webapp/resources/upload/profile/1663054190016_KakaoTalk_20220913_134150610.jpg
-src/main/webapp/resources/upload/profile/1663060674303_KakaoTalk_20220906_134327393.png
-src/main/webapp/resources/upload/profile/1663061775467_KakaoTalk_20220913_134150516.jpg
-src/main/webapp/resources/upload/profile/1663061690663_KakaoTalk_20220913_134150610.jpg
+.project
