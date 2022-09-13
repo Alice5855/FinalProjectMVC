@@ -18,5 +18,9 @@
 	<delete id="removeBucket">
 		delete from bucket_table where pdNum = #{pdNum} AND memNum = #{memNum}
 	</delete>
+	
+	<delete id="removeBucketAll">
+		delete from bucket_table where memNum = #{memNum}
+	</delete>
 
 </mapper>

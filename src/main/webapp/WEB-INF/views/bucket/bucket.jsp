@@ -110,7 +110,7 @@
 								<input type="text" class="price" readonly="readonly" value="${product.pdPrice}">원
 							</td>
 							<td>
-								<form name="productInfoDetail" action="/buySingle" class="productInfoDetail" method="post">
+								<form name="productInfoDetail" action="/buy" class="productInfoDetail" method="post">
 									<input type="hidden" name="pdNum" value="${product.pdNum}" >
 									<button id="btnBuy" type="submit" class="btn btn-danger btnBuy" >구매</button>
 									<button id="btnDel" onclick="delBucket('${product.pdNum}')" type="button" class="btn btn-warning btnDel">제거</button>
@@ -120,10 +120,10 @@
 					</c:forEach>
 					<br>
 					<br>
-					<form>
+					<form action="/buy" method="post">
 						<div style="display: flex; justify-content: flex-end;">
-							<input id="totalPrice" value="" readonly="readonly" style="width: 30%"> 원
-							<button type="submit" class="btn btn-danger">일괄 구매</button>
+								<input name="totalPrice" id="totalPrice" value="" readonly="readonly" style="width: 30%"> 원
+								<button type="submit" class="btn btn-danger">일괄 구매</button>
 						</div>
 					</form>
 				</c:if>
@@ -139,6 +139,7 @@ $(document).ready(function () {
 		
 
 })
+	
 	function totalPriceInsert(){
 		
 		var totalPrice = 0;
@@ -182,9 +183,6 @@ $(document).ready(function () {
 			}
 		});
 	}
-	
-
-
 	
 
 </script>

@@ -15,4 +15,7 @@ public interface BucketService {
 	public ProductVO getBucketInfo(Long pdNum);
 	
 	public int getBucketCount(Long memNum);
+	
+	public void removeBucketAll(Long memNum);
+	
 }

@@ -20,5 +20,7 @@ public interface BucketMapper {
 	// 장바구니에서 품목 삭제
 	public void removeBucket(@Param("pdNum") Long pdNum, @Param("memNum") Long memNum);
 	
+	public void removeBucketAll(Long pdNum);
+	
 }
 	

@@ -33,12 +33,13 @@ public class BucketServiceTests {
 		
 		service.registerBucket(22L, 32L);
 		service.registerBucket(23L, 32L);
+		service.registerBucket(40L, 32L);
 	}
 	
 //	@Test
 	public void testSelect() {
 		Member testMemVO = new Member();
-		testMemVO.setMemNum(1L);
+		testMemVO.setMemNum(32L);
 		
 		List<ProductVO> testPdVO = new ArrayList<ProductVO>();
 		
