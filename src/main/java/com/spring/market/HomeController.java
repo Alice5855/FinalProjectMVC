@@ -45,7 +45,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping("/")
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model, Long pdNum) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();

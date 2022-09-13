@@ -93,7 +93,7 @@
 
 <div class="row">
 					<div class="col-lg-12">
-						<form id="searchForm" action="/product/list" method="get">
+						<form id="searchForm" action="/product/page" method="get">
 						<select name="type">
 							<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
 							<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>제목</option>
@@ -111,6 +111,10 @@
 				</div>
 			</div>
 
+		
+
+
+
 
 				<div class='pull-right'>
 					<ul class="pagination">
@@ -123,13 +127,13 @@
 						<c:forEach var="num" begin="${pageMaker.startPage}"
 							end="${pageMaker.endPage}">
 							<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active" : ""} ">
-								<a href="${num}">${num}</a>
+								<a class="page-link" href="${num}">${num}</a>
 							</li>
 						</c:forEach>
 
 						<c:if test="${pageMaker.next}">
 							<li class="paginate_button next"><a
-								href="${pageMaker.endPage +1 }">Next</a></li>
+								href="${pageMaker.endPage +1}">Next</a></li>
 						</c:if>
 					<!-- Page310 위에 소스 코딩 끝 -->
 

@@ -15,8 +15,8 @@ public interface ProductMapper {
 	public void insert(ProductVO product);
 	public void insertSelectKey(ProductVO product);
 	public ProductVO read(Long pdNum);
-	public int delete(Long pdNum);
-	public int update(ProductVO product);
+	public void delete(Long pdNum);
+	public void update(ProductVO product);
 	public int getTotalCount(Criteria cri);
 	
 	public String getU_nameFromU_Email(String pdPathName);

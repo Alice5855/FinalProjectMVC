@@ -85,8 +85,9 @@
             </div>
         </section>
 
+<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
 
-		
+
 
 
 
@@ -147,6 +148,17 @@
 	</div>
 </div>
 <!-- /.row -->
+
+
+	
+
+
+
+
+
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -156,9 +156,18 @@ public class ProductController {
 	public String modify(ProductVO product, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt) {
 		log.info("modify ===== " + product);
 		
-		if (service.modify(product)) {
+//		if (service.modify(product)) {
+//			log.info("modify successfully done");
+//			ratt.addFlashAttribute("result", "success");
+//		}
+		
+		try {
+			service.modify(product);
 			log.info("modify successfully done");
 			ratt.addFlashAttribute("result", "success");
+		} catch (Exception e) {
+			System.out.println("수정 실패했데" + e.getMessage());
+			
 		}
 		// service.modify() method는 수정 여부를 boolean type으로 처리하므로
 		// 수정에 성공한 경우 true를 반환하여 if문을 실행한다
@@ -187,11 +196,19 @@ public class ProductController {
 		List<ProductAttachVO> attachList = service.getAttachList(pdNum);
 		// Added(page581)
 		
-		if (service.remove(pdNum)) {
-			deleteFiles(attachList);
-			// Added(page581)
-			
+//		if (service.remove(pdNum)) {
+//			deleteFiles(attachList);
+//			// Added(page581)
+//			
+//			ratt.addFlashAttribute("result", "success");
+//		}
+		
+		try {
+			service.remove(pdNum);
+//			deleteFiles(attachList);
 			ratt.addFlashAttribute("result", "success");
+		} catch (Exception e) {
+			System.out.println("삭제 안됐데 ㅋㅋ" + e.getMessage());
 		}
 		// service.remove() method는 수정 여부를 boolean type으로 처리하므로
 		// 삭제에 성공한 경우 true를 반환하여 if문을 실행한다
@@ -251,7 +268,7 @@ public class ProductController {
 //		return "userUpdate";
 //	}
 	
-	@GetMapping("/main")
+	@GetMapping("/")
 	public String home(Locale locale, Model model,Long pdNum) {
 		
 		
@@ -282,11 +299,7 @@ public class ProductController {
 		 
 		 
 		 
-//		 List<ProductAttachVO> productAttachList = new ArrayList<ProductAttachVO>();
-//		 productAttachList = service.selectAll(pdNum);
-		 
-		 
-//		 model.addAttribute("attachList", productAttachList);
+		
 		
 		return "index";
 	}
