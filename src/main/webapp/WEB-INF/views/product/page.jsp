@@ -2,128 +2,98 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="../header.jsp" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
-<%@include file="../header.jsp" %> 
-<style>
-	a {
-		color: black;
-	}
-	a:hover {
-		color: black;
-	}
-	#title {
-		font-size: 2.5rem;
-	}
-	#date {
-		font-size: 0.5rem;
-	}
-	.mImgWrapper{
-		/*width: 40%;*/
-		max-height: 40%;
-	}
-	.mImgWrapper img{
-		width: 100%;
-		object-fit: cover;
-	}
-	.modal-dialog{
-		max-width: 70% !important;
-	}
-	.b_Modal_Content {
-		padding: 3%;
-	}
-	#regBtn{
-		margin-right: 5% !important;
-	}
-	.mNumber {
-		font-size: 0.5rem;
-	}
-	.mEmail {
-		
-	}
-	.mTitle {
-		font-size: 2.5rem;
-	}
-	.mText {
-		margin-left: 5%;
-	}
-</style>
-<div class="row">
-	<div class="col-lg-12">
-		<h1 class="page-header">Tables</h1>
-	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			
-			<!-- Page250 위에 jsp 소스 코딩 시작 -->
-			<div class="panel-heading">
-				Board List Page
-				<button id='regBtn' type="button" class="btn btn-xs pull-right">Register
-					New Board</button>
+<!-- Carousel -->
+<div class="container py-3">
+	<div id="carousel" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-indicators">
+			<button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			<button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			<button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+		</div>
+		<div class="carousel-inner">
+			<div class="carousel-item active">
+				<img src="/resources/imgs/sample1.jpg" class="d-block w-100" alt="banner1">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>First slide label</h5>
+					<p>Some representative placeholder content for the first slide.</p>
+				</div>
 			</div>
-			<!-- Page250 위에 jsp 소스 코딩 끝 -->
+			<div class="carousel-item">
+				<img src="/resources/imgs/sample2.jpg" class="d-block w-100" alt="banner2">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Second slide label</h5>
+					<p>Some representative placeholder content for the second slide.</p>
+				</div>
+			</div>
+			<div class="carousel-item">
+				<img src="/resources/imgs/sample3.jpg" class="d-block w-100" alt="banner3">
+				<div class="carousel-caption d-none d-md-block">
+					<h5>Third slide label</h5>
+					<p>Some representative placeholder content for the third slide.</p>
+				</div>
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div>
+</div>
+<!-- Carousel -->
+
+
+
+
+
+
+<section class="py-5 border-top mt-5">
+	<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+		<c:forEach items="${list}" var="product">
 			
-			<!-- 목록 페이지 상단에 게시판 등록 작업 버튼 생성해 줌 -->
-			<!-- /.panel-heading -->
-			<div class="panel-body">
-				<!-- Page 237 소스 코딩 시작 -->
-				<table class="table table-striped table-bordered table-hover">
-					<thead>
-						<tr>
-							<th>#번호</th>
-							<th>제목</th>
-							<th>작성자</th>
-							<th>작성일</th>
-							<th>수정일</th>
-						</tr>
-					</thead>
-					<!-- Model에 담긴 데이터 출력 : '/board/list'를
-                                                                  실행했을 때 앞서 BoardController는 Model을 이용해서
-                                                                  게시물의 목록을 'list'라는 이름으로 담아서 전달했으므로
-			                              list.jsp에서는 이것을 출력합니다.
-                                                                 출력은 JSTL을 이용해서 처리합니다.-->
-					<c:forEach items="${list}" var="product">
-						<!-- Page254 아래 ~ Page255 위까지 소스 수정 코딩 시작 -->
-						<tr>
-							<td><c:out value="${product.pdNum}" /></td>
-							<!-- a 태그에 target="_blank" 속성을 적용하면 새창으로 글 상세 내용을 보여줌 -->	
-							<!-- Page 314 중간 jsp 소스 코딩할 때 아래 소스 주석 처리함 -->
-							<%-- <td><a href='/board/get?bno=<c:out value="${board.bno}"/>'><c:out value="${board.title}"/></a></td> --%>
+				<div class="col mb-5 mx-4">
+					<div class="card h-100">
+					    <!-- Product image-->
+					   
+ 					    <img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="..." /> 
+					    <!-- Product details-->
+					    <div class="card-body p-4">
+							<div class="text-center">
+							    <!-- Product name-->
+							    <h5 class="fw-bolder">
+							    	<a class='move' href='<c:out value="${product.pdNum}"/>'>
+										<c:out value="${product.pdName}" />
+									</a>
+									<fmt:formatDate pattern="yyyy-MM-dd"
+										value="${product.pdRegDate}" />
+							    </h5>
+							    <!-- Product price-->
+							    <c:out value="${product.pdPrice}원"/>
+							</div>
+					    </div>
+					    <!-- Product actions-->
+					    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+					        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+					    </div>
+					</div>
+				</div>
+			
+		
+		</c:forEach>
+	</div>
 
-							<!-- Page 314 아래 jsp 소스 코딩할 때 아래 소스 추가 코딩 시작 -->
-							<td><a class='move' href='<c:out value="${product.pdNum}"/>'>
-									<c:out value="${product.pdName}" />
-									<!-- Page 486 소스 코딩 추가 -->
-<%-- 									<b>[<c:out value="${board.replyCnt}" /> ]</b> --%>
-							</a></td>
-							<!-- Page 314 아래 jsp 소스 코딩할 때 아래 소스 추가 코딩 끝 -->
+</section>
 
-							<td><c:out value="${product.pdName}" /></td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${product.pdRegDate}" /></td>
-<%-- 							<td><fmt:formatDate pattern="yyyy-MM-dd" --%>
-<%-- 									value="${board.updateDate}" /></td> --%>
-						</tr>
-						<!-- Page254 아래 ~ Page255 위까지 소스 수정 코딩 끝 -->
-					</c:forEach>
-				</table>
-				<!-- Page 237 소스 코딩 끝 -->
-				
-				<!-- Page 340 jsp 소스 코딩 시작, Page 343 jsp 소스 코딩 수정 시작 -->
-				<!-- 화면에서 검색 기능 구현할 때 다음의 사항들을 주의해서 개발해 주시기 바랍니다.
-				첫번째로 페이지 번호가 파라미터로 유지되었던 것처럼 검색 조건과 키워드 역시 항상 화면 이동 시 같이 전송되어야 합니다.
-				두번째로 화면에서 검색 버튼을 클릭하면 새로 검색을 한다는 의미이므로
-				1페이지로 이동합니다.
-				세번째로 한글의 경우 GET방식으로 이동하는 경우 문제가 생길 수 있으므로
-				주의해야 합니다. -->
-				<div class="row">
+
+<div class="row">
 					<div class="col-lg-12">
-						<form id="searchForm" action="/board/list" method="get">
+						<form id="searchForm" action="/product/list" method="get">
 						<select name="type">
 							<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
 							<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>제목</option>
@@ -133,38 +103,15 @@
 							<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : '' }"/>>제목 or 작성자</option>
 							<option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' : '' }"/>>제목 or 내용 or 작성</option>
 						</select>
-					<input type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
-					<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
-					<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
-				<button class="btn btn-default">Search Now!</button>						
+						<input type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
+						<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
+						<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
+						<button class="btn btn-default">Search Now!</button>						
 					</form>
 				</div>
 			</div>
-			<!-- Page 340 jsp 소스 코딩 끝, Page 343 jsp 소스 코딩 수정 끝 -->
 
-				<!-- Page308 소스 코딩 시작 : Page310 진행할 때 주석 처리함 -->
-				<!-- http://localhost:port번호/board/list?pageNum=5 : 하단 Next 버튼 확인 -->
-				<!-- http://localhost:port번호/board/list?pageNum=5&amount=20 : 하단 페이지 전체 확인 -->
-			    <%-- 
-				<div class='pull-right'>
-					<ul class="pagination">
-						            <c:if test="${pageMaker.prev}">
-              <li class="paginate_button previous"><a href="#">Previous</a>
-              </li>
-            </c:if>
 
-            <c:forEach var="num" begin="${pageMaker.startPage}"
-              end="${pageMaker.endPage}">
-              <li class="paginate_button"><a href="#">${num}</a></li>
-            </c:forEach>
-
-            <c:if test="${pageMaker.next}">
-              <li class="paginate_button next"><a href="#">Next</a></li>
-            </c:if>
-            --%>
-            <!-- Page308 소스 코딩 끝 : Page310 진행할 때 주석 처리함 -->
-
-				<!-- Page310 위에 소스 코딩 시작 -->
 				<div class='pull-right'>
 					<ul class="pagination">
 					
@@ -188,11 +135,8 @@
 
 					</ul>
 				</div>
-				<!--  end Pagination -->
-			</div>
-
-			<!-- Page 311 위에 소스 코딩 시작 -->
-			<form id='actionForm' action="/product/list" method='get'>
+				
+			<form id='actionForm' action="/product/page" method='get'>
 				<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 				<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 			<!-- form 종료 태그 : Page 311 위에 소스 코딩 끝 -->
@@ -206,40 +150,13 @@
 
 			</form>
 
-			<!-- Page 248 소스 코딩 시작 -->
-			<!-- Modal  추가 -->
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-						</div>
-						<div class="modal-body">처리가 완료되었습니다.</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">Close</button>
-							<button type="button" class="btn btn-primary" data-dismiss="modal">Save
-								changes</button>
-						</div>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal-dialog -->
-			</div>
-			<!-- /.modal -->
-			<!-- Page 248 소스 코딩 끝 -->
-
-		</div>
-		<!--  end panel-body -->
-	</div>
-	<!-- end panel -->
-</div>
-</div>
-<!-- /.row -->
-
+<script type="text/javascript">
+	var myCarousel = document.querySelector('#carousel')
+	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle')), {
+	  interval: 3000,
+	  wrap: false
+	});
+</script>
 
 <script type="text/javascript">
 	// Page 246 소스 코딩 시작
@@ -350,6 +267,7 @@
 </script>
 
 
-        
 
-<%@include file="../footer.jsp" %>
+
+
+<%@ include file="../footer.jsp" %>

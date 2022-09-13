@@ -1,16 +1,19 @@
 package com.spring.market.product.controller;
 
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Locale;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,8 +44,10 @@ public class ProductController {
 	private ProductService service;
 	
 	
+	
+	
 //	private UserMapper usermapper;
-	 
+	
 	// register 입력 page와 등록 처리
 	// 등록 작업은 post method를 사용하나 get method로 입력 page를 '읽어올 수
 	// 있도록' BoardController에 method를 추가해야 함
@@ -55,15 +60,36 @@ public class ProductController {
 	public void list(Criteria cri, Model m) {
 	    List<ProductVO> productVOList = new ArrayList<ProductVO>();
 	    productVOList = service.getList(cri);
-	    
+	    for (ProductVO productVO : productVOList) {
+	    	productVO.setPdNum(productVO.getPdNum());
+	    }
 	    m.addAttribute("list", productVOList);
 		int total = service.getTotal(cri);
 		log.info("total ===== " + total);
 		m.addAttribute("pageMaker", new PageDTO(cri, total));
     }
     
+    public String getProductName(ProductVO productVO) {
+
+		return productVO.getPdName();
+	}
 	
 	// 첨부 파일 list를 읽어오기 위한 method
+	@GetMapping(value="/getAttachListZero", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ProductAttachVO>> getAttachListZero(Long pdNum) {
+		ProductAttachVO paVO = new ProductAttachVO();
+		List<ProductAttachVO> result = new ArrayList<ProductAttachVO>();
+		
+		paVO = service.getAttachList(pdNum).get(0);
+		result.add(paVO);
+		
+		log.info("getAttachList ===== " + pdNum);
+		return new ResponseEntity<List<ProductAttachVO>>(result, HttpStatus.OK);
+	}
+	
+	
+	
 	@GetMapping(value="/getAttachList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<ProductAttachVO>> getAttachList(Long pdNum) {
@@ -71,18 +97,22 @@ public class ProductController {
 		return new ResponseEntity<List<ProductAttachVO>>(service.getAttachList(pdNum), HttpStatus.OK);
 	}
 	
+	
+	
+	
 	// Page712 added need of authentication
 	// Only Logged in user can access
 //	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String register(ProductVO product, RedirectAttributes ratt) {
-		log.info("register ===== " + product);
+		log.info("register ===== " + product.getPdNum());
 		
 		// adding file upload feature
 		if (product.getAttachList() != null) {
-			product.getAttachList().forEach(attach -> log.info(attach));
+			product.getAttachList().forEach(attach -> log.info("프로덕트콘트롤라 조건문 실행중임??"+attach));
 		}
-		log.info(product.getAttachList());
+		
+		
 		service.register(product);
 		ratt.addFlashAttribute("result", product.getPdNum());
 		return "redirect:/product/list";
@@ -95,14 +125,27 @@ public class ProductController {
 	 * @GetMapping("/get")
 	 * public void get(@RequestParam("b_number") Long b_number, Model m) ...
 	 */
-	   @GetMapping({"/get", "/modify"})
-	   public void get(@RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, Model m, HttpServletRequest req) {
-	      // @ModelAttribute : 자동으로 모델에 데이터를 지정한 이름으로 담아줌
-	      // 어노테이션 없이도 parameter는 객체를 통해 전달이 되지만 명시적 지정을 위해
-	      // 어노테이션을 사용
-	      // log.info("get ===== " + b_number);
-	      m.addAttribute("product", service.get(pdNum));
-	   }
+	@GetMapping({"/get", "/modify"})
+	public void get(@RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, Model m) {
+		// @ModelAttribute : 자동으로 모델에 데이터를 지정한 이름으로 담아줌
+		// 어노테이션 없이도 parameter는 객체를 통해 전달이 되지만 명시적 지정을 위해
+		// 어노테이션을 사용
+		// log.info("get ===== " + b_number);
+		log.info("get or modify ===== " + pdNum);
+		m.addAttribute("product", service.get(pdNum));
+		m.addAttribute("productAttach", service.getAttachList(pdNum));
+	}
+	
+	// Modal로 vo를 전달하기 위하여 JSON으로 data를 전송. List.jsp에서 
+	// JS의 $.GetJSON을 활용하여 data를 Modal에 HTML 형태로 Parse
+	// 하여 글 내용을 표시함.
+	@GetMapping(value="/getModal", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<ProductVO> getModal(Long pdNum){
+		log.info("getModal ===== " + pdNum);
+		
+		return new ResponseEntity<ProductVO>(service.get(pdNum), HttpStatus.OK);
+	}
 
 	// Page712 added need of authentication
 	// Only if author of entry is username can access to modify
@@ -180,13 +223,13 @@ public class ProductController {
    
 		attachList.forEach(attach -> {
 			try {        
-				Path file  = Paths.get("C:\\Uploaded\\" + attach.getPdPath() + "\\" + attach.getPdUuid() + "_" + attach.getPdName());
+				Path file  = Paths.get("C:\\Uploaded\\" + attach.getPdFolder() + "\\" + attach.getPdUuid() + "_" + attach.getPdName());
    
 				Files.deleteIfExists(file);
    
 				if(Files.probeContentType(file).startsWith("image")) {
    
-					Path thumbNail = Paths.get("C:\\Uploaded\\" + attach.getPdPath() + "\\sthumb_" + attach.getPdUuid() + "_" + attach.getPdName());
+					Path thumbNail = Paths.get("C:\\Uploaded\\" + attach.getPdFolder() + "\\sthumb_" + attach.getPdUuid() + "_" + attach.getPdName());
              
 					Files.delete(thumbNail);
 				}
@@ -207,4 +250,58 @@ public class ProductController {
 //		
 //		return "userUpdate";
 //	}
+	
+	@GetMapping("/main")
+	public String home(Locale locale, Model model,Long pdNum) {
+		
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		//여기서부터 product 코딩
+		
+		
+		
+		List<ProductVO> productVOList = new ArrayList<ProductVO>();
+		Criteria cri = new Criteria();
+		productVOList = service.getList(cri);
+		
+		
+		
+		 for (ProductVO productVO : productVOList) {
+		    	productVO.setPdNum(productVO.getPdNum());
+		    }
+		 model.addAttribute("list", productVOList);
+		
+			int total = service.getTotal(cri);
+		 model.addAttribute("pageMaker", new PageDTO(cri, total));
+		 
+		 
+		 
+//		 List<ProductAttachVO> productAttachList = new ArrayList<ProductAttachVO>();
+//		 productAttachList = service.selectAll(pdNum);
+		 
+		 
+//		 model.addAttribute("attachList", productAttachList);
+		
+		return "index";
+	}
+	
+	@GetMapping("/page")
+	public void page(Criteria cri, Model m) {
+	    List<ProductVO> productVOList = new ArrayList<ProductVO>();
+	    productVOList = service.getList(cri);
+	    for (ProductVO productVO : productVOList) {
+	    	productVO.setPdNum(productVO.getPdNum());
+	    }
+	    m.addAttribute("list", productVOList);
+		int total = service.getTotal(cri);
+		log.info("total ===== " + total);
+		m.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+    }
 }

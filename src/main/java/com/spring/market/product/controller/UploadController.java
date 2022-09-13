@@ -10,6 +10,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.market.product.domain.AttachFileDTO;
+import com.spring.market.product.domain.ProductAttachVO;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -97,8 +100,8 @@ public class UploadController {
 	// @PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<AttachFileDTO>> uploadAjaxPost(MultipartFile[] uploadFile) {
-		List<AttachFileDTO> list = new ArrayList<AttachFileDTO>();
+	public ResponseEntity<List<ProductAttachVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
+		List<ProductAttachVO> list = new ArrayList<ProductAttachVO>();
 		// Added (page517)
 		
 	    log.info("=== Upload File Handle with Ajax ===");
@@ -116,7 +119,7 @@ public class UploadController {
 	    // year/month/day 경로에 저장됨
 	   
 	    for (MultipartFile multipartFile : uploadFile) {
-	    	AttachFileDTO attachDTO = new AttachFileDTO();
+	    	ProductAttachVO attachDTO = new ProductAttachVO();
 	    	// Added (page517)
 	   
 		    log.info("========================================");
@@ -150,7 +153,8 @@ public class UploadController {
 				attachDTO.setPdUuid(uuid.toString());
 				attachDTO.setPdFolder(getFolder());
 				// Added (page517)
-				log.info("attachDTO.getPdFolder() ===== " + attachDTO.getPdFolder());
+				
+				log.info(attachDTO.getPdPath());
 				
 				FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "sthmb_" + uploadFileName));
 				
@@ -159,13 +163,13 @@ public class UploadController {
 				// 100 x 100 size 'sthmb_filename' 의 thumbnail file 생성
 				 
 				thumbnail.close();
-				/*
-				String uploadLink = attachDTO.getPdFolder().toString().replaceAll("\\+", "/");
+				
+				String uploadLink = attachDTO.getPdFolder().toString().replaceAll("\\+", "/") + attachDTO.getPdUuid().toString()+ attachDTO.getPdName().toString();
 				attachDTO.setPdPath(uploadLink);
 				
 				
 				log.info("uploadLink ===== " + attachDTO.getPdFolder());
-				*/
+				
 				list.add(attachDTO);
 				// Added (page517)
 			} catch (Exception e) {
@@ -173,7 +177,7 @@ public class UploadController {
 			} // catch
 		    
 	    } // for
-	    return new ResponseEntity<List<AttachFileDTO>>(list, HttpStatus.OK);
+	    return new ResponseEntity<List<ProductAttachVO>>(list, HttpStatus.OK);
     } // uploadAjaxPost
 	
 	// Page 526 Thumbnail data transfer
@@ -192,7 +196,7 @@ public class UploadController {
 			HttpHeaders header = new HttpHeaders();
 			
 			header.add("Content-Type", Files.probeContentType(file.toPath()));
-			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
