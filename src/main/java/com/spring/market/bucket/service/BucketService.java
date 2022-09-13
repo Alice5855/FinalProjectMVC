@@ -15,5 +15,4 @@ public interface BucketService {
 	public ProductVO getBucketInfo(Long pdNum);
 	
 	public int getBucketCount(Long memNum);
-	
 }
