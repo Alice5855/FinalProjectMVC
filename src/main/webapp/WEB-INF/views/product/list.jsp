@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
-<%@include file="../header.jsp" %> 
+<%@include file="../includes/header.jsp" %> 
 <style>
 	a {
 		color: black;
@@ -281,6 +281,7 @@
 							// 모달창 관련 자바스크립트 소스 코딩(종료)
 						}
 						
+						
 						// }); Page 248 아래 자바스크립트 소스 코딩 끝
 
 						// Page 250 아래 자바스크립트 소스 코딩 시작
@@ -351,4 +352,4 @@
 
         
 
-<%@include file="../footer.jsp" %>
+<%@include file="../includes/footer.jsp" %>

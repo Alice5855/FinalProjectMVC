@@ -6,7 +6,7 @@
 
 	<insert id="insert">
 		insert into attach_product (pdUuid, pdFolder, pdName,pdPath,pdNum)
-		values (#{pdUuid}, replace(#{pdFolder}, '\', '/'), #{pdName},#{pdPath},#{pdNum})
+		values (#{pdUuid}, replace(#{pdFolder}, '\', '/'), #{pdName},replace(#{pdPath},'\', '/'),#{pdNum})
 	</insert>
 
 	<delete id="delete">
@@ -16,13 +16,13 @@
 	</delete>
 
 	<select id="findByPdNum"
-		resultType="com.spring.market.product.mapper.ProductAttachMapper">
+		resultType="com.spring.market.product.domain.ProductAttachVO">
 		select * from attach_product where pdNum = #{pdNum}
 	</select>
 
 	<delete id="deleteAll">
 
-		delete attach_product where pdName = #{pdName}
+		delete attach_product where pdNum = #{pdNum}
 
 	</delete>
 
@@ -31,6 +31,12 @@
 
 		select * from attach_product where pdFolder = to_char(sysdate -1 ,'yyyy\mm\dd')
 
+	</select>
+	
+	
+	
+	<select id="selectAll" resultType="com.spring.market.product.domain.ProductAttachVO">
+		select * from attach_product a INNER join product_table p on a.pdNum = p.pdNum where a.pdNum = #{pdNum};
 	</select>
 	
 </mapper>
