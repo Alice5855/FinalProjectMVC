@@ -23,6 +23,9 @@ public class ProductVO {
 	
 	
 	
+	private String pdPath; //FK from attach_product
+	
+	
 	private List<ProductAttachVO> attachList;
 	
 	

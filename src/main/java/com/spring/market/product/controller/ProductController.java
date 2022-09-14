@@ -1,10 +1,14 @@
 package com.spring.market.product.controller;
 
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -40,6 +44,8 @@ public class ProductController {
 	private ProductService service;
 	
 	
+	
+	
 //	private UserMapper usermapper;
 	
 	// register 입력 page와 등록 처리
@@ -69,12 +75,30 @@ public class ProductController {
 	}
 	
 	// 첨부 파일 list를 읽어오기 위한 method
+	@GetMapping(value="/getAttachListZero", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
+	@ResponseBody
+	public ResponseEntity<List<ProductAttachVO>> getAttachListZero(Long pdNum) {
+		ProductAttachVO paVO = new ProductAttachVO();
+		List<ProductAttachVO> result = new ArrayList<ProductAttachVO>();
+		
+		paVO = service.getAttachList(pdNum).get(0);
+		result.add(paVO);
+		
+		log.info("getAttachList ===== " + pdNum);
+		return new ResponseEntity<List<ProductAttachVO>>(result, HttpStatus.OK);
+	}
+	
+	
+	
 	@GetMapping(value="/getAttachList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<ProductAttachVO>> getAttachList(Long pdNum) {
 		log.info("getAttachList ===== " + pdNum);
 		return new ResponseEntity<List<ProductAttachVO>>(service.getAttachList(pdNum), HttpStatus.OK);
 	}
+	
+	
+	
 	
 	// Page712 added need of authentication
 	// Only Logged in user can access
@@ -108,7 +132,8 @@ public class ProductController {
 		// 어노테이션을 사용
 		// log.info("get ===== " + b_number);
 		log.info("get or modify ===== " + pdNum);
-		m.addAttribute("product", service.getRaw(pdNum));
+		m.addAttribute("product", service.get(pdNum));
+		m.addAttribute("productAttach", service.getAttachList(pdNum));
 	}
 	
 	// Modal로 vo를 전달하기 위하여 JSON으로 data를 전송. List.jsp에서 
@@ -131,9 +156,18 @@ public class ProductController {
 	public String modify(ProductVO product, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt) {
 		log.info("modify ===== " + product);
 		
-		if (service.modify(product)) {
+//		if (service.modify(product)) {
+//			log.info("modify successfully done");
+//			ratt.addFlashAttribute("result", "success");
+//		}
+		
+		try {
+			service.modify(product);
 			log.info("modify successfully done");
 			ratt.addFlashAttribute("result", "success");
+		} catch (Exception e) {
+			System.out.println("수정 실패했데" + e.getMessage());
+			
 		}
 		// service.modify() method는 수정 여부를 boolean type으로 처리하므로
 		// 수정에 성공한 경우 true를 반환하여 if문을 실행한다
@@ -162,11 +196,19 @@ public class ProductController {
 		List<ProductAttachVO> attachList = service.getAttachList(pdNum);
 		// Added(page581)
 		
-		if (service.remove(pdNum)) {
-			deleteFiles(attachList);
-			// Added(page581)
-			
+//		if (service.remove(pdNum)) {
+//			deleteFiles(attachList);
+//			// Added(page581)
+//			
+//			ratt.addFlashAttribute("result", "success");
+//		}
+		
+		try {
+			service.remove(pdNum);
+//			deleteFiles(attachList);
 			ratt.addFlashAttribute("result", "success");
+		} catch (Exception e) {
+			System.out.println("삭제 안됐데 ㅋㅋ" + e.getMessage());
 		}
 		// service.remove() method는 수정 여부를 boolean type으로 처리하므로
 		// 삭제에 성공한 경우 true를 반환하여 if문을 실행한다
@@ -225,4 +267,56 @@ public class ProductController {
 //		
 //		return "userUpdate";
 //	}
+	/*
+	@GetMapping("/")
+	public String home(Locale locale, Model model,Long pdNum) {
+		
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		//여기서부터 product 코딩
+		
+		
+		
+		List<ProductVO> productVOList = new ArrayList<ProductVO>();
+		Criteria cri = new Criteria();
+		productVOList = service.getList(cri);
+		
+		
+		
+		 for (ProductVO productVO : productVOList) {
+		    	productVO.setPdNum(productVO.getPdNum());
+		    }
+		 model.addAttribute("list", productVOList);
+		
+			int total = service.getTotal(cri);
+		 model.addAttribute("pageMaker", new PageDTO(cri, total));
+		 
+		 
+		 
+		
+		
+		return "index";
+	}
+	*/
+	
+	@GetMapping("/page")
+	public void page(Criteria cri, Model m) {
+	    List<ProductVO> productVOList = new ArrayList<ProductVO>();
+	    productVOList = service.getList(cri);
+	    for (ProductVO productVO : productVOList) {
+	    	productVO.setPdNum(productVO.getPdNum());
+	    }
+	    m.addAttribute("list", productVOList);
+		int total = service.getTotal(cri);
+		log.info("total ===== " + total);
+		m.addAttribute("pageMaker", new PageDTO(cri, total));
+		
+    }
+    
 }

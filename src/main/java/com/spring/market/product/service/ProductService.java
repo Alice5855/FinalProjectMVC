@@ -14,9 +14,9 @@ public interface ProductService {
 	// bno값으로 특정 게시물 정보를 가져옴
 	public ProductVO get(Long pdNum);
 	
-	public boolean modify(ProductVO product);
+	public void modify(ProductVO product);
 	
-	public boolean remove(Long pdNum);
+	public void remove(Long pdNum);
 	
 	// 전체 게시물 리스트를 가져옴
 	// public List<BoardVO> getList();
@@ -31,6 +31,8 @@ public interface ProductService {
 	
 //	public String getU_nameFromU_Email(String u_email);
 	public void setBoardImage(Long pdNum);
+	
+	public List<ProductAttachVO> selectAll(Long pdNum);
 
-	ProductVO getRaw(Long pdNum);
+//	public void attachGet(Long pdNum);
 }

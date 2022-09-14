@@ -1,5 +1,7 @@
 package com.spring.market.reply.domain;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -10,9 +12,11 @@ public class ReplyVO {
 	 * 1:n 관계로 구성되기 때문에 하나의 게시물에 여러개의 댓글을 추가하는 형태로 구성하고
 	 * redirect 없이 글 조회 화면에서 처리하기 때문에 Ajax를 통한 호출을 수행
 	 */
-	private Long rvnum;
-	private Long pdnum;
+	private Long rvNum;
+	private Long pdNum;
 	
-	private String rvtext;
-	private String memnickname; // reply author
+	private String rvText;
+	private String memNickname; // reply author
+	
+	private List<ReplyAttachVO> attachList;
 }

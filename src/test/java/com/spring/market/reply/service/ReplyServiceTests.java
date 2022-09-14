@@ -23,9 +23,9 @@ public class ReplyServiceTests {
 	@Test
 	public void testRegister() {
 		ReplyVO vo = new ReplyVO();
-		vo.setPdnum(2L);
-		vo.setMemnickname("Gregory123");
-		vo.setRvtext("Review");
+		vo.setPdNum(2L);
+		vo.setMemNickname("Gregory123");
+		vo.setRvText("Review");
 		
 		rservice.register(vo);
 	}
@@ -33,23 +33,23 @@ public class ReplyServiceTests {
 	
 	@Test
 	public void testGet() {
-		rservice.get(2L);
+		rservice.get(5L);
 	}
 	
 	@Test
 	public void testModify() {
 		ReplyVO vo = new ReplyVO();
-		vo.setRvnum(2L);
-		vo.setPdnum(2L);
-		vo.setMemnickname("Gregory123");
-		vo.setRvtext("Review modify");
+		vo.setRvNum(5L);
+		vo.setPdNum(5L);
+		vo.setMemNickname("Gregory123");
+		vo.setRvText("Review modify");
 		
 		rservice.modify(vo);
 	}
 	
 	@Test
 	public void testRemove() {
-		rservice.remove(2L);
+		rservice.remove(5L);
 	}
 	
 	@Test

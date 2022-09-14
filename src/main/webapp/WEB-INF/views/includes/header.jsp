@@ -1,268 +1,179 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!-- taglib for Security authentication -->
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<c:set var ="context"><%=request.getContextPath()%></c:set>
 <!DOCTYPE html>
-<html lang="ko">
-
+<html>
 <head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Welcome to Radit</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<title>Welcome to AniBucket</title>
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<!-- Bootstrap JS -->
+	<!--
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+	-->
+	<!-- Bootstrap Bundle -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	
-	<%--
-    <!-- MetisMenu CSS -->
-    <link href="${context}/resources/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
-    <!-- DataTables CSS -->
-    <link href="${context}/resources/vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="${context}/resources/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <link href="${context}/resources/dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="${context}/resources/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-	--%>
 	
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-	<style type="text/css">
-    	.ModalOn{
-    		display:none;
-    		position: fixed;
-    		top:50%;
-    		left:50%;
-    		z-index: 3;
-    	}
-    	
-    	#SignUPModal{
-    		position: fixed;
-    		top: 0;
-    		left: 0;
-    		bottom: 0;
-    		right: 0;
-    		background: rgba(0,0,0,0.8);
-    	}
-    	.ModalStyle{
-    		position: absolute;
-		   	top: calc(50vh - 200px);
-		    left: calc(50vw - 200px);
-		    background-color: white;
-		    display: block; 
-		    border-radius: 10px;
-		    width: 400px;
-		    height: 450px;
-    	}
-    	@media(max-width:720px){
-    		.ModalStyle{
-    			top: calc(50vh - 200px);
-		   		left: calc(50vw - 200px);
-    			width: 70%;
-    			margin-left: 20%;
-    		}
-    	}
-    	
-    	.imgWrapper{
-    		width: 250px;
-    		background-color: #646383;
-    	}
-    	.imgWrapper img{
-    		width: 100%;
-			object-fit: cover;
-    	}
-    	.hTitleBox{
-    		width: 90%;
-		    margin: 1em auto;
-		    height: 300px;
-		    margin-bottom: 1%;
-		    
-    	}
-    	.hTitle{
-    		height: 100%;
-			background-image: url(/resources/img/carina_nebula.jpg);
-			background-size: 100%;
-			-moz-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
-			-webkit-box-shadow: 1px 2px 3px rgba(0,0,0,.5);
-			box-shadow: 1px 2px 3px rgba(0,0,0,.5);
-    	}
-    	.hTitle h1{
-    		font-weight: bold;
-    		font-size: 3.5rem;
-    		padding-top: 3%;
-    		padding-left: 4%;
-    		color: white;
-    	}
+	<style>
+		/* https://fonts.google.com/specimen/Do+Hyeon?subset=korean (OFL) */
+		/* 'Do Hyeon', sans-serif; */
+		@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+		/* https://fonts.google.com/specimen/IBM+Plex+Sans+KR?subset=korean (OFL) */
+		/* 'IBM Plex Sans KR', sans-serif; */
+		@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;700&display=swap');
+		body {
+			padding-bottom: 20px;
+			font-family: 'IBM Plex Sans KR', sans-serif;
+		}
+		.font2 {
+			font-family: 'Do Hyeon', sans-serif;
+		}
+		.navbar {
+			margin-bottom: 20px;
+		}
+		.nav-scroller {
+		  position: relative;
+		  z-index: 2;
+		  height: 2.75rem;
+		  overflow-y: hidden;
+		}
+		.nav-scroller .nav {
+			display: flex;
+			flex-wrap: nowrap;
+			padding-bottom: 1rem;
+			margin-top: -1px;
+			overflow-x: auto;
+			text-align: center;
+			white-space: nowrap;
+			-webkit-overflow-scrolling: touch;
+		}
+		.btn-outline-primary {
+		    --bs-btn-color: #FF7373;
+		    --bs-btn-border-color: #FF7373;
+		    --bs-btn-hover-color: #6FEDD6;
+		    --bs-btn-hover-bg: #FF7373;
+		    --bs-btn-hover-border-color: #FF7373;
+		    --bs-btn-focus-shadow-rgb: 33,37,41;
+		    --bs-btn-active-color: #6FEDD6;
+		    --bs-btn-active-bg: #FF7373;
+		    --bs-btn-active-border-color: #FF7373;
+		    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+		    --bs-btn-disabled-color: #FF7373;
+		    --bs-btn-disabled-bg: transparent;
+		    --bs-btn-disabled-border-color: #FF7373;
+		    --bs-gradient: none;
+		}
+		.topbar{
+			z-index: 1031;
+		}
+		.btn-outline-primary2 {
+		    --bs-btn-color: #FF7373;
+		    --bs-btn-border-color: #FF7373;
+		    --bs-btn-hover-color: #6FEDD6;
+		    --bs-btn-hover-bg: #FF7373;
+		    --bs-btn-hover-border-color: #FF7373;
+		    --bs-btn-focus-shadow-rgb: 33,37,41;
+		    --bs-btn-active-color: #6FEDD6;
+		    --bs-btn-active-bg: #FF7373;
+		    --bs-btn-active-border-color: #FF7373;
+		    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+		    --bs-btn-disabled-color: #FF7373;
+		    --bs-btn-disabled-bg: transparent;
+		    --bs-btn-disabled-border-color: #FF7373;
+		    --bs-gradient: none;
+		}
+		.filler {
+			display: block;
+			width: 80%;
+			/* gotta change if you wanna use nav-link */
+		}
+		.nav-text {
+			color: #FF4A4A;
+		}
+		.nav-text:focus, .nav-text:hover {
+			color: #FF7373;
+		}
+		.ddmenu:focus, .ddmenu:hover {
+			background-color: rgba(255,255,255,0.7) !important;
+		}
     </style>
-
+    
 </head>
-
 <body>
 
-<!-- 	<section id="SignUPModal" class="ModalOff ModalOn">
-		<form action="/user/regist" method="post" class="ModalStyle">
-				
-					이메일 : <br />
-<%-- 					<input id="title_box" type="text" name="u_Email" value="${Param.u_Email}">  --%>
-					<input type="email" placeholder="Email" name="u_Email" id="mail" maxlength="30"  required="required">
-					<div id="error_mail" class="result-email result-check"></div>
-					
-				
-				<p>
-					닉네임 : <br />
-						<input id="Name_box" name="u_Name"  required="required">
-				</p>				
-				<p>
-					비밀번호 : <br />
-					<input id="Password_box" type="password" name="u_pw"  required="required">
-				</p>				
-				<p>
-					주소 : <br />
-<%-- 					<input id="Address_box" name="u_Address" value="${Param.u_Address}"> --%>
-						<input type="text" id="address_kakao" name="u_Address" readonly ="readonly" value="${Param.u_Address}" required="required"/>
-						<input id="Address_box" name="u_Address" required="required" placeholder="상세 주소">
-						
-				</p>				
-				<p>
-					성별 : <br />
-<%-- 				<input id="Gender_box" name="u_gender" value="${Param.u_gender}"> --%>
-				  	<select name= "u_gender" required="required">
-				  		<option value="Male">Male
-				  		<option value="Female">Female
-				  		<option value="Non-Binary">Non-Binary
-				  		<option value="Attack-Helicopter">Attack-Helicopter
-				  	
-				  	</select>
-				</p>				
-				<p>
-					프로필이미지 : <br />
-					<select name= "u_profile_path" required="required">
-				  		<option value="Image1">이미지1
-				  		<option value="Image2">이미지2
-				  		<option value="Image3">이미지3
-				  	
-			  		</select>
-				</p>
-				<input type="hidden" name="${_csrf.parameterName}"
-								value="${_csrf.token}" />				
-							
-				<button type="submit">회원가입</button>
-				<button type="button" class="ModalClose" onclick="">취소</button>		
-		
-		</form>
-		
-	 </section>
-	 
-	  -->
-	 
-    <header class="py-3 mb-3 border-bottom">
-		<div class="container-fluid d-grid gap-3 align-items-center" style="grid-template-columns: 1fr 2fr;">
-			<div class="col-4">
-				<a href="/product/list" class="d-flex align-items-center col-lg-4 mb-2 mb-lg-0 link-dark text-decoration-none" aria-expanded="false">
-					<!-- Logo -->
-					<div class="imgWrapper rounded">
-						<img src="${Context}/resources/img/logoh.png" alt="Logo">
-					</div>
-				</a>
-			</div>
-			
-			<div class="d-flex align-items-center">
-				<!-- Search form -->
-				<form class="me-3" id="searchForm" style="width: 100%;" action="${context}/board/list" method="get">
-           			<select name="type" class="form-select" style="width: 30% !important;">
-           				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : ''}"/>> </option>
-           				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : ''}"/>>제목</option>
-           				<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : ''}"/>>내용</option>
-           				<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : ''}"/>>글쓴이</option>
-           				<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' : ''}"/>>제목, 내용</option>
-           				<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : ''}"/>>제목, 글쓴이</option>
-           				<option value="CW" <c:out value="${pageMaker.cri.type eq 'CW' ? 'selected' : ''}"/>>내용, 글쓴이</option>
-           				<option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' : ''}"/>>제목, 내용, 글쓴이</option>
-           			</select>
-           			<input class="form-control" style="width: 45% !important;" type="text" name="keyword" value="<c:out value='${pageMaker.cri.keyword}'/>" />
-           			<input type="hidden" name="pageNum" value="<c:out value='${pageMaker.cri.pageNum}'/>" />
-           			<input type="hidden" name="amount" value="<c:out value='${pageMaker.cri.amount}'/>" />
-           			<button class="btn btn-secondary" style="width: 25% !important">검색</button>
-           		</form>
-           		
-				<div class="flex-shrink-0 dropdown">
-					<!-- Profile picture -->
-					<a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-						<img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-					</a>
-					<ul class="dropdown-menu text-small shadow">
-						<!-- c:if not logged in -->
-						<li><a class="dropdown-item signIn" href="/bucket">장바구니</a></li>
-						<li><a class="dropdown-item signIn" href="/customLogin">로그인</a></li>
-						<li><a class="dropdown-item signUp" href="#">회원가입</a></li>
-						<!-- c:if logged in -->
-						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item userUpdate" href="userUpdate.do">설정</a></li>
-						<li><a class="dropdown-item SignOut" href="/customLogout">로그아웃</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</header>
-
-	<div class="container-fluid">
-	    <div class="col-lg-12 hTitleBox">
-	    	<div class="hTitle rounded">
-	        	<h1>/r/Radit</h1>
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-lg topbar bg-light">
+	    <div class="container-fluid px-4">
+	        <a class="navbar-brand" href="/">
+	        	<img class="img-fluid" alt="Logo" src="/resources/imgs/AniBucket-1.png" width="90px">
+	        </a>
+	        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	        	<div class="filler"></div>
+	            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4 me-auto">
+	            	<!--
+	                <li class="nav-item"><a class="nav-link" aria-current="page" href="#!">상품</a></li>
+	                <li class="nav-item"><a class="nav-link" href="#!">장동이</a></li>
+	                -->
+	                <li class="nav-item dropdown">
+	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
+	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	                        <li><a class="dropdown-item" href="#!">로그인</a></li>
+	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        <li><hr class="dropdown-divider" /></li>
+	                        <li><a class="dropdown-item" href="#!">회원가입</a></li>
+	                    </ul>
+	                </li>
+	            </ul>
+	            <form class="d-flex">
+	                <button class="btn btn-outline-primary" type="submit">
+	                    <i class="bi-cart-fill me-1"></i>
+						<span class="bucket">장동이</span>
+	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
+	                </button>
+	            </form>
 	        </div>
 	    </div>
-	    <!-- /.col-lg-12 -->
-	</div>
-	<!-- /.row -->
-
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<!-- js contextpath ctx -->
+	</nav>
+	
+	<!-- fixed transparent navigation -->
+	<nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(255,255,255,0.8);">
+	    <div class="container-fluid px-4">
+	        <a class="navbar-brand" href="/">
+	        	<img class="img-fluid" alt="Logo" src="/resources/imgs/AniBucket-1.png" width="80px">
+	        </a>
+	        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	        	<div class="filler"></div>
+	            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4 me-auto">
+	            	<!--
+	                <li class="nav-item"><a class="nav-link nav-text" aria-current="page" href="#!">상품</a></li>
+	                <li class="nav-item"><a class="nav-link nav-text" href="#!">장동이</a></li>
+	                -->
+	                <li class="nav-item dropdown">
+	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
+	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(255,255,255,0.8);">
+	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그인</a></li>
+	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그아웃</a></li>
+	                        <li><hr class="dropdown-divider" /></li>
+	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">회원가입</a></li>
+	                    </ul>
+	                </li>
+	            </ul>
+	            <form class="d-flex">
+	                <button class="btn btn-outline-primary2" type="submit">
+	                    <i class="bi-cart-fill me-1"></i>
+						<span class="bucket2">장동이</span>
+	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
+	                </button>
+	            </form>
+	        </div>
+	    </div>
+	</nav>
+	
 <script type="text/javascript" charset="utf-8">
 	sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
-</script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="/resources/js/UserRegist.js"></script>
-<script type="text/javascript">
-	$(".signUp").on("click", function () {
-		$("#SignUPModal").css("display", "block")
-	
-	})
-	
-	$(".ModalClose").on("click" , function () {
-		$("#SignUPModal").css("display", "none")
-		
-	});
-	
-	$(".userUpdate").on("click", function () {
-		$("#updateModal").css("display", "block")
-
-	});
-
-	var modalModBtn = $("#modalModBtn");
-	var userUpdateBtn = $(".userUpdate");
-	
-	if($(location).attr('href').startsWith('http://localhost:8089/board/list')){
-		$("#searchForm").css("display", "flex");
-	} else {
-		$("#searchForm").css("display", "none");
-	}
-	
-	console.log($(location).attr('href'));
 </script>
