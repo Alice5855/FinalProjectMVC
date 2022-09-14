@@ -5,7 +5,7 @@
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 <link href="/resources/css/get.css" rel="stylesheet" />
 
-<%@include file="../header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
 
@@ -485,4 +485,4 @@
 	}); // document ready
 </script>
  
-<%@include file="../footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>

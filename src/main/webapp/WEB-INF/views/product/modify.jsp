@@ -6,7 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
-<%@include file="../header.jsp"%>
+<%@include file="../includes/header.jsp"%>
 
 <style>
 		.uploadResult {
@@ -376,6 +376,75 @@
 	});
 </script>  
  -->
+ 
+ 
+ 
+ <script type="text/javascript">
+	$(document).ready(function(){
+		(function(){
+			var pdNum = '<c:out value="${product.pdNum}"/>';
+			
+		    $.getJSON("/product/getAttachList", {pdNum: pdNum}, function(arr){
+				console.log(arr);
+				
+				var str = "";
+			    
+				$(arr).each(function(i, attach){
+// 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
+					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
+					
+					str += "<li data-pdFolder='" + attach.pdFolder + "' data-pdUuid='" + attach.pdUuid + "' data-pdName='" + attach.pdName + "' ><div>";
+					str += "<img src='/product/display?fileName=" + fileCallPath + "'>";
+					str += "</div>";
+					str += "</li>";
+					
+				});
+				
+				$(".uploadResult ul").html(str);
+			    
+			}); // getjson
+			
+		})(); // function
+		
+		$(".uploadResult").on("click","li", function(e){
+			console.log("view image");
+			
+			var liObj = $(this);
+			
+			var path = encodeURIComponent(liObj.data("pdFolder") + "/" + liObj.data("pdUuid") + "_" + liObj.data("pdName"));
+			
+			// if(liObj.data("type")){
+			showImage(path.replace(new RegExp(/\\/g),"/"));
+			/*
+			} else {
+				//download 
+				self.location ="/download?fileName="+path
+			}
+			*/
+		});
+		
+		function showImage(fileCallPath){
+			console.log(fileCallPath);
+			
+			$(".bigPictureWrapper").css("display","flex").show();
+			
+			$(".bigPicture")
+			.html("<img src='/display?fileName=" + fileCallPath + "' >")
+			.animate({width:'100%', height: '100%'}, 150);
+		}
+		
+		$(".bigPictureWrapper").on("click", function(e){
+			$(".bigPicture").animate({width:'0%', height: '0%'}, 150);
+			setTimeout(function(){
+				$('.bigPictureWrapper').hide();
+			}, 150);
+		});
+	}); // document ready
+</script>
+ 
+ 
+ 
+ 
 
 <script type="text/javascript">
    // file upload handle
@@ -519,4 +588,4 @@
       
    }); // document ready
 </script> 
-<%@include file="../footer.jsp"%>
+<%@include file="../includes/footer.jsp"%>
