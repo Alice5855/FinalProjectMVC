@@ -89,14 +89,46 @@ public class ProductServiceImpl implements ProductService {
 	// 첨부 file과 게시글의 수정이 함께 이루어지도록 Transactional 적용
 	@Transactional
 	@Override
-	public boolean modify(ProductVO product) {
+	public void modify(ProductVO product) {
 		log.info("Modify ===== Modify entry " + product);
 		
 //		attachMapper.deleteAll(product.getPdNum());
 		
 		log.info("product pdNum=====" + product.getPdNum());
 		
-		boolean modifyResult = mapper.update(product) == 1;
+		Long EpdNum = product.getPdNum();
+		
+		product.setPdNum(EpdNum);
+		
+//		attachMapper.deleteAll(product.getPdNum());
+		
+		
+//		mapper.delete(product.getPdNum());
+		mapper.update(product);
+		
+		
+		
+		
+		
+		
+		product.getAttachList().forEach(attach -> {
+			
+			attach.setPdNum(product.getPdNum());
+
+			
+//			attach.setPdPath(attach.getPdFolder().replaceAll("\\+", "/") + "/" + attach.getPdUuid() + "_" + attach.getPdName());
+			attach.setPdPath(attach.getPdFolder().replace('\\', '/')+ "/" + attach.getPdUuid() + "_" + attach.getPdName());
+			System.out.println("확인 실행 됐냐 어태치 PdPath : " + attach.getPdPath());
+			attachMapper.insert(attach);
+			
+			product.setPdPath(attach.getPdPath());
+			mapper.inserpdPath(product);
+				
+			
+			
+			
+		});
+		
 		
 //		if (modifyResult && product.getAttachList() != null && product.getAttachList().size() > 0) {
 //			product.getAttachList().forEach(attach -> {
@@ -106,7 +138,7 @@ public class ProductServiceImpl implements ProductService {
 //		}
 //		mapper.setBoardImage(product.getPdNum());
 		
-		return modifyResult;
+		
 		// 첨부file은 수정이 아닌, 기존의 file data를 삭제하고 새로운 file을 upload
 		// 하는 식으로 수행된다
 		
@@ -118,11 +150,13 @@ public class ProductServiceImpl implements ProductService {
 	// 게시글과 file이 같이 삭제되도록 Transaction 적용
 	@Transactional
 	@Override
-	public boolean remove(Long pdNum) {
+	public void remove(Long pdNum) {
 		log.info("remove ===== Remove entry " + pdNum);
 //		attachMapper.deleteAll(pdNum);
 		// 첨부된 file 일괄 삭제
-		return mapper.delete(pdNum) == 1;
+//		return mapper.delete(pdNum) == 1;
+		attachMapper.deleteAll(pdNum);
+		mapper.delete(pdNum);
 		// 수정이 정상적으로 이루어 지면 true 값이 return됨
 		// (mapper.delete()에서 1을 반환함)
 	}

@@ -22,7 +22,7 @@
 
 	<delete id="deleteAll">
 
-		delete attach_product where pdName = #{pdName}
+		delete attach_product where pdNum = #{pdNum}
 
 	</delete>
 

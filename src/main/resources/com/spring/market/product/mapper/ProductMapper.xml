@@ -27,7 +27,7 @@
 	
 	<insert id="insert">
 		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, pdRegDate)
-		values(seq_product.nextval, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit}, sysdate)
+		values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit}, sysdate)
 	</insert>
 	
 	<insert id="insertSelectKey">
@@ -48,6 +48,8 @@
 	<update id="update">
 		update Product_Table set pdName = #{pdName}, pdPrice = #{pdPrice}, pdStock = #{pdStock}, pdKeyword = #{pdKeyword} where pdNum = #{pdNum}
 	</update>
+	
+	
 	
 	<select id="getTotalCount" resultType="int">
 		<![CDATA[

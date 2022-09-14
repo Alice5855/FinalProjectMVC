@@ -140,13 +140,18 @@
 <%-- 			        <sec:authorize access="isAuthenticated()"> --%>
 <%-- 				        <c:if test="${pinfo.username eq board.u_email}"> --%>
 				        
-							<button type="submit"  class="btn btn-secondary">수정</button>
-							<button type="submit"  class="btn btn-danger">삭제</button>
+							<button type="submit" data-oper = 'modify' class="btn btn-secondary">수정</button>
+							<button type="submit" data-oper = 'remove' class="btn btn-secondary">삭제</button>
+							
 							
 <%-- 						</c:if> --%>
 <%-- 			        </sec:authorize> --%>
 			        
 					<button type="submit" data-oper='list' class="btn btn-info">리스트</button>
+				</form>
+				
+				<form> 
+				
 				</form>
 	
 		    </div>
@@ -164,7 +169,7 @@
 		
 	</div>
 </div>
-<!-- 
+ 
 <div class="row container-fluid">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
@@ -188,7 +193,7 @@
 	
 </div> 
 
- -->
+
 
 
 <!-- /.row -->
@@ -198,7 +203,7 @@
   crossorigin="anonymous"></script>
 
 
-<!-- 
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form");
@@ -209,34 +214,35 @@
 			
 			var operation = $(this).data("oper");
 			
-			console.log(operation);
+			console.log("오퍼레이션이 뭔데요 ㅋㅋ" + operation);
+			
 			
 			if(operation === 'remove'){
 				formObj.attr("action", "/product/remove");
 			
 			} else if(operation === 'list'){
 				//move to list
-				formObj.attr("action", "/product/list").attr("method","get");
+				formObj.attr("action", "/product/main").attr("method","get");
 			  
 			} else if(operation === 'modify'){
 				
 			    
 				console.log("submit clicked");
 				
-// 				var str = "";
+				var str = "";
 				
-// 				 $(".uploadResult ul li").each(function(i, obj){
+ 				 $(".uploadResult ul li").each(function(i, obj){
 					
-// 					var jobj = $(obj);
+ 					var jobj = $(obj);
 					
-// 					console.dir(jobj);
+ 					console.dir(jobj);
 					
-// 					str += "<input type='hidden' name='attachList[" + i + "].b_fileName' value='" + jobj.data("filename") + "'>";
-// 					str += "<input type='hidden' name='attachList[" + i + "].b_uuid' value='" + jobj.data("uuid") + "'>";
-// 					str += "<input type='hidden' name='attachList[" + i + "].b_uploadPath' value='" + jobj.data("path") + "'>";
+ 					str += "<input type='hidden' name='attachList[" + i + "].b_fileName' value='" + jobj.data("filename") + "'>";
+ 					str += "<input type='hidden' name='attachList[" + i + "].b_uuid' value='" + jobj.data("uuid") + "'>";
+ 					str += "<input type='hidden' name='attachList[" + i + "].b_uploadPath' value='" + jobj.data("path") + "'>";
 
-// 				});
-// 				formObj.append(str).submit();
+				});
+ 				formObj.append(str).submit();
 				formObj.submit();
 			}
 		
@@ -245,7 +251,7 @@
 
 	}); 
 </script>
-  -->
+
 <!-- 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -368,6 +374,218 @@
 		}
 	
 	});
-</script>  -->
+</script>  
+ -->
+ 
+ 
+ 
+ <script type="text/javascript">
+	$(document).ready(function(){
+		(function(){
+			var pdNum = '<c:out value="${product.pdNum}"/>';
+			
+		    $.getJSON("/product/getAttachList", {pdNum: pdNum}, function(arr){
+				console.log(arr);
+				
+				var str = "";
+			    
+				$(arr).each(function(i, attach){
+// 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
+					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
+					
+					str += "<li data-pdFolder='" + attach.pdFolder + "' data-pdUuid='" + attach.pdUuid + "' data-pdName='" + attach.pdName + "' ><div>";
+					str += "<img src='/product/display?fileName=" + fileCallPath + "'>";
+					str += "</div>";
+					str += "</li>";
+					
+				});
+				
+				$(".uploadResult ul").html(str);
+			    
+			}); // getjson
+			
+		})(); // function
+		
+		$(".uploadResult").on("click","li", function(e){
+			console.log("view image");
+			
+			var liObj = $(this);
+			
+			var path = encodeURIComponent(liObj.data("pdFolder") + "/" + liObj.data("pdUuid") + "_" + liObj.data("pdName"));
+			
+			// if(liObj.data("type")){
+			showImage(path.replace(new RegExp(/\\/g),"/"));
+			/*
+			} else {
+				//download 
+				self.location ="/download?fileName="+path
+			}
+			*/
+		});
+		
+		function showImage(fileCallPath){
+			console.log(fileCallPath);
+			
+			$(".bigPictureWrapper").css("display","flex").show();
+			
+			$(".bigPicture")
+			.html("<img src='/display?fileName=" + fileCallPath + "' >")
+			.animate({width:'100%', height: '100%'}, 150);
+		}
+		
+		$(".bigPictureWrapper").on("click", function(e){
+			$(".bigPicture").animate({width:'0%', height: '0%'}, 150);
+			setTimeout(function(){
+				$('.bigPictureWrapper').hide();
+			}, 150);
+		});
+	}); // document ready
+</script>
+ 
+ 
+ 
+ 
 
+<script type="text/javascript">
+   // file upload handle
+   $(document).ready(function(e){
+      var formObj = $("form[role='form']");
+      
+      $("button[type='submit']").on("click", function(e){
+         e.preventDefault();
+         console.log("Submit Button Clicked");
+         
+         // Page564 
+         var str = "";
+            
+         $(".uploadResult ul li").each(function(i, obj){
+            var jobj = $(obj);
+            
+            console.dir(jobj);
+            console.log("===========================");
+            console.log(jobj.data("filename"));
+            
+            str += "<input type='hidden' name='attachList[" + i + "].pdName' value='" + jobj.data("filename") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdUuid' value='" + jobj.data("uuid") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdFolder' value='" + jobj.data("path") + "'>";
+            str += "<input type='hidden' name='attachList[" + i + "].pdPath' value='" + jobj.data("link") + "'>";
+         }); // uploadResult ul li.each func
+         console.log(str);
+         formObj.append(str).submit();
+      }); // submit button on click
+      
+      var regex = new RegExp("(.*?)\.(jpg|jpeg|gif|png|bmp|webp)$");
+      var maxSize = 5242880; // 5MB
+      
+      var formFile = $("input[type='file']");
+      
+	
+      function checkExtension(fileName, fileSize) {
+         if(fileSize >= (maxSize * 4)) { // Up to 20MB
+            alert("업로드 파일은 20MB를 초과할 수 없습니다");
+            return false;
+         }
+         if(!regex.test(fileName)){
+            // RegEx(정규표현식)으로 file의 이름을 검증
+            alert("올바르지 않은 유형의 파일입니다");
+            return false;
+         }
+         return true;
+      };
+      
+      // Page 721 : CSRF token을 Header에 전달하기 위하여 변수선언. ajax
+      // 에서 data 전달 시 token과 headername을 함께 전달하게 된다
+      var csrfHeaderName ="${_csrf.headerName}"; 
+      var csrfTokenValue="${_csrf.token}";
+      
+      $("input[type='file']").change(function(e){
+        
+		var formData = new FormData();
+		var inputFile = $("input[name='uploadFile']");
+		var files = inputFile[0].files;
+		
+		for(var i = 0; i < files.length; i++){
+			
+			console.log(files[i]);
+			
+			if(!checkExtension(files[i].name, files[i].size) ){
+				return false;
+			}
+			
+			formData.append("uploadFile", files[i]);
+			
+		}
+         
+         $.ajax({
+            url: '/product/uploadAjaxAction',
+            processData: false, 
+            contentType: false,
+            /*
+            beforeSend: function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            },
+            */
+            // csrf token을 data 전송 전에 header로 전송
+            data: formData,
+            type: 'POST',
+            dataType:'json',
+            success: function(result){
+               console.log(result);
+               showUploadResult(result);
+            }
+         }); // ajax
+       }); // input.change
+       
+      function showUploadResult(uploadResultArr){
+         if(!uploadResultArr || uploadResultArr.length == 0){
+            return;
+         }
+          
+         var uploadUL = $(".uploadResult ul");
+         
+         var str = "";
+         
+         $(uploadResultArr).each(function(i, obj){
+           	var filePath = obj.pdFolder + "/sthmb_" + obj.pdUuid + "_" + obj.pdName;
+           	var fileLink = filePath.replace(new RegExp(/\\/g),"/");
+			
+			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
+			str += "<span> "+ obj.pdName + "</span>";
+			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
+			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
+			str += "</div></li>";
+           }); // uploadResultArr.each
+         uploadUL.append(str);
+      } // showUploadResult func
+      
+      // delete btn handle
+      $(".uploadResult").on("click", "button", function(e){
+         
+         console.log("delete file");
+         
+         var targetFile = $(this).data("file");
+         // var type = $(this).data("type");
+         
+         var targetLi = $(this).closest("li");
+         
+         $.ajax({
+            url: '/product/deleteFile',
+            beforeSend: function(xhr){
+               xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            },
+            // csrf token을 data 전송 전에 header로 전송
+            data: {fileName: targetFile},
+            dataType:'text',
+            type: 'POST',
+            success: function(result){
+               alert(result);
+               
+               targetLi.remove();
+               // ListItem을 삭제하여 업로드한 file이 보이지 않도록 함
+            }
+         }); //$.ajax
+      }); // uploadResult.onclick func
+      
+   }); // document ready
+</script> 
 <%@include file="../includes/footer.jsp"%>
