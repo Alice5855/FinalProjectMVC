@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.market.purchase.mapper.PurchaseMapper">
+	
+	<insert id="registerPurchase">
+		insert into purchase_table (memnum, pcnum, pcaddress, pctel, pdnum1, pdnum2, pdnum3, pdnum4, pdnum5, pdnum6, pdnum7, pdnum8, pdnum9, pdnum10) 
+		values (#{memNum}, SEQ_PURCHASE.nextval, #{pcAddress},#{pcTel}, #{pdNum1}, #{pdNum2}, #{pdNum3}, #{pdNum4}, #{pdNum5}, #{pdNum6}, #{pdNum7}, #{pdNum8}, #{pdNum9}, #{pdNum10})
+	</insert>
+	
+</mapper>

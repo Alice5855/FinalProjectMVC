@@ -10,29 +10,33 @@
 	<result property="memEmail" column="memEmail"/>	
 	<result property="memNickname" column="memNickname"/>	
 	<result property="memPw" column="memPw"/>	
-	<result property="memAd" column="memAd"/>	
-	<result property="memPimg" column="memPimg"/>
+	<result property="memAd" column="memAd"/>
+	<result property="memAddetail" column="memAddetail"/>
 	<result property="memGender" column="memGender"/>
 	<result property="memPh" column="memPh"/>
+	<result property="ChangeName" column="ChangeName"/>
 	<collection property="memAuth" resultMap="authMap"></collection>	
 </resultMap>
 
 
-<resultMap type="com.spring.market.security.model.Auth" id="MemAuthMap">
+
+<resultMap type="com.spring.market.security.model.Auth" id="authMap">
 	<result property="memAuth" column="memAuth"/>
 	<result property="memNum" column="memNum"/>
 </resultMap>
-
+	
+	
+	<select id="getSeq" resultType="Long">
+			select seq_member.nextval from dual
+	</select>
+	
 
 	<insert id="signup">
-		<selectKey keyProperty="memNum" order="BEFORE" resultType="long">
-			select seq_member.nextval from dual
-		</selectKey>
-		insert into membertable(memNum, memName, memEmail, memNickname, memPw, memAd, memPimg, memGender, memPh) values(#{memNum}, #{memName}, #{memEmail}, #{memNickname} , #{memPw}, #{memAd}, #{memPimg}, #{memGender}, #{memPh})
+		insert into membertable(memNum, memName, memEmail, memNickname, memPw, memAd, memAddetail, memGender, memPh) values(#{memNum}, #{memName}, #{memEmail}, #{memNickname} , #{memPw}, #{memAd}, #{memAddetail}, #{memGender}, #{memPh})
 	</insert>
 	
 	<update id="update">
-		update membertable set memNickname = #{memNickname}, memPw = #{memPw}, memAd = #{memAd}, memPimg = #{memPimg}, memGender = #{memGender} where memNum = #{memNum}
+		update membertable set memName = #{memName}, memNickname = #{memNickname}, memAd = #{memAd}, memAddetail = #{memAddetail}, memGender = #{memGender}, memPh = #{memPh} where memNum = #{memNum}
 	
 	</update>
 	
@@ -42,14 +46,36 @@
 	
 	<select id="read" resultMap="MemberMap">
 		SELECT 
-		  mt.memNum, memName, memEmail, memPw, memAd, memPimg, memGender, memPh, memAuth
+		  mt.memNum, memName, memNickname, memPw, memAd, memGender, memPh, memAuth, memEmail, memAddetail
 		FROM 
-		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNickname = Auth.memNickname 
-		WHERE mt.memNickname = #{memNickname} 
+		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNum = Auth.memNum 
+		WHERE mt.memNum = #{memNum} 
+	</select>
+	
+	<select id="findByMemberEmail" resultMap ="MemberMap">
+		SELECT 
+		  mt.memNum, memName, memNickname, memPw, memAd, memGender, memPh, memAuth, memEmail, memAddetail
+		FROM 
+		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNum = Auth.memNum 
+		WHERE mt.memEmail = #{memEmail} 
+				
+	</select>
+	
+	<insert id="insertProfile" >
+		insert into Member_PROFILE(File_no, memNum, ChangeName) Values(Profile_seq.nextval, #{memNum}, #{ChangeName})
+	</insert>
+	
+	<select id="getMember" resultMap = "MemberMap" >
+		select
+		 p.ChangeName
+		FROM
+		 membertable m LEFT OUTER JOIN Member_PROFILE p on m.memNum = p.memNum
+		where p.memNum = #{memNum}
 	</select>
 
-
-
+	<update id="changeProfile">
+		update Member_PROFILE set ChangeName = #{ChangeName} Where memNum = #{memNum}	
+	</update>
 
 
 

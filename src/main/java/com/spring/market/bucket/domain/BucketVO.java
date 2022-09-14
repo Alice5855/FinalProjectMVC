@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class BucketVO {
 
-	private long pdNum;
-	private long memNum;
+	private Long pdNum;
+	private Long memNum;
 	
 }
