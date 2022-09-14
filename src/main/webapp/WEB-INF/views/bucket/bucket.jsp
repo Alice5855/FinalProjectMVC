@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<%@include file="../header.jsp" %> 
+<%@include file="../includes/header.jsp" %> 
 <style>
 	.bucketContainer{
 		width: 90%;
@@ -187,4 +187,4 @@ $(document).ready(function () {
 
 </script>
 
-<%@include file="../footer.jsp"%>  
+<%@include file="../includes/footer.jsp"%>  

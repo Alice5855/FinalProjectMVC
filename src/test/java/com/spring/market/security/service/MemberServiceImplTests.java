@@ -30,7 +30,7 @@ public class MemberServiceImplTests {
 	private MemberService ms;
 	
 	
-	
+	/*
 	@Test
 	public void testsignup() {
 		System.out.println("회원가입시작");
@@ -49,6 +49,7 @@ public class MemberServiceImplTests {
 	 	ms.signup(mem);
 		System.out.println("mem 회원가입이됨?" + mem);
 	}
+	*/
 //
 //	public void testUpdate() {
 //		Member mem = ms.MemInfo("kimchunsic");

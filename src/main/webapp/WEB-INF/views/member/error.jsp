@@ -1,6 +1,6 @@
 <body>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@ include file="/WEB-INF/views/common/header.jsp" %>
+	<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 
 	<h1>에러페이지~~</h1>
 	<h2 id="msg">${msg}</h2>

@@ -1,6 +1,6 @@
 <body>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@ include file="/WEB-INF/views/header.jsp" %>
+	<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div id="div-main">
@@ -18,4 +18,4 @@
 		<a href="join">회원가입</a>
 	</div>
 </body>
-<%@ include file="/WEB-INF/views/footer.jsp" %>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
