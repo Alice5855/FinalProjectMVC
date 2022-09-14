@@ -8,4 +8,7 @@
 		values (#{memNum}, SEQ_PURCHASE.nextval, #{pcAddress},#{pcTel}, #{pdNum1}, #{pdNum2}, #{pdNum3}, #{pdNum4}, #{pdNum5}, #{pdNum6}, #{pdNum7}, #{pdNum8}, #{pdNum9}, #{pdNum10})
 	</insert>
 	
+	<update id="pdStockDown">
+		update product_table set pdStock = #{pdStock} where pdNum = #{pdNum}
+	</update>
 </mapper>

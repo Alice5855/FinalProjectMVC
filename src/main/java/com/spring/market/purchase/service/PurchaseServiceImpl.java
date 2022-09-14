@@ -20,4 +20,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public void registerPurchase(PurchaseVO purchaseVO) {
 		mapper.registerPurchase(purchaseVO);
 	}
+	
+	@Override
+	public void pdStockDown(Long pdStock, Long pdNum) {
+		mapper.pdStockDown(pdStock, pdNum);
+	}
 }

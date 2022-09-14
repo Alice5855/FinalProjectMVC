@@ -31,7 +31,8 @@ public class BucketServiceTests {
 		Member testMemVO = new Member();
 		testMemVO.setMemNum(6L);
 		
-		service.registerBucket(2L, 6L);
+		service.registerBucket(20L, 6L);
+		service.registerBucket(21L, 6L);
 	}
 	
 //	@Test
