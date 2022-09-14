@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,10 +122,11 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="#!">로그인</a></li>
+	                        <li><a class="dropdown-item" href="${root}/member/login">로그인</a></li>
 	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        <li><a class="dropdown-item" href="${root}/member/mypage">mypage</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
-	                        <li><a class="dropdown-item" href="#!">회원가입</a></li>
+	                        <li><a class="dropdown-item" href="${root}/member/join">회원가입</a></li>
 	                    </ul>
 	                </li>
 	            </ul>
