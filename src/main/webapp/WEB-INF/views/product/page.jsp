@@ -81,13 +81,24 @@
 								<div class="text-center">
 								    <!-- Product name-->
 								    <h2 class="fw-bold">
-								    	<a class='move' href='<c:out value="${product.pdNum}"/>' style="text-decoration: none; color: #FF4A4A;">
+								    	<a class='move' href='<c:out value="${product.pdNum}"/>' style="text-decoration: none; color: #333;">
 											<c:out value="${product.pdName}" />
 										</a>
-										<fmt:formatDate pattern="yyyy/MM/dd"
-											value="${product.pdRegDate}" />
 								    </h2>
+								    <fmt:formatDate pattern="yyyy/MM/dd"
+											value="${product.pdRegDate}" />
+											
+											
+												
+											
 								    <!-- Product price-->
+								    <h6>
+									    <a href='page?type=T&keyword=${product.pdKeyword}&pageNum=1&amount=9' style="text-decoration: none;">
+									    	#<c:out value="${product.pdKeyword}" />
+									    </a>
+								    </h6>
+								    
+								 
 								    <c:out value="${product.pdPrice}원"/>
 								</div>
 						    </div>
@@ -98,17 +109,13 @@
 	</section>
 	
 	
-	<div class="row">
+	<div class="row text-center">
 	<div class="col-lg-12">
 		<form id="searchForm" action="/product/page" method="get">
 			<select name="type">
 				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
-				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>제목</option>
-				<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : '' }"/>>내용</option>
-				<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : '' }"/>>작성자</option>
-				<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' : '' }"/>>제목 or 내용</option>
-				<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : '' }"/>>제목 or 작성자</option>
-				<option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' : '' }"/>>제목 or 내용 or 작성</option>
+				<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
+				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
 			</select>
 			<input type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
 			<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
@@ -119,8 +126,8 @@
 	</div>
 	
 	
-	<div class="">
-		<ul class="pagination">
+	<div class="text-center">
+		<ul class="pagination" style="justify-content: center;">
 		
 			<c:if test="${pageMaker.prev}">
 				<li class="paginate_button previous"><a
@@ -188,7 +195,7 @@
 		}
 		
 		
-		// list.jsp에서  Register New Board 버튼 클릭하면 게시물의 등록 웹페이지로 이동
+		
 		$("#regBtn").on("click", function() {
 			self.location = "/product/register";
 			

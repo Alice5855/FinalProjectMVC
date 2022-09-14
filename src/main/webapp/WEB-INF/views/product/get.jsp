@@ -6,6 +6,15 @@
 
 <%@include file="../includes/header.jsp"%>
 <style>
+
+
+	.carousel-indicators [data-bs-target] {
+   
+    background-color: #333 !important;
+  
+}
+
+
 	/*
 	.uploadResult {
 	   width: 100%;
@@ -130,9 +139,8 @@
 										<button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
 										<button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
 									</div>
-									<div class="carousel-inner">
-										<div class="carousel-item active uploadResult">
-										</div>
+									<div class="carousel-inner  uploadResult">
+										
 									</div>
 									<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
 										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -170,7 +178,7 @@
 					        </div>
 					        <div class="form-group mt-4">
 								<p class="mb-0">태그</p>
-								<a href="#" style="text-decoration: none;">#<c:out value="${product.pdKeyword}" /></a>
+								<a href="page?type=T&keyword=${product.pdKeyword}&pageNum=1&amount=9" style="text-decoration: none;">#<c:out value="${product.pdKeyword}" /></a>
 					        </div>
 					        
 					        <div class="d-flex align-middle mt-2">
@@ -189,7 +197,7 @@
 			</section>
 	
 			<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
-			<button data-oper='list' class="btn btn-info" onclick="location.href='/product/list'">List</button>
+			<button data-oper='list' class="btn btn-info" onclick="location.href='/product/page'">List</button>
 			
 			<form id='operForm' action="/product/modify" method="get">
 				<input type='hidden' id='pdNum' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
@@ -715,7 +723,7 @@
 			// js에서 속성을 명시할 때 [] 사용
 			operForm.find("#pdNum").remove();
 			// list로 이동 시 form tag 내의 #bno 삭제?
-			operForm.attr("action", ctx + "/product/list");
+			operForm.attr("action", ctx + "/product/page");
 			operForm.submit();
 		});
 	});
@@ -734,16 +742,21 @@
 			    
 				$(arr).each(function(i, attach){
 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
-					
-					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div>";
+//  					if(str == ""){
+//  						str += "<div class='carousel-item active' data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
+//  						str += "<img src='/product/display?fileName=" + fileCallPath + "' class='d-block w-100' alt='banner1'>";
+//  						str += "</div>"
+//  					}
+// 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div>";
+// 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div class='carousel-inner'>";
+					str += "<div class='carousel-item' data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
 					str += "<img src='/product/display?fileName=" + fileCallPath + "' class='d-block w-100' alt='banner1'>";
 					str += "</div>";
-					str += "</li>";
 					
 				});
 				
 				$(".uploadResult").html(str);
-			    
+				$(".carousel-item:last").addClass("active");
 			}); // getjson
 			
 		})(); // function
@@ -783,5 +796,19 @@
 		});
 	}); // document ready
 </script>
+
+
+
+
+
+
+<script type="text/javascript">
+	var myCarousel = document.querySelector('#carousel');
+	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle'), {
+	  interval: 3000,
+	  wrap: false
+	});
+</script>
+
 
 <%@include file="../includes/footer.jsp"%>
