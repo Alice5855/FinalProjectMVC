@@ -5,7 +5,7 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript"
 src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-<%@include file="../header.jsp" %> 
+<%@include file="../includes/header.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -181,4 +181,5 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 		});
 	}
 </script>
+<%@include file="../includes/footer.jsp" %>
 </html>

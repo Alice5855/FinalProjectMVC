@@ -66,4 +66,22 @@ public class bucketController {
 		
 		return new ResponseEntity<String>(service.getBucketInfo(lPdNum).getPdName(), HttpStatus.OK);
 	}
+	
+	@PostMapping(value="/bucket/register", produces = MediaType.TEXT_PLAIN_VALUE)
+	@ResponseBody
+	public ResponseEntity<String> registBucket(String pdNum, Principal principal){
+		System.out.println("register 컨트롤러에서 수신하긴했음");
+		System.out.println("pdNum : " + pdNum);
+		
+		Member memVO = new Member();
+		memVO = memMapper.findByMemberEmail(principal.getName());
+		
+		Long lPdNum = Long.parseLong(pdNum);
+		System.out.println("상품이름 : " + service.getBucketInfo(lPdNum).getPdName());
+		
+		service.registerBucket(lPdNum, memVO.getmemNum());
+		return new ResponseEntity<String>(service.getBucketInfo(lPdNum).getPdName(), HttpStatus.OK);
+	}
+	
+	
 }

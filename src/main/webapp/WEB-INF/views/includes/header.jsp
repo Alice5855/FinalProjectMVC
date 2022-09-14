@@ -130,13 +130,11 @@
 	                    </ul>
 	                </li>
 	            </ul>
-	            <form class="d-flex">
-	                <button class="btn btn-outline-primary" type="submit">
+	                <button class="btn btn-outline-primary" type="submit" onclick="location.href='/bucket'">
 	                    <i class="bi-cart-fill me-1"></i>
 						<span class="bucket">장동이</span>
 	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
 	                </button>
-	            </form>
 	        </div>
 	    </div>
 	</nav>
@@ -165,13 +163,11 @@
 	                    </ul>
 	                </li>
 	            </ul>
-	            <form class="d-flex">
 	                <button class="btn btn-outline-primary2" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
-						<span class="bucket2">장동이</span>
+						<span class="bucket2" onclick="location.href='/bucket'">장동이</span>
 	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
 	                </button>
-	            </form>
 	        </div>
 	    </div>
 	</nav>
