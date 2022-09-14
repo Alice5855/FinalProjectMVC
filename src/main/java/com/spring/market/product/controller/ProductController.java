@@ -267,7 +267,7 @@ public class ProductController {
 //		
 //		return "userUpdate";
 //	}
-	
+	/*
 	@GetMapping("/")
 	public String home(Locale locale, Model model,Long pdNum) {
 		
@@ -303,6 +303,7 @@ public class ProductController {
 		
 		return "index";
 	}
+	*/
 	
 	@GetMapping("/page")
 	public void page(Criteria cri, Model m) {
@@ -317,4 +318,5 @@ public class ProductController {
 		m.addAttribute("pageMaker", new PageDTO(cri, total));
 		
     }
+    
 }

@@ -10,7 +10,7 @@
 
 	<!-- Page738 list로 redirect -->
 	<script type="text/javascript">
-		self.location="/product/";
+		self.location="/product/page";
 	</script>
 </body>
 </html>
