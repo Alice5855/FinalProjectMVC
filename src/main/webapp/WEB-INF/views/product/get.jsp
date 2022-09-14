@@ -186,7 +186,7 @@
 					            <div class="form-group">
 									<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" value='<c:out value="${product.pdStock}" />' readonly="readonly" style="max-width: 3rem">
 						        </div>
-					            <button class="btn btn-outline-dark flex-shrink-0" type="button" style="height: 2.5rem">
+					            <button class="btn btn-outline-dark flex-shrink-0" type="button" style="height: 2.5rem" onclick="regBucket('${product.pdNum}')">
 					            	<i class="bi-cart-fill me-1"></i>
 					            	장동이에 담기
 					            </button>
@@ -795,6 +795,29 @@
 			}, 150);
 		});
 	}); // document ready
+	
+	
+	function regBucket(pdNum) {
+		$.ajax({
+			type:'post',
+			url:'/bucket/register/',
+			datatype: 'text',
+			data:{
+				pdNum:pdNum
+			},
+			success : function(regResult, status, xhr) {
+				alert('선택한 상품이 장바구니에 추가되었습니다.');
+			},
+			error: function(xhr, status, er) {
+				if(error){
+					error(er);
+				}
+			}
+		})
+	}
+	
+	
+	
 </script>
 
 

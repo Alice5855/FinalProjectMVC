@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,20 +122,19 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="#!">로그인</a></li>
+	                        <li><a class="dropdown-item" href="${root}/member/login">로그인</a></li>
 	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        <li><a class="dropdown-item" href="${root}/member/mypage">mypage</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
-	                        <li><a class="dropdown-item" href="#!">회원가입</a></li>
+	                        <li><a class="dropdown-item" href="${root}/member/join">회원가입</a></li>
 	                    </ul>
 	                </li>
 	            </ul>
-	            <form class="d-flex">
-	                <button class="btn btn-outline-primary" type="submit">
+	                <button class="btn btn-outline-primary" type="submit" onclick="location.href='/bucket'">
 	                    <i class="bi-cart-fill me-1"></i>
 						<span class="bucket">장동이</span>
 	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
 	                </button>
-	            </form>
 	        </div>
 	    </div>
 	</nav>
@@ -163,13 +163,11 @@
 	                    </ul>
 	                </li>
 	            </ul>
-	            <form class="d-flex">
 	                <button class="btn btn-outline-primary2" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
-						<span class="bucket2">장동이</span>
+						<span class="bucket2" onclick="location.href='/bucket'">장동이</span>
 	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
 	                </button>
-	            </form>
 	        </div>
 	    </div>
 	</nav>
