@@ -2,10 +2,20 @@
   pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 
 <%@include file="../includes/header.jsp"%>
 <style>
+
+
+	.carousel-indicators [data-bs-target] {
+   
+    background-color: #333 !important;
+  
+}
+
+
 	/*
 	.uploadResult {
 	   width: 100%;
@@ -73,9 +83,9 @@
 		background-color: #D9D9D9;
 	}
 	.reply-heading {
-		font-size: 1rem;
-		color: #6FEDD6 !important;
-   		background-color: #FF4A4A !important;
+		font-size: 1.2rem;
+		color: #4A75D4 !important;
+   		background-color: #FFF965 !important;
 	}
 </style>
 <style>
@@ -126,13 +136,12 @@
 						    <div class="container-fluid py-3">
 								<div id="carousel" class="carousel slide" data-bs-ride="carousel">
 									<div class="carousel-indicators">
-										<button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+										<button type="button" data-bs-target="#carousel" data-bs-slide-to="0"  aria-current="true" aria-label="Slide 1"></button>
 										<button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-										<button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+										<button type="button" data-bs-target="#carousel" data-bs-slide-to="2"class="active" aria-label="Slide 3"></button>
 									</div>
-									<div class="carousel-inner">
-										<div class="carousel-item active uploadResult">
-										</div>
+									<div class="carousel-inner  uploadResult pd-img-wrapper card" >
+										
 									</div>
 									<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
 										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -148,8 +157,8 @@
 				    	</div>
 					    <div class="col-md-6">
 					    	<div class="form-group">
-					        	<div class="small mb-1">
-					        		PD[<c:out value="${product.pdNum}" />]
+					        	<div class="small mb-1" style="display: none;">
+					        		<c:out value="${product.pdNum}" />
 					        	</div>
 					        </div>
 					        <div class="form-group">
@@ -159,24 +168,24 @@
 					        </div>
 					        <div class="form-group">
 					        	<div class="fs-5 mb-5">
-					        		<span class="text-decoration-line-through me-2">
-					        			<!-- 세일하는척 오졌고 -->
-					        			<c:out value="${product.pdPrice + 5000}" />원
-					        		</span>
-									<span>
+<!-- 					        		<span id = "price" class="text-decoration-line-through me-2"> -->
+<!-- 					        			세일하는척 오졌고 -->
+<%-- 					        			<c:out value="${product.pdPrice + 5000}" />원 --%>
+<!-- 					        		</span> -->
+									<span id= "price">
 										<c:out value="${product.pdPrice}" />원
 									</span>
 								</div>
 					        </div>
 					        <div class="form-group mt-4">
 								<p class="mb-0">태그</p>
-								<a href="#" style="text-decoration: none;">#<c:out value="${product.pdKeyword}" /></a>
+								<a href="page?type=T&keyword=${product.pdKeyword}&pageNum=1&amount=9" style="text-decoration: none;">#<c:out value="${product.pdKeyword}" /></a>
 					        </div>
 					        
 					        <div class="d-flex align-middle mt-2">
 					        	<span class="lead me-2 pt-1">잔여 수량</span>
 					            <div class="form-group">
-									<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" value='<c:out value="${product.pdStock}" />' readonly="readonly" style="max-width: 3rem">
+									<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" value='<c:out value="${product.pdStock}" />' readonly="readonly" style="max-width: 3.4rem">
 						        </div>
 					            <button class="btn btn-outline-dark flex-shrink-0" type="button" style="height: 2.5rem" onclick="regBucket('${product.pdNum}')">
 					            	<i class="bi-cart-fill me-1"></i>
@@ -187,9 +196,11 @@
 					</div>
 				</div>
 			</section>
-	
-			<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
-			<button data-oper='list' class="btn btn-info" onclick="location.href='/product/list'">List</button>
+		
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
+		    </sec:authorize>
+			<button data-oper='list' class="btn btn-info" onclick="location.href='/product/page'">List</button>
 			
 			<form id='operForm' action="/product/modify" method="get">
 				<input type='hidden' id='pdNum' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
@@ -246,7 +257,7 @@
 				<!-- new entry button added -->
 				<div class="mb-4">
 					<span class="badge text-bg-info reply-heading">Review</span>
-					<button id="addReplyBtn" class="btn btn-secondary btn-sm float-end">New Review</button>
+					<button id="addReplyBtn" class="btn btn-info btn-sm float-end">New Review</button>
 				</div>
 				
 				<!-- /.panel-heading -->
@@ -258,7 +269,7 @@
 					<!-- /ul.chat -->
 				</div>
 				<!-- /.panel-body -->
-				<!-- Page 439에서 추가한 source -->
+				
 				<div class="panel-footer">
 				
 				</div>
@@ -280,16 +291,15 @@
 				<h4 class="modal-title" id="myModalLabel">REVIEW</h4>
             </div>
             <div class="modal-body">
-				<div class="form-group">
-					<label>rvText</label> 
+				<div class="form-group mt-4">
 					<input class="form-control" name='rvText' value='rvText'>
 				</div>
-				<div class="form-group">
-					<label>memNickname</label> 
+				<div class="form-group mt-4">
+					<label>작성자</label> 
 					<input class="form-control" name='memNickname' value='memNickname'>
 				</div>
 				<!-- file -->
-				<div class="form-group">
+				<div class="form-group mt-4">
 					<label for="formFile" class="form-label">업로드 하실 이미지를 선택해주세요</label>
 					<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*">
 				</div>
@@ -300,10 +310,10 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
-				<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-				<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-				<button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+				<button id='modalModBtn' type="button" class="btn btn-outline-info">Modify</button>
+				<button id='modalRemoveBtn' type="button" class="btn btn-outline-danger">Remove</button>
+				<button id='modalRegisterBtn' type="button" class="btn btn-outline-primary">Register</button>
+				<button id='modalCloseBtn' type="button" class="btn btn-outline-secondary">Close</button>
 			</div>
 		</div>
         <!-- /.modal-content -->
@@ -319,6 +329,9 @@
 <script type="text/javascript">
 	// page 415 reply event handler
 	$(document).ready(function() {
+		
+		
+		
 		var pdNumValue = '<c:out value="${product.pdNum}"/>';
 		var replyUL = $(".chat");
 		
@@ -715,7 +728,7 @@
 			// js에서 속성을 명시할 때 [] 사용
 			operForm.find("#pdNum").remove();
 			// list로 이동 시 form tag 내의 #bno 삭제?
-			operForm.attr("action", ctx + "/product/list");
+			operForm.attr("action", ctx + "/product/page");
 			operForm.submit();
 		});
 	});
@@ -734,16 +747,21 @@
 			    
 				$(arr).each(function(i, attach){
 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
-					
-					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div>";
+//  					if(str == ""){
+//  						str += "<div class='carousel-item active' data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
+//  						str += "<img src='/product/display?fileName=" + fileCallPath + "' class='d-block w-100' alt='banner1'>";
+//  						str += "</div>"
+//  					}
+// 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div>";
+// 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div class='carousel-inner'>";
+					str += "<div class='carousel-item' data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
 					str += "<img src='/product/display?fileName=" + fileCallPath + "' class='d-block w-100' alt='banner1'>";
 					str += "</div>";
-					str += "</li>";
 					
 				});
 				
 				$(".uploadResult").html(str);
-			    
+				$(".carousel-item:last").addClass("active");
 			}); // getjson
 			
 		})(); // function
@@ -806,5 +824,37 @@
 	
 	
 </script>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		
+			var num = $("#price").text();
+			
+			var num2 = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+			
+			
+			
+			document.getElementById("price").innerHTML=num2;
+		
+			
+	})
+	
+	
+
+</script>
+
+
+
+
+<script type="text/javascript">
+
+
+	var myCarousel = document.querySelector('#carousel');
+	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle'), {
+	  interval: 3000,
+	  wrap: false
+	});
+</script>
+
 
 <%@include file="../includes/footer.jsp"%>

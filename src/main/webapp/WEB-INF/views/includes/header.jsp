@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <c:set var="root" value="${pageContext.request.contextPath}"/>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Welcome to AniBucket</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap -->
@@ -59,7 +60,7 @@
 			white-space: nowrap;
 			-webkit-overflow-scrolling: touch;
 		}
-		.btn-outline-primary {
+		.btn-outline-primaryc {
 		    --bs-btn-color: #4C51BD;
 		    --bs-btn-border-color: #4C51BD;
 		    --bs-btn-hover-color: #4C51BD;
@@ -111,7 +112,7 @@
 	        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	        	<div class="filler"></div>
-	            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4 me-auto">
+	          <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4 me-auto">
 	            	<!--
 	                <li class="nav-item"><a class="nav-link" aria-current="page" href="#!">상품</a></li>
 	                <li class="nav-item"><a class="nav-link" href="#!">장동이</a></li>
@@ -119,11 +120,16 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="${root}/member/login">로그인</a></li>
+		                    <sec:authorize access="isAnonymous()">
+		                        <li><a class="dropdown-item" href="${root}/member/login">로그인</a></li>
+	                        </sec:authorize>
 	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
 	                        <li><a class="dropdown-item" href="${root}/member/mypage">mypage</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
 	                        <li><a class="dropdown-item" href="${root}/member/join">회원가입</a></li>
+ 	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+                        		<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
+                         	</sec:authorize> 
 	                    </ul>
 	                </li>
 	            </ul>
@@ -140,9 +146,8 @@
 	<nav class="navbar navbar-expand-lg fixed-top" style="background-color: rgba(255,255,255,0.8);">
 	    <div class="container-fluid px-4">
 	        <a class="navbar-brand" href="/">
-	        	<img class="img-fluid" alt="Logo" src="/resources/imgs/Temp2.png" width="45px">
+	        	<img class="img-fluid" alt="Logo" src="/resources/imgs/AniBucket-1.png" width="80px">
 	        </a>
-	        <h4 class="mt-1 fw-bolder font3">AniBucket</h4>
 	        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
 	        <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	        	<div class="filler"></div>
@@ -154,15 +159,21 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(255,255,255,0.8);">
+	                    
+	                    <sec:authorize access="isAnonymous()">
 	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그인</a></li>
+                        </sec:authorize>
 	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그아웃</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
 	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">회원가입</a></li>
+	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
+	                        </sec:authorize>
 	                    </ul>
 	                </li>
 	            </ul>
 	            <form class="d-flex">
-	                <button class="btn btn-outline-primary" type="submit">
+	                <button class="btn btn-outline-primaryc" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
 						<span class="bucket2">장동이</span>
 	                    <span class="badge ms-1 rounded-pill counter">0</span>
@@ -171,6 +182,7 @@
 	        </div>
 	    </div>
 	</nav>
+<div class="container-fluid">
 	
 <script type="text/javascript" charset="utf-8">
 	sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");

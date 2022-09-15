@@ -14,6 +14,45 @@
 		height: 100%;
 		object-fit: cover;
 	}
+	
+	.price{
+		border: none;
+		text-align:  center;
+		width: 70%;
+		font-size: 120%;
+	
+	
+	}
+	
+	
+	.form-select{
+		width: 15%;
+	}
+	.form-control{
+		width: 25%;
+	}
+	
+	@media (max-width:475px) {
+	.row-cols-2>* {
+	    flex: 0 0 auto;
+	    width: 80% !important;
+		}
+		
+		
+	.form-select{
+		width: 30%;
+		}
+		
+	.form-control{
+		width: 50%;
+		}
+	
+	
+	}
+	
+	
+	
+	
 </style>
 <div class="container-fluid">
 	<!-- Carousel -->
@@ -74,21 +113,30 @@
 						<div class="card h-100">
 						    <!-- Product image-->
 						    <div class="pd-img-wrapper">
-	 					    	<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
+						    	<a class='move' href='<c:out value="${product.pdNum}"/>'>
+	 					    		<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
+	 					    	</a>
 	 					    </div> 
 						    <!-- Product details-->
 						    <div class="card-body p-4">
 								<div class="text-center">
 								    <!-- Product name-->
 								    <h2 class="fw-bold">
-								    	<a class='move' href='<c:out value="${product.pdNum}"/>' style="text-decoration: none; color: #FF4A4A;">
+								    	<a class='move' href='<c:out value="${product.pdNum}"/>' style="text-decoration: none; color: #333;">
 											<c:out value="${product.pdName}" />
 										</a>
-										<fmt:formatDate pattern="yyyy/MM/dd"
-											value="${product.pdRegDate}" />
 								    </h2>
+								    <fmt:formatDate pattern="yyyy/MM/dd"
+											value="${product.pdRegDate}" />
 								    <!-- Product price-->
-								    <c:out value="${product.pdPrice}원"/>
+								    <h6>
+									    <a href='page?type=T&keyword=${product.pdKeyword}&pageNum=1&amount=9' style="text-decoration: none;">
+									    	#<c:out value="${product.pdKeyword}" />
+									    </a>
+								    </h6>
+								    
+								 
+								    <input class="price" id="" value="<c:out value="${product.pdPrice}원"/>" disabled="disabled">
 								</div>
 						    </div>
 						</div>
@@ -98,29 +146,25 @@
 	</section>
 	
 	
-	<div class="row">
-	<div class="col-lg-12">
+	<div class="row text-center">
+	<div class="col-12">
 		<form id="searchForm" action="/product/page" method="get">
-			<select name="type">
+			<select class="form-select d-inline" name="type">
 				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
-				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>제목</option>
-				<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : '' }"/>>내용</option>
-				<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : '' }"/>>작성자</option>
-				<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' : '' }"/>>제목 or 내용</option>
-				<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : '' }"/>>제목 or 작성자</option>
-				<option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' : '' }"/>>제목 or 내용 or 작성</option>
+				<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
+				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
 			</select>
-			<input type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
+			<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
 			<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
 			<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
-			<button class="btn btn-default">Search</button>						
-			</form>
+			<button class="btn btn-outline-secondary">검색</button>						
+		</form>
 		</div>
 	</div>
 	
 	
-	<div class="">
-		<ul class="pagination">
+	<div class="text-center mt-3">
+		<ul class="pagination" style="justify-content: center;">
 		
 			<c:if test="${pageMaker.prev}">
 				<li class="paginate_button previous"><a
@@ -188,7 +232,7 @@
 		}
 		
 		
-		// list.jsp에서  Register New Board 버튼 클릭하면 게시물의 등록 웹페이지로 이동
+		
 		$("#regBtn").on("click", function() {
 			self.location = "/product/register";
 			
@@ -219,12 +263,12 @@
 		
 		$("#searchForm button").on("click", function(e) {
 			if(!searchForm.find("option:selected").val()){
-				alert("검색 종류를 선택해 주시기 바랍니다!");
+				alert("검색 종류를 선택해 주시기 바랍니다");
 				return false;
 			}
 			
 			if(!searchForm.find("input[name='keyword']").val()){
-				alert("키워드를 입력해 주시기 바랍니다!");
+				alert("키워드를 입력해 주시기 바랍니다");
 				return false;
 			}
 			
@@ -239,4 +283,35 @@
 		});
 	});
 </script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+	
+	
+
+
+	$(".price").each(function() {
+		
+		var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		console.log(changeNum);
+		
+		$(this).val(changeNum);
+		
+	
+	});
+
+	
+		
+		
+		
+		
+		
+		
+		
+
+		
+	
+		
+})
 <%@ include file="../includes/footer.jsp" %>
