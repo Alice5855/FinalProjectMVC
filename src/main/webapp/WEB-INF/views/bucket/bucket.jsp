@@ -109,6 +109,19 @@ th {
     animation: ring 1.5s infinite;
 }
 
+@keyframes ring {
+    0% {
+        width: 30px;
+        height: 30px;
+        opacity: 1;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
 th{
 	background-color: #4a75d4 !important;
 	color: white;
@@ -143,30 +156,34 @@ h3{
 
 #btnDel{
 	border: 2px solid black;
+	font-size: 0.9rem;
 }
 
-@keyframes ring {
-    0% {
-        width: 30px;
-        height: 30px;
-        opacity: 1;
-    }
-    100% {
-        width: 300px;
-        height: 300px;
-        opacity: 0;
-    }
-}
-
-	.mobileTextChange:after {
+.mobileTextChange:after {
 		content: "상품 이미지";
 	}
 
 @media (max-width: 425px) {
+	
+	.container{
+		padding-right:0px;
+	}
+	
+	.w-btn-neon2{
+		width: 150px;
+	}
+
+
 	.mobileHidden{
 	   display: none;
  	   visibility: hidden;
 	   width: 0%;
+	}
+	
+	.container-fluid{
+		padding-right: 0px;
+		padding-left: 0px;
+		overflow: hidden;
 	}
 	
 	.productInfoDetail{
@@ -192,8 +209,13 @@ h3{
 	}
 	
 	.bucketContainer{
-		padding-left: 0px;
+		padding-right: 5px;
+		padding-left: 5px;
 		margin-left: 0px;
+	}
+	
+	.bucketTable{
+		margin: 0px;
 	}
 	
 	.container{
