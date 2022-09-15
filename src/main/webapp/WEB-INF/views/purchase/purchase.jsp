@@ -6,11 +6,6 @@
 <script type="text/javascript"
 src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <%@include file="../includes/header.jsp" %> 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
 
 <style>
 .purchaseContainer{
@@ -27,99 +22,94 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 </style>
 
-</head>
-<body>
-	<div class="container purchaseContainer">
-		<div class="purchaseBox">
+<div class="container purchaseContainer">
+	<div class="purchaseBox">
+	
+		<form>
+			<c:if test="${not empty product}" >
+				<input  class="pdNum" value="${product.pdNum}" type="hidden">
+			</c:if>
+			<c:if test="${empty product}" >
+				<input  class="pdNum" value="0" type="hidden">
+			</c:if>
+			<table>
+				<thead>
+					<tr>
+						<td>
+							상품명
+						</td>
+						<td>
+							<c:if test="${not empty product}" >
+								<input readonly="readonly" class="pdName" value="${product.pdName}" type="text">
+							</c:if>
+							<c:if test="${empty product}" >
+								<input readonly="readonly" class="pdName" value="AniBucket 상품" type="text">
+							</c:if>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							배송자 명
+						</td>
+						<td>
+							<input class="memName" value="${member.memName}" type="text">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							배송지
+						</td>
+						<td>
+							<input class="memAddr" value="${member.memAd}" type="text">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							이메일
+						</td>
+						<td>
+							<input class="memEmail" value="${member.memEmail}" type="text">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							연락처
+						</td>
+						<td>
+							<input class="memPh" value="${member.memPh}">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							닉네임
+						</td>
+						<td>
+							<input readonly="readonly" value="${member.memNickname}">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							결제 금액
+						</td>
+						<td>
+							<c:if test="${not empty product}" >
+								<input readonly="readonly" value="${product.pdPrice}">
+							</c:if>
+							<c:if test="${empty product}" >
+								<input readonly="readonly" value="${totalPrice}">
+							</c:if>
+						</td>
+					</tr>
+					
+				</thead>
+			</table>
+		</form>
 		
-			<form>
-				<c:if test="${not empty product}" >
-					<input  class="pdNum" value="${product.pdNum}" type="hidden">
-				</c:if>
-				<c:if test="${empty product}" >
-					<input  class="pdNum" value="0" type="hidden">
-				</c:if>
-				<table>
-					<thead>
-						<tr>
-							<td>
-								상품명
-							</td>
-							<td>
-								<c:if test="${not empty product}" >
-									<input readonly="readonly" class="pdName" value="${product.pdName}" type="text">
-								</c:if>
-								<c:if test="${empty product}" >
-									<input readonly="readonly" class="pdName" value="AniBucket 상품" type="text">
-								</c:if>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								배송자 명
-							</td>
-							<td>
-								<input class="memName" value="${member.memName}" type="text">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								배송지
-							</td>
-							<td>
-								<input class="memAddr" value="${member.memAd}" type="text">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								이메일
-							</td>
-							<td>
-								<input class="memEmail" value="${member.memEmail}" type="text">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								연락처
-							</td>
-							<td>
-								<input class="memPh" value="${member.memPh}">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								닉네임
-							</td>
-							<td>
-								<input readonly="readonly" value="${member.memNickname}">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								결제 금액
-							</td>
-							<td>
-								<c:if test="${not empty product}" >
-									<input readonly="readonly" value="${product.pdPrice}">
-								</c:if>
-								<c:if test="${empty product}" >
-									<input readonly="readonly" value="${totalPrice}">
-								</c:if>
-							</td>
-						</tr>
-						
-					</thead>
-				</table>
-			</form>
-			
-			<button type="button" onclick="fn_buy()">결제하기</button>
-			<br><br>
-			<a href="/">[처음으로]</a>
-		</div>
+		<button type="button" onclick="fn_buy()">결제하기</button>
+		<br><br>
+		<a href="/">[처음으로]</a>
 	</div>
-	
-	
-</body>
+</div>
 
 <script>
 	function fn_buy() {
@@ -182,4 +172,3 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	}
 </script>
 <%@include file="../includes/footer.jsp" %>
-</html>

@@ -117,10 +117,11 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="#!">로그인</a></li>
+	                        <li><a class="dropdown-item" href="/member/login">로그인</a></li>
 	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        <li><a class="dropdown-item" href="/member/mypage">My page</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
-	                        <li><a class="dropdown-item" href="#!">회원가입</a></li>
+	                        <li><a class="dropdown-item" href="/member/join">회원가입</a></li>
 	                    </ul>
 	                </li>
 	            </ul>
@@ -153,10 +154,11 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(255,255,255,0.8);">
-	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그인</a></li>
-	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그아웃</a></li>
+	                        <li><a class="dropdown-item" href="/member/login">로그인</a></li>
+	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        <li><a class="dropdown-item" href="/member/mypage">My page</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
-	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">회원가입</a></li>
+	                        <li><a class="dropdown-item" href="/member/join">회원가입</a></li>
 	                    </ul>
 	                </li>
 	            </ul>
