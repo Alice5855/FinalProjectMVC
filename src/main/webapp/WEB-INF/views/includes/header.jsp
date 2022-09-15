@@ -4,6 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Welcome to AniBucket</title>
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -57,7 +58,7 @@
 			white-space: nowrap;
 			-webkit-overflow-scrolling: touch;
 		}
-		.btn-outline-primary {
+		.btn-outline-primaryc {
 		    --bs-btn-color: #4C51BD;
 		    --bs-btn-border-color: #4C51BD;
 		    --bs-btn-hover-color: #4C51BD;
@@ -126,7 +127,7 @@
 	                </li>
 	            </ul>
 	            <form class="d-flex">
-	                <button class="btn btn-outline-primary" type="submit">
+	                <button class="btn btn-outline-primaryc" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
 						<span class="bucket">장동이</span>
 	                    <span class="badge ms-1 rounded-pill counter">0</span>
@@ -163,7 +164,7 @@
 	                </li>
 	            </ul>
 	            <form class="d-flex">
-	                <button class="btn btn-outline-primary" type="submit">
+	                <button class="btn btn-outline-primaryc" type="submit">
 	                    <i class="bi-cart-fill me-1"></i>
 						<span class="bucket2">장동이</span>
 	                    <span class="badge ms-1 rounded-pill counter">0</span>
@@ -172,6 +173,7 @@
 	        </div>
 	    </div>
 	</nav>
+<div class="container-fluid">
 	
 <script type="text/javascript" charset="utf-8">
 	sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");

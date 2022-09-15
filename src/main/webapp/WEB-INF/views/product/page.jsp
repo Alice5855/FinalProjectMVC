@@ -74,7 +74,9 @@
 						<div class="card h-100">
 						    <!-- Product image-->
 						    <div class="pd-img-wrapper">
-	 					    	<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
+						    	<a class='move' href='<c:out value="${product.pdNum}"/>'>
+	 					    		<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
+	 					    	</a>
 	 					    </div> 
 						    <!-- Product details-->
 						    <div class="card-body p-4">
@@ -222,12 +224,12 @@
 		
 		$("#searchForm button").on("click", function(e) {
 			if(!searchForm.find("option:selected").val()){
-				alert("검색 종류를 선택해 주시기 바랍니다!");
+				alert("검색 종류를 선택해 주시기 바랍니다");
 				return false;
 			}
 			
 			if(!searchForm.find("input[name='keyword']").val()){
-				alert("키워드를 입력해 주시기 바랍니다!");
+				alert("키워드를 입력해 주시기 바랍니다");
 				return false;
 			}
 			
