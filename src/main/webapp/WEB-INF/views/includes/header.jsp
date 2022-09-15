@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,8 +95,35 @@
 		.ddmenu:focus, .ddmenu:hover {
 			background-color: rgba(255,255,255,0.7) !important;
 		}
-		@media screen and (max-width: 768px) {
-			
+		@media screen and (max-width: 869px) {
+			.footerlogo {
+				margin-right: unset !important;
+				width: unset;
+			}
+			.footerul {
+				width: unset;
+			}
+		}
+		@media screen and (max-width: 652px) {
+			.footercopy {
+				width: 100%;			
+			}
+			.footerlogo {
+				width: 100%;
+			}
+			.footerul {
+				width: 100%;
+			}
+		}
+		@media screen and (max-width: 321px) {
+			.footerul li a {
+				font-size: 0.9rem;
+			}
+		}
+		@media screen and (max-width: 1247px) {
+			.btnwrapper {
+				width: 15%;
+			}
 		}
     </style>
 </head>
@@ -119,21 +147,26 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="/member/login">로그인</a></li>
+	                        <sec:authorize access="isAnonymous()">
+	                        	<li><a class="dropdown-item" href="/member/login">로그인</a></li>
+	                        </sec:authorize>
 	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
 	                        <li><a class="dropdown-item" href="/member/mypage">My page</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
 	                        <li><a class="dropdown-item" href="/member/join">회원가입</a></li>
+	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
+	                        </sec:authorize>
 	                    </ul>
 	                </li>
 	            </ul>
-	            <form class="d-flex">
-	                <button class="btn btn-outline-primaryc" type="submit">
+	            <div class="d-flex ms-3 btnwrapper">
+	                <button class="btn btn-outline-primaryc" type="submit" onclick="location.href='/bucket'">
 	                    <i class="bi-cart-fill me-1"></i>
 						<span class="bucket">장동이</span>
 	                    <span class="badge ms-1 rounded-pill counter">0</span>
 	                </button>
-	            </form>
+	            </div>
 	        </div>
 	    </div>
 	</nav>
@@ -156,21 +189,26 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(255,255,255,0.8);">
-	                        <li><a class="dropdown-item" href="/member/login">로그인</a></li>
+	                    	<sec:authorize access="isAnonymous()">
+	                        	<li><a class="dropdown-item" href="/member/login">로그인</a></li>
+	                        </sec:authorize>
 	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
 	                        <li><a class="dropdown-item" href="/member/mypage">My page</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
 	                        <li><a class="dropdown-item" href="/member/join">회원가입</a></li>
+	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
+	                        </sec:authorize>
 	                    </ul>
 	                </li>
 	            </ul>
-	            <form class="d-flex">
-	                <button class="btn btn-outline-primaryc" type="submit">
+	            <div class="d-flex ms-3 btnwrapper">
+	                <button class="btn btn-outline-primaryc" type="submit" onclick="location.href='/bucket'">
 	                    <i class="bi-cart-fill me-1"></i>
 						<span class="bucket2">장동이</span>
 	                    <span class="badge ms-1 rounded-pill counter">0</span>
 	                </button>
-	            </form>
+	            </div>
 	        </div>
 	    </div>
 	</nav>

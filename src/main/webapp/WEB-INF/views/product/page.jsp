@@ -40,15 +40,15 @@
 						<p></p>
 					</div>
 				</div>
-				<!--
+				
 				<div class="carousel-item">
-					<img src="/resources/imgs/sample2.jpg" class="d-block w-100" alt="banner3">
+					<img src="/resources/imgs/bannersample3.png" class="d-block w-100" alt="banner3">
 					<div class="carousel-caption d-none d-md-block">
 						<h5></h5>
 						<p></p>
 					</div>
 				</div>
-				-->
+				
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -108,18 +108,18 @@
 	
 	
 	<div class="row text-center">
-	<div class="col-12">
-		<form id="searchForm" action="/product/page" method="get">
-			<select class="form-select d-inline" name="type" style="width: 15% !important;">
-				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
-				<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
-				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
-			</select>
-			<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" style="width: 25% !important;" />						
-			<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
-			<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
-			<button class="btn btn-outline-secondary">검색</button>						
-		</form>
+		<div class="col-12">
+			<form id="searchForm" action="/product/page" method="get">
+				<select class="form-select d-inline" name="type" style="width: 15% !important;">
+					<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
+					<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
+					<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
+				</select>
+				<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" style="width: 25% !important;" />						
+				<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
+				<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
+				<button class="btn btn-outline-secondary">검색</button>						
+			</form>
 		</div>
 	</div>
 	
