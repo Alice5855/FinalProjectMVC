@@ -112,11 +112,6 @@ public class ProductController {
 	public void register(ProductVO product, RedirectAttributes ratt, HttpServletResponse response) throws Exception {
 		log.info("register ===== " + product.getPdNum());
 		
-		// adding file upload feature
-		if (product.getAttachList() != null) {
-			product.getAttachList().forEach(attach -> log.info("프로덕트콘트롤라 조건문 실행중임??"+attach));
-		}
-		
 		
 		service.register(product);
 		ratt.addFlashAttribute("result", product.getPdNum());
@@ -229,29 +224,24 @@ public class ProductController {
 		try {
 			service.remove(pdNum);
 //			deleteFiles(attachList);
+			
+			response.setContentType("text/html; charset=UTF-8");
+			response.setCharacterEncoding("UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			out.println("<script>alert('상품 삭제 성공');location.href = '/product/page'</script>");
+			out.flush();
 			ratt.addFlashAttribute("result", "success");
 		} catch (Exception e) {
 			System.out.println("삭제 안됐데 ㅋㅋ" + e.getMessage());
 		}
-		// service.remove() method는 수정 여부를 boolean type으로 처리하므로
-		// 삭제에 성공한 경우 true를 반환하여 if문을 실행한다
-		/*
-		ratt.addAttribute("pageNum", cri.getPageNum());
-		ratt.addAttribute("amount", cri.getAmount());
-		// page 346 redirect시 attribute 유지
-		ratt.addAttribute("type", cri.getType());
-		ratt.addAttribute("keyword", cri.getKeyword());
-		
-		return "redirect:/board/list";
-		*/
+	
+
 		return "redirect:/product/page" + cri.getListLink();
-		// Criteria에 새로 생성한 method 사용(page 581)
+		
 	}
 	
-	// Page581 actual file delete
-	// DB의 file data를 먼저 삭제하고 실제 파일을 삭제해야 함. 파일을 삭제하기 위해서는 해당
-	// 게시물의 첨부파일 목록이 필요한데, 첨부파일 정보를 미리 준비해두고 DB data를 삭제하고
-	// 난 후 실제 파일을 삭제
+	
 	private void deleteFiles(List<ProductAttachVO> attachList) {
    
 		if(attachList == null || attachList.size() == 0) {
@@ -279,54 +269,7 @@ public class ProductController {
 			} // catch
 		}); // forEach
 	}
-	// java.nio.file package의 Path를 이용하여 처리
-	
-//	@RequestMapping("/userUpdate.do") 
-//	public String userUpdateForm(Principal principal, Model model) {
-//		log.info("userid ===== " + principal.getName());
-//		String userid = principal.getName();
-//		UserVO user = usermapper.read(userid);
-//		model.addAttribute("user", user);
-//		
-//		return "userUpdate";
-//	}
-	/*
-	@GetMapping("/")
-	public String home(Locale locale, Model model,Long pdNum) {
-		
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
-		
-		model.addAttribute("serverTime", formattedDate );
-		
-		//여기서부터 product 코딩
-		
-		
-		
-		List<ProductVO> productVOList = new ArrayList<ProductVO>();
-		Criteria cri = new Criteria();
-		productVOList = service.getList(cri);
-		
-		
-		
-		 for (ProductVO productVO : productVOList) {
-		    	productVO.setPdNum(productVO.getPdNum());
-		    }
-		 model.addAttribute("list", productVOList);
-		
-			int total = service.getTotal(cri);
-		 model.addAttribute("pageMaker", new PageDTO(cri, total));
-		 
-		 
-		 
-		
-		
-		return "index";
-	}
-	*/
+
 	
 	@GetMapping("/page")
 	public void page(Criteria cri, Model m) {

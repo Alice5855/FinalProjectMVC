@@ -190,12 +190,10 @@
 		<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 		<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 	
-	<!-- Page 344 중간 jsp 소스 코딩 추가 시작 : 소스 문제 없는데 붉은색 표시나면 구문 잘라내기 후에 다시 붙여넣기 저장해 보시기 바랍니다. -->
-	<!-- 다음의 구문 코딩 후에 웹브라우저 실행해서, 검색 이후에 페이지를 이동해서 동일한
-	     검색 조건과 키워드가 유지되는지 확인 바랍니다. -->
+	
 		<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
 		<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
-	<!-- Page 344 중간 jsp 소스 코딩 추가 끝 -->
+	
 	
 	</form>
 
@@ -292,10 +290,8 @@ $(document).ready(function () {
 
 
 	$(".price").each(function() {
-		
 		var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		console.log(changeNum);
-		
+			console.log(changeNum);
 		$(this).val(changeNum);
 		
 	

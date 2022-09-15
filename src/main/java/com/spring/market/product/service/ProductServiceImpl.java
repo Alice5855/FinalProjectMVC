@@ -23,37 +23,21 @@ import lombok.extern.log4j.Log4j;
 @AllArgsConstructor // 모든 parameter를 이용하는 생성자를 자동 생성
 public class ProductServiceImpl implements ProductService {
 
-	// Spring 4.3 이상에서는 단일 parameter를 갖는 생성자의 경우 자동 처리됨
-	// (Parameter를 자동 주입)
+
 	@Setter(onMethod_ = {@Autowired})
 	private ProductMapper mapper;
 	
 	@Setter(onMethod_ = {@Autowired})
 	private ProductAttachMapper attachMapper;
 	
-	// tbl_board에 게시글과 tbl_attach에 file upload가 함께 이루어져야 하기 때문에
-	// Transactional화
+
 	@Transactional
 	@Override
 	public void register(ProductVO product) {
 		
 		mapper.insertSelectKey(product);
-		log.info("registered ===== to " + product);
-//		System.out.println("왜 안돼" + attachMapper.findByB_number(120L));
-//		attachMapper.findByB_number(120L);
-		
-		System.out.println(product.getPdNum());
-		
-
 		
 		product.getAttachList().forEach(attach -> {
-			attach.setPdNum(product.getPdNum());
-			System.out.println("확인 실행 됐냐 어태치 PdNum : " + attach.getPdNum());
-			System.out.println("확인 실행 됐냐 어태치 PdName : " + attach.getPdName());
-			System.out.println("확인 실행 됐냐 어태치 PdFolder : " + attach.getPdFolder());
-			System.out.println("확인 실행 됐냐 어태치 PdUuid : " + attach.getPdUuid());
-			
-
 			attach.setPdPath(attach.getPdFolder().replace('\\', '/')+ "/" + attach.getPdUuid() + "_" + attach.getPdName());
 			System.out.println("확인 실행 됐냐 어태치 PdPath : " + attach.getPdPath());
 			attachMapper.insert(attach);

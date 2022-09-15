@@ -6,7 +6,7 @@
 
 	<insert id="insert">
 		insert into attach_product (pdUuid, pdFolder, pdName,pdPath,pdNum)
-		values (#{pdUuid}, replace(#{pdFolder}, '\', '/'), #{pdName},replace(#{pdPath},'\', '/'),#{pdNum})
+		values (#{pdUuid}, replace(#{pdFolder}, '\', '/'), #{pdName},#{pdPath},'\', '/'),#{pdNum})
 	</insert>
 
 	<delete id="delete">

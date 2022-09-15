@@ -7,14 +7,38 @@
 
 <%@include file="../includes/header.jsp"%>
 <style>
-
+	
+	
+	
+		.card {
+	   
+	    display: block;
+	  
+	}
+		
+	
 
 	.carousel-indicators [data-bs-target] {
    
-    background-color: #333 !important;
-  
+	    background-color: #333 !important;
+	  
+	}
+	
+	.uploadResult img{
+		height: 400px !important;
+		object-fit:contain !important;
+	}
+	.active{
+		display: block !important;
+	}
+	
+	@media(max-width:475px){
+		.lead {
+		    font-size: 1rem;
+		    font-weight: 300;
 }
-
+	
+	}
 
 	/*
 	.uploadResult {
@@ -168,10 +192,6 @@
 					        </div>
 					        <div class="form-group">
 					        	<div class="fs-5 mb-5">
-<!-- 					        		<span id = "price" class="text-decoration-line-through me-2"> -->
-<!-- 					        			세일하는척 오졌고 -->
-<%-- 					        			<c:out value="${product.pdPrice + 5000}" />원 --%>
-<!-- 					        		</span> -->
 									<span id= "price">
 										<c:out value="${product.pdPrice}" />원
 									</span>
@@ -322,9 +342,9 @@
 </div>
 <!-- /.modal -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
 <script type="text/javascript" src="/resources/js/reply.js"></script>
-<script type="text/javascript" src="/resources/js/get_script.js"></script>
+<!-- <script type="text/javascript" src="/resources/js/get_script.js"></script> -->
 
 <script type="text/javascript">
 	// page 415 reply event handler
@@ -827,13 +847,8 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		
 			var num = $("#price").text();
-			
 			var num2 = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			
-			
-			
 			document.getElementById("price").innerHTML=num2;
 		
 			
