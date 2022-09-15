@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
 <%@include file="../includes/header.jsp"%>
 <style>
 /* .bucketContainer { */
@@ -18,12 +17,13 @@
 /* } */
 
 body{
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 .bucketContainer {
 	display: flex;
 	flex-direction: column-reverse;
+	border-radius: 50px;
 }
 
 .productInfo {
@@ -47,10 +47,13 @@ body{
 
 .bucketTable {
 	background: white;
-	border-radius: 2px;
+	border-radius: 5px;
 	margin: 10px 10px 0 10px;
 	vertical-align: middle;
 	text-align: center;
+	
+	border-collapse: collapse;
+	border-style: hidden;
 }
 
 td>img {
@@ -81,7 +84,7 @@ th {
     min-width: 200px;
     min-height: 50px;
 	background: linear-gradient( 169deg, rgba(74, 117, 217, 0.7) 0%, rgba(3, 57, 223, 1) 100% );	
-    border-radius: 1000px;
+    border-radius: 1000px; 
     color: white;
     cursor: pointer;
     font-weight: 700;
@@ -116,7 +119,30 @@ h3{
 }
 
 #totalPrice{
-	width: 22%;
+	width: 25%;
+}
+
+.col-lg-12{
+    width: fit-content;
+    margin: 0 auto 0 auto;
+    font-weight: 800;
+}
+
+.page-header{
+	font-weight: 800;
+}
+
+.btn{
+	border-radius: 0px !important;
+}
+
+#btnBuy{
+	background-color: #4A75D4;
+	color: white;
+}
+
+#btnDel{
+	border: 2px solid black;
 }
 
 @keyframes ring {
@@ -175,7 +201,7 @@ h3{
 	}
 	
 	#totalPrice{
-		width: 62%;
+		width: 70%;
 	}
 	
 	.productPrice{
@@ -186,8 +212,9 @@ h3{
 
 </style>
 
+<div class="container-fluid">
 <div class="row">
-	<div class="col-lg-12">
+	<div class="col-lg-12" style="text-align: center; color: rgb(74, 117, 212); font-weight: 700;">
 		<h1 class="page-header">
 			<c:out value="${member.memName}" />
 			님의 장바구니
@@ -214,10 +241,7 @@ h3{
 					<tr>
 						<td colspan="4" ><img
 							src="../../../resources/imgs/Bucket-icon.png"
-							style="width: 50% !important; height: 50% !important;"></td>
-						<td></td>
-						<td></td>
-						<td></td>
+							style="width: 30% !important; height: 50% !important;"></td>
 					</tr>
 				</c:if>
 				<c:if test="${not empty productList}">
@@ -235,9 +259,9 @@ h3{
 								<form name="productInfoDetail" action="/buy"
 									class="productInfoDetail" method="post">
 									<input type="hidden" name="pdNum" value="${product.pdNum}">
-									<button id="btnBuy" type="submit" class="btn btn-danger btnBuy">구매</button>
+									<button id="btnBuy" type="submit" class="btn btnBuy">구매</button>
 									<button id="btnDel" onclick="delBucket('${product.pdNum}')"
-										type="button" class="btn btn-warning btnDel">제거</button>
+										type="button" class="btn btnDel">제거</button>
 								</form>
 							</td>
 						</tr>
@@ -255,6 +279,7 @@ h3{
 			</table>
 		</div>
 	</div>
+</div>
 </div>
 
 <script>
