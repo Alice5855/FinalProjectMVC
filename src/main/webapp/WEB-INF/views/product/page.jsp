@@ -14,6 +14,45 @@
 		height: 100%;
 		object-fit: cover;
 	}
+	
+	.price{
+		border: none;
+		text-align:  center;
+		width: 70%;
+		font-size: 120%;
+	
+	
+	}
+	
+	
+	.form-select{
+		width: 15%;
+	}
+	.form-control{
+		width: 25%;
+	}
+	
+	@media (max-width:475px) {
+	.row-cols-2>* {
+	    flex: 0 0 auto;
+	    width: 80% !important;
+		}
+		
+		
+	.form-select{
+		width: 30%;
+		}
+		
+	.form-control{
+		width: 50%;
+		}
+	
+	
+	}
+	
+	
+	
+	
 </style>
 <div class="container-fluid">
 	<!-- Carousel -->
@@ -97,7 +136,7 @@
 								    </h6>
 								    
 								 
-								    <c:out value="${product.pdPrice}원"/>
+								    <input class="price" id="" value="<c:out value="${product.pdPrice}원"/>" disabled="disabled">
 								</div>
 						    </div>
 						</div>
@@ -110,12 +149,12 @@
 	<div class="row text-center">
 	<div class="col-12">
 		<form id="searchForm" action="/product/page" method="get">
-			<select class="form-select d-inline" name="type" style="width: 15% !important;">
+			<select class="form-select d-inline" name="type">
 				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
 				<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
 				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
 			</select>
-			<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" style="width: 25% !important;" />						
+			<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
 			<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
 			<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
 			<button class="btn btn-outline-secondary">검색</button>						
@@ -244,4 +283,35 @@
 		});
 	});
 </script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+	
+	
+
+
+	$(".price").each(function() {
+		
+		var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		console.log(changeNum);
+		
+		$(this).val(changeNum);
+		
+	
+	});
+
+	
+		
+		
+		
+		
+		
+		
+		
+
+		
+	
+		
+})
 <%@ include file="../includes/footer.jsp" %>

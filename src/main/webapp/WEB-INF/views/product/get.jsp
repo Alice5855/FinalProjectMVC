@@ -269,7 +269,7 @@
 					<!-- /ul.chat -->
 				</div>
 				<!-- /.panel-body -->
-				<!-- Page 439에서 추가한 source -->
+				
 				<div class="panel-footer">
 				
 				</div>
