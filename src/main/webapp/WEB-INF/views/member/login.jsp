@@ -79,7 +79,6 @@ body {
 }
 
 </style>
-<body>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@include file="../includes/header.jsp" %> 
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -124,4 +123,3 @@ body {
 		
 <!-- 		<a href="join">회원가입</a> -->
 <!-- 	</div> -->
-</body>

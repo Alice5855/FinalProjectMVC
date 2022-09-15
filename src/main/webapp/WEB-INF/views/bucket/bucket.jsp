@@ -98,7 +98,7 @@
 					<c:forEach items="${productList}" var="product">
 						<tr data-pdNum='${product.pdNum}'>
 							<td>
-								<img class="productImg" src="../../../resources/imgs/AniBucket-1.png" class="card-img-top" alt="...">
+								<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
 							</td>
 							<td class="product productName">
 								${product.pdName}

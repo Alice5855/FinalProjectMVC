@@ -83,9 +83,9 @@
 		background-color: #D9D9D9;
 	}
 	.reply-heading {
-		font-size: 1rem;
-		color: #6FEDD6 !important;
-   		background-color: #FF4A4A !important;
+		font-size: 1.2rem;
+		color: #4A75D4 !important;
+   		background-color: #FFF965 !important;
 	}
 </style>
 <style>
@@ -257,7 +257,7 @@
 				<!-- new entry button added -->
 				<div class="mb-4">
 					<span class="badge text-bg-info reply-heading">Review</span>
-					<button id="addReplyBtn" class="btn btn-secondary btn-sm float-end">New Review</button>
+					<button id="addReplyBtn" class="btn btn-info btn-sm float-end">New Review</button>
 				</div>
 				
 				<!-- /.panel-heading -->
@@ -291,16 +291,15 @@
 				<h4 class="modal-title" id="myModalLabel">REVIEW</h4>
             </div>
             <div class="modal-body">
-				<div class="form-group">
-					<label>rvText</label> 
+				<div class="form-group mt-4">
 					<input class="form-control" name='rvText' value='rvText'>
 				</div>
-				<div class="form-group">
-					<label>memNickname</label> 
+				<div class="form-group mt-4">
+					<label>작성자</label> 
 					<input class="form-control" name='memNickname' value='memNickname'>
 				</div>
 				<!-- file -->
-				<div class="form-group">
+				<div class="form-group mt-4">
 					<label for="formFile" class="form-label">업로드 하실 이미지를 선택해주세요</label>
 					<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*">
 				</div>
@@ -311,10 +310,10 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id='modalModBtn' type="button" class="btn btn-warning">Modify</button>
-				<button id='modalRemoveBtn' type="button" class="btn btn-danger">Remove</button>
-				<button id='modalRegisterBtn' type="button" class="btn btn-primary">Register</button>
-				<button id='modalCloseBtn' type="button" class="btn btn-default">Close</button>
+				<button id='modalModBtn' type="button" class="btn btn-outline-info">Modify</button>
+				<button id='modalRemoveBtn' type="button" class="btn btn-outline-danger">Remove</button>
+				<button id='modalRegisterBtn' type="button" class="btn btn-outline-primary">Register</button>
+				<button id='modalCloseBtn' type="button" class="btn btn-outline-secondary">Close</button>
 			</div>
 		</div>
         <!-- /.modal-content -->

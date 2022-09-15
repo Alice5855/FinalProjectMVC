@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../includes/header.jsp" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 <style>
@@ -15,20 +14,6 @@
 		height: 100%;
 		object-fit: cover;
 	}
-	.price{
-		border: none;
-		text-align:  center;
-		width: 70%;
-		font-size: 120%;
-		
-		
-	}
-	@media (max-width:475px) {
-	.row-cols-2>* {
-    flex: 0 0 auto;
-    width: 80% !important;
-}
-}
 </style>
 <div class="container-fluid">
 	<!-- Carousel -->
@@ -89,7 +74,9 @@
 						<div class="card h-100">
 						    <!-- Product image-->
 						    <div class="pd-img-wrapper">
-	 					    	<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
+						    	<a class='move' href='<c:out value="${product.pdNum}"/>'>
+	 					    		<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
+	 					    	</a>
 	 					    </div> 
 						    <!-- Product details-->
 						    <div class="card-body p-4">
@@ -102,18 +89,15 @@
 								    </h2>
 								    <fmt:formatDate pattern="yyyy/MM/dd"
 											value="${product.pdRegDate}" />
-											
-											
-												
-											
 								    <!-- Product price-->
 								    <h6>
 									    <a href='page?type=T&keyword=${product.pdKeyword}&pageNum=1&amount=9' style="text-decoration: none;">
 									    	#<c:out value="${product.pdKeyword}" />
 									    </a>
 								    </h6>
-							    <input class="price" id="" value="<c:out value="${product.pdPrice}원"/>" disabled="disabled">
-								
+								    
+								 
+								    <c:out value="${product.pdPrice}원"/>
 								</div>
 						    </div>
 						</div>
@@ -124,23 +108,23 @@
 	
 	
 	<div class="row text-center">
-	<div class="col-lg-12">
+	<div class="col-12">
 		<form id="searchForm" action="/product/page" method="get">
-			<select name="type">
+			<select class="form-select d-inline" name="type" style="width: 15% !important;">
 				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
 				<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
 				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
 			</select>
-			<input type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
+			<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" style="width: 25% !important;" />						
 			<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
 			<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
-			<button class="btn btn-default">Search</button>						
-			</form>
+			<button class="btn btn-outline-secondary">검색</button>						
+		</form>
 		</div>
 	</div>
 	
 	
-	<div class="text-center">
+	<div class="text-center mt-3">
 		<ul class="pagination" style="justify-content: center;">
 		
 			<c:if test="${pageMaker.prev}">
@@ -240,12 +224,12 @@
 		
 		$("#searchForm button").on("click", function(e) {
 			if(!searchForm.find("option:selected").val()){
-				alert("검색 종류를 선택해 주시기 바랍니다!");
+				alert("검색 종류를 선택해 주시기 바랍니다");
 				return false;
 			}
 			
 			if(!searchForm.find("input[name='keyword']").val()){
-				alert("키워드를 입력해 주시기 바랍니다!");
+				alert("키워드를 입력해 주시기 바랍니다");
 				return false;
 			}
 			
@@ -259,39 +243,5 @@
 			searchForm.submit();			
 		});
 	});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function () {
-
-	
-	
-
-
-	$(".price").each(function() {
-		
-		var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-		console.log(changeNum);
-		
-		$(this).val(changeNum);
-		
-	
-	});
-
-	
-		
-		
-		
-		
-		
-		
-		
-
-		
-	
-		
-})
-	
-
 </script>
 <%@ include file="../includes/footer.jsp" %>

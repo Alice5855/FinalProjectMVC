@@ -53,20 +53,21 @@ public class BucketServiceTests {
 		}
 		System.out.println("--------------------------------------");
 	}
-	
-//	@Test
+	/*
+	@Test
 	public void testDelete() {
 		Member testMemVO = new Member();
 		testMemVO.setMemNum(1L);
 		
-		service.removeBucket(testMemVO.getMemNum(), 0L);
+		service.removeBucket(testMemVO.getmemNum()(), 0L);
 	}
 	
-//	@Test
+	@Test
 	public void testSelectCount() {
 		Member testMemVO = new Member();
 		testMemVO.setMemNum(1L);
 		
 		System.out.println("1번친구의 장바구니 갯수"+service.getBucketCount(testMemVO.getMemNum()));
 	}
+	*/
 }
