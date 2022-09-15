@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@ include file="../includes/header.jsp" %>
+	<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <body>
@@ -20,14 +20,13 @@
 	     	사진 : <input type = "file" name = "MF" multiple="multiple" accept=".jpg, .png"/><br>
 	       		  <img id="profileIm" src=""><br><hr>
 	        	  <div id="div-preview">
-	        	  		<img class="pf" src="/resources/upload/profile/${profile.changeName}" width="100" height="100">
+	        	  		<img class="pf" src="/resources/upload/profile/${profile.changeName}">
 	        	  </div>
 	        <input type = "submit" value ="수정하기"/>
 	    </form>
 	</div>
 </body>
 
-    <%@ include file="../includes//footer.jsp" %>
 
 	<script type="text/javascript">
 	
@@ -82,3 +81,4 @@
     });
 }
     </script>
+    <%@ include file="/WEB-INF/views/includes/footer.jsp" %>

@@ -1,6 +1,6 @@
 <body>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@include file="../includes/header.jsp" %> 
+	<%@ include file="/WEB-INF/views/includes/header.jsp" %>
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<div id="div-main">
@@ -46,7 +46,7 @@
 	    <hr><hr><hr>
 	    
 	</div>
-<%@ include file="../includes/footer.jsp" %>
+<%@ include file="/WEB-INF/views/includes/footer.jsp" %>
 	
 	<script type="text/javascript">
 	
@@ -101,4 +101,3 @@
 }
     </script>
 </body>
-<%@include file="../includes/footer.jsp" %> 

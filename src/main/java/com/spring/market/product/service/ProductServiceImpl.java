@@ -100,11 +100,12 @@ public class ProductServiceImpl implements ProductService {
 		
 		product.setPdNum(EpdNum);
 		
-//		attachMapper.deleteAll(product.getPdNum());
+		attachMapper.deleteAll(product.getPdNum());
 		
 		
-//		mapper.delete(product.getPdNum());
-		mapper.update(product);
+		mapper.delete(product.getPdNum());
+//		mapper.update(product);
+		mapper.insert(product);
 		
 		
 		
