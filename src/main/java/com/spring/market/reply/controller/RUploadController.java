@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.spring.market.reply.domain.RAttachFileDTO;
 import com.spring.market.reply.domain.ReplyAttachVO;
+import com.spring.market.reply.domain.ReplyVO;
 
 import lombok.extern.log4j.Log4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -42,6 +42,7 @@ public class RUploadController {
 	@GetMapping("/uploadForm")
 	public void uploadForm() {
 		log.info("Upload Form ===== ");
+		
 	}
 	
 	// Page 497 : Spring MVC에서 지원하는 MultipartFile type으로 file handle
@@ -169,11 +170,12 @@ public class RUploadController {
 				*/
 				list.add(attachvo);
 				// Added (page517)
+				log.info("ReplyAttachVO ===== " + attachvo);
 			} catch (Exception e) {
 				log.error(e.getMessage());
 			} // catch
 		    
-		    log.info(list);
+		    log.info("ReplyAttachVO list ===== " + list);
 		    
 	    } // for
 	    return new ResponseEntity<List<ReplyAttachVO>>(list, HttpStatus.OK);

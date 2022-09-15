@@ -3,8 +3,11 @@
 				  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.spring.market.reply.mapper.ReplyMapper">
 	<insert id="insert">
+		<selectKey keyProperty="rvNum" order="BEFORE" resultType="long">
+			select seq_review.nextval from dual
+		</selectKey>
 		insert into review_table (rvNum, pdNum, rvText, memNickname)
-		values (seq_review.nextval, #{pdNum}, #{rvText}, #{memNickname})
+		values (#{rvNum}, #{pdNum}, #{rvText}, #{memNickname})
 	</insert>
 	
 	<select id="read" resultType="com.spring.market.reply.domain.ReplyVO">

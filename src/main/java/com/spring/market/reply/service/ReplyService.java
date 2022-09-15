@@ -19,4 +19,5 @@ public interface ReplyService {
 	
 	// 첨부 파일을 불러오기 위한 List
 	public List<ReplyAttachVO> getAttachList(Long rvNum);
+	
 }

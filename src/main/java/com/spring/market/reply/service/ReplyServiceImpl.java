@@ -38,7 +38,7 @@ public class ReplyServiceImpl implements ReplyService {
 		log.info("Reply register ===== " + vo);
 		
 		rmapper.insert(vo);
-
+		
 		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
 			return 1;
 		}
@@ -50,6 +50,8 @@ public class ReplyServiceImpl implements ReplyService {
 		});
 		return 1;
 	}
+	
+	
 
 	@Override
 	public ReplyVO get(Long rvNum) {
@@ -87,6 +89,11 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<ReplyAttachVO> getAttachList(Long rvNum) {
 		log.info("get Attach list in ===== [rvNum]" + rvNum);
 		return rAttachMapper.findByRvNum(rvNum);
+	}
+	
+	public List<ReplyAttachVO> setAttachList(List<ReplyAttachVO> avo) {
+		log.info("setAttachList ===== [vo]" + avo);
+		return avo;
 	}
 
 }

@@ -6,12 +6,10 @@
 
 <%@include file="../includes/header.jsp"%>
 <style>
-	/*
 	.uploadResult {
-	   width: 100%;
-	   background-color: #F5F5F5;
+		display:block;
 	}
-	
+	/*
 	.uploadResult ul {
 	   display: flex;
 	   flex-flow: row;
@@ -131,7 +129,7 @@
 										<button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
 									</div>
 									<div class="carousel-inner">
-										<div class="carousel-item active uploadResult">
+										<div class="carousel-item active uploadResult card">
 										</div>
 									</div>
 									<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
@@ -246,7 +244,7 @@
 				<!-- new entry button added -->
 				<div class="mb-4">
 					<span class="badge text-bg-info reply-heading">Review</span>
-					<button id="addReplyBtn" class="btn btn-info btn-sm float-end">New Review</button>
+					<button id="addReplyBtn" class="btn btn-outline-primary btn-sm float-end">New Review</button>
 				</div>
 				
 				<!-- /.panel-heading -->
@@ -281,7 +279,7 @@
             </div>
             <div class="modal-body">
 				<div class="form-group mt-4">
-					<input class="form-control" name='rvText' value='rvText'>
+					<textarea class="form-control" rows="3" name='rvText' style='resize: none;'></textarea>
 				</div>
 				<div class="form-group mt-4">
 					<label>작성자</label> 
@@ -292,7 +290,7 @@
 					<label for="formFile" class="form-label">업로드 하실 이미지를 선택해주세요</label>
 					<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*">
 				</div>
-				<div class='rvUploadResult'> 
+				<div class='rvUploadResult'>
 					<ul>
 					
 					</ul>
@@ -311,10 +309,7 @@
 </div>
 <!-- /.modal -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="/resources/js/reply.js"></script>
-<script type="text/javascript" src="/resources/js/get_script.js"></script>
-
 <script type="text/javascript">
 	// page 415 reply event handler
 	$(document).ready(function() {
@@ -417,7 +412,7 @@
 		
 		// page 422 modal handler
 		var modal = $(".modal");
-		var modalInputRvText = modal.find("input[name='rvText']");
+		var modalInputRvText = modal.find("textarea[name='rvText']");
 		var modalInputMemNickname = modal.find("input[name='memNickname']");
 		// var modalInputReplyDate = modal.find("input[name='replyDate']");
 		
@@ -453,11 +448,11 @@
 		};
 		
 		$("input[type='file']").change(function(e){
-			   
+			
 			var formData = new FormData();
 			var inputFile = $("input[name='uploadFile']");
 			var files = inputFile[0].files;
-	
+			
 			for(var i = 0; i < files.length; i++){
 				
 				console.log(files[i]);
@@ -494,9 +489,9 @@
 			if(!uploadResultArr || uploadResultArr.length == 0){
 	    		return;
 	    	}
-	          
+	        
 			var upload = $(".rvUploadResult ul");
-	         
+	        
 			var str = "";
 	        
 			$(uploadResultArr).each(function(i, obj){
@@ -556,7 +551,7 @@
 		// page 423 modal registerbtn
 		modalRegisterBtn.on("click", function(e){
 			// added
-			console.log("Submit Button Clicked");
+			console.log("Upload Button Clicked");
 			
 			var uploadUL = $(".rvUploadResult ul");
 			var str = "";
@@ -566,7 +561,7 @@
 				
 				console.dir(jobj);
 				console.log("===========================");
-				console.log(jobj.data("filename"));
+				console.log(jobj.data("rvname"));
 				
 				str += "<input type='hidden' name='attachList[" + i + "].rvName' value='" + jobj.data("rvname") + "'>";
 				str += "<input type='hidden' name='attachList[" + i + "].rvUuid' value='" + jobj.data("rvuuid") + "'>";
@@ -574,16 +569,24 @@
 			}); // uploadResult ul li.each func
 			console.log(str);
 			uploadUL.append(str);
+			
 			// added
 			var attachName = modal.find("input[name='attachList[0].rvName']");
 			var attachUuid = modal.find("input[name='attachList[0].rvUuid']");
 			var attachFolder = modal.find("input[name='attachList[0].rvFolder']");
+			
+			var attach = {
+				rvName: attachName.val(),
+				rvUuid: attachUuid.val(),
+				rvFolder: attachFolder.val()
+			}
 			
 			var reply = {
 				rvText: modalInputRvText.val(),
 				memNickname: modalInputMemNickname.val(),
 				pdNum: pdNumValue
 			};
+			
 			replyService.add(reply, function(result){
 				alert(result);
 				
