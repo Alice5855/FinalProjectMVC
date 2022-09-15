@@ -100,7 +100,7 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 							</td>
 							<td>
 								<c:if test="${not empty product}" >
-									<input readonly="readonly" value="${product.pdPrice}">
+									<input class="price" readonly="readonly" value="${product.pdPrice}">
 								</c:if>
 								<c:if test="${empty product}" >
 									<input readonly="readonly" value="${totalPrice}">
@@ -122,7 +122,18 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </body>
 
 <script>
+
+	function comma() {
+		$(".price").each(function() {
+			var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$(this).val(changeNum);
+		})
+	}
+	
+	comma();	
+
 	function fn_buy() {
+
 		var pdNum = 0;
 		var price = 0;
 		if($('.pdNum').val() != 0){
@@ -131,7 +142,7 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 		}else{
 			price = "<c:out value='${totalPrice}' />";
 		}
-		
+		changePrice = price.replace(/[^\d]+/g, '');
 		
 		
 		var IMP = window.IMP;
@@ -141,7 +152,7 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 			pay_method : "card",
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : $('.pdName').val(),
-			amount : price,
+			amount : changePrice,
 			buyer_email : $('.memEmail').val(),  // buyer_email도 수정하기 바랍니다.
 			buyer_name : $('.memName').val(),
 			buyer_tel : $('.memPh').val(),

@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>Welcome to AniBucket</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 	<!-- Bootstrap JS -->
@@ -117,20 +119,19 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="#!">로그인</a></li>
+	                        <li><a class="dropdown-item" href="${root}/member/login">로그인</a></li>
 	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        <li><a class="dropdown-item" href="${root}/member/mypage">mypage</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
-	                        <li><a class="dropdown-item" href="#!">회원가입</a></li>
+	                        <li><a class="dropdown-item" href="${root}/member/join">회원가입</a></li>
 	                    </ul>
 	                </li>
 	            </ul>
-	            <form class="d-flex">
-	                <button class="btn btn-outline-primary" type="submit">
+	                <button class="btn btn-outline-primary" type="submit" onclick="location.href='/bucket'">
 	                    <i class="bi-cart-fill me-1"></i>
 						<span class="bucket">장동이</span>
-	                    <span class="badge ms-1 rounded-pill counter">0</span>
+	                    <span class="badge ms-1 rounded-pill" style="background-color: #6FEDD6; color: #FF4A4A;">0</span>
 	                </button>
-	            </form>
 	        </div>
 	    </div>
 	</nav>
