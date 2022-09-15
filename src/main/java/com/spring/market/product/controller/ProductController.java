@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -316,7 +317,6 @@ public class ProductController {
 		int total = service.getTotal(cri);
 		log.info("total ===== " + total);
 		m.addAttribute("pageMaker", new PageDTO(cri, total));
-		
     }
     
 }

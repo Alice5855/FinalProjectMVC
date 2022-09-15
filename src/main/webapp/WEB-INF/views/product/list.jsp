@@ -75,52 +75,39 @@
 				<table class="table table-striped table-bordered table-hover">
 					<thead>
 						<tr>
-							<th>#번호</th>
+							<th>번호</th>
 							<th>제목</th>
 							<th>작성자</th>
 							<th>작성일</th>
 							<th>수정일</th>
 						</tr>
 					</thead>
-					<!-- Model에 담긴 데이터 출력 : '/board/list'를
-                                                                  실행했을 때 앞서 BoardController는 Model을 이용해서
-                                                                  게시물의 목록을 'list'라는 이름으로 담아서 전달했으므로
-			                              list.jsp에서는 이것을 출력합니다.
-                                                                 출력은 JSTL을 이용해서 처리합니다.-->
+					
 					<c:forEach items="${list}" var="product">
-						<!-- Page254 아래 ~ Page255 위까지 소스 수정 코딩 시작 -->
+						
 						<tr>
 							<td><c:out value="${product.pdNum}" /></td>
-							<!-- a 태그에 target="_blank" 속성을 적용하면 새창으로 글 상세 내용을 보여줌 -->	
-							<!-- Page 314 중간 jsp 소스 코딩할 때 아래 소스 주석 처리함 -->
-							<%-- <td><a href='/board/get?bno=<c:out value="${board.bno}"/>'><c:out value="${board.title}"/></a></td> --%>
-
-							<!-- Page 314 아래 jsp 소스 코딩할 때 아래 소스 추가 코딩 시작 -->
+							
 							<td><a class='move' href='<c:out value="${product.pdNum}"/>'>
 									<c:out value="${product.pdName}" />
-									<!-- Page 486 소스 코딩 추가 -->
-<%-- 									<b>[<c:out value="${board.replyCnt}" /> ]</b> --%>
+
 							</a></td>
-							<!-- Page 314 아래 jsp 소스 코딩할 때 아래 소스 추가 코딩 끝 -->
+			
 
 							<td><c:out value="${product.pdName}" /></td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd"
-									value="${product.pdRegDate}" /></td>
-<%-- 							<td><fmt:formatDate pattern="yyyy-MM-dd" --%>
-<%-- 									value="${board.updateDate}" /></td> --%>
+							<td>
+<%-- 								<fmt:formatDate pattern="yyyy-MM-dd" --%>
+<%-- 									value="${product.pdRegDate}" /> --%>
+									<c:out value="${product.pdRegDate}" />
+							</td>
+
 						</tr>
-						<!-- Page254 아래 ~ Page255 위까지 소스 수정 코딩 끝 -->
+						
 					</c:forEach>
 				</table>
-				<!-- Page 237 소스 코딩 끝 -->
+	
 				
-				<!-- Page 340 jsp 소스 코딩 시작, Page 343 jsp 소스 코딩 수정 시작 -->
-				<!-- 화면에서 검색 기능 구현할 때 다음의 사항들을 주의해서 개발해 주시기 바랍니다.
-				첫번째로 페이지 번호가 파라미터로 유지되었던 것처럼 검색 조건과 키워드 역시 항상 화면 이동 시 같이 전송되어야 합니다.
-				두번째로 화면에서 검색 버튼을 클릭하면 새로 검색을 한다는 의미이므로
-				1페이지로 이동합니다.
-				세번째로 한글의 경우 GET방식으로 이동하는 경우 문제가 생길 수 있으므로
-				주의해야 합니다. -->
+			
 				<div class="row">
 					<div class="col-lg-12">
 						<form id="searchForm" action="/board/list" method="get">

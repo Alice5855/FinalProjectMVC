@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../includes/header.jsp" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
 <style>
@@ -14,6 +15,20 @@
 		height: 100%;
 		object-fit: cover;
 	}
+	.price{
+		border: none;
+		text-align:  center;
+		width: 70%;
+		font-size: 120%;
+		
+		
+	}
+	@media (max-width:475px) {
+	.row-cols-2>* {
+    flex: 0 0 auto;
+    width: 80% !important;
+}
+}
 </style>
 <div class="container-fluid">
 	<!-- Carousel -->
@@ -97,9 +112,8 @@
 									    	#<c:out value="${product.pdKeyword}" />
 									    </a>
 								    </h6>
-								    
-								 
-								    <c:out value="${product.pdPrice}원"/>
+							    <input class="price" id="" value="<c:out value="${product.pdPrice}원"/>" disabled="disabled">
+								
 								</div>
 						    </div>
 						</div>
@@ -245,5 +259,39 @@
 			searchForm.submit();			
 		});
 	});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+
+	
+	
+
+
+	$(".price").each(function() {
+		
+		var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		console.log(changeNum);
+		
+		$(this).val(changeNum);
+		
+	
+	});
+
+	
+		
+		
+		
+		
+		
+		
+		
+
+		
+	
+		
+})
+	
+
 </script>
 <%@ include file="../includes/footer.jsp" %>

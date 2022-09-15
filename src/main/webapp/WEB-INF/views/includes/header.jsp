@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
     <c:set var="root" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Welcome to AniBucket</title>
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -122,11 +124,16 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                        <li><a class="dropdown-item" href="${root}/member/login">로그인</a></li>
+		                    <sec:authorize access="isAnonymous()">
+		                        <li><a class="dropdown-item" href="${root}/member/login">로그인</a></li>
+	                        </sec:authorize>
 	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
 	                        <li><a class="dropdown-item" href="${root}/member/mypage">mypage</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
 	                        <li><a class="dropdown-item" href="${root}/member/join">회원가입</a></li>
+ 	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+                        		<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
+                         	</sec:authorize> 
 	                    </ul>
 	                </li>
 	            </ul>
@@ -156,10 +163,16 @@
 	                <li class="nav-item dropdown">
 	                    <a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">사용자</a>
 	                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: rgba(255,255,255,0.8);">
+	                    
+	                    <sec:authorize access="isAnonymous()">
 	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그인</a></li>
+                        </sec:authorize>
 	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">로그아웃</a></li>
 	                        <li><hr class="dropdown-divider" /></li>
 	                        <li><a class="dropdown-item nav-text ddmenu" href="#!">회원가입</a></li>
+	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
+	                        </sec:authorize>
 	                    </ul>
 	                </li>
 	            </ul>
