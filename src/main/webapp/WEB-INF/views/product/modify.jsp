@@ -5,9 +5,19 @@
 <!-- taglib for Security authentication -->
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <c:set var ="context"><%=request.getContextPath()%></c:set>
+
 <%@include file="../includes/header.jsp"%>
 
 <style>
+
+
+
+		.card-img, .card-img-bottom, .card-img-top {
+		    width: 30%;
+		    height: 30%;
+		}
+		
+		
 		.uploadResult {
 		   width: 100%;
 		   background-color: #F5F5F5;
@@ -42,13 +52,6 @@
       	margin-bottom: 1rem;
       	margin-top: 1rem;
       }
-      
-      .card-img, .card-img-bottom, .card-img-top {
-		    width: 40%;
-		    height: 40%;
-		}
-		      
-      
 </style>
 <style>
 		.bigPictureWrapper {
@@ -137,32 +140,18 @@
 					  <input class="form-control" name='pdRegDate' value='<fmt:formatDate pattern="yyyy/MM/dd" value="${product.pdRegDate}"/>' readonly="readonly">            
 					</div>
 					
-					<div class="row container-fluid">
 					
-					<div class="col-lg-12">
-						<div class="panel panel-default">
-							<div class="">
-								<div class="form-group uploadDiv">
-									<label for="formFile" class="form-label">이미지 하나를 선택하세요</label>
+					<div class="pd-img-wrapper form-group">
+								    	
+	 					    		<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
+			 					    	
+				    </div> 
 									
-									<div class="pd-img-wrapper">
-								    	<a class='move' href='<c:out value="${product.pdNum}"/>'>
-			 					    		<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
-			 					    	</a>
-			 					    </div> 
-									<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*">
-								</div>
-				        
-								
-							</div>
-						
-						</div>
-						
+									<input class="form-control" name='pdPath' type="hidden" value='${product.pdPath}'>
+				</div>
 					
-					</div>
 					
-				</div> 
-								
+					
 					
 					
 					<!-- author가 로그인 된 userid와 일치하는 경우에만 Modify 되도록 함 -->
@@ -202,7 +191,28 @@
 	</div>
 </div>
  
-
+<div class="row container-fluid">
+	<div class="col-lg-12">
+		<div class="panel panel-default">
+			<div class="">
+				<div class="form-group uploadDiv">
+					<label for="formFile" class="form-label">이미지 하나를 선택하세요</label>
+					<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*">
+				</div>
+        
+				<div class='uploadResult'> 
+					<ul>
+          
+					</ul>
+				</div>
+			</div>
+		
+		</div>
+		
+	
+	</div>
+	
+</div> 
 
 
 
