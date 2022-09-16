@@ -38,25 +38,17 @@ import com.spring.market.product.service.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
-@Controller // Spring의 bean에서 Controller로 인식할 수 있도록 함
+@Controller 
 @Log4j
-@RequestMapping("/product/*") // '/board/'로 url pattern 정의
-@AllArgsConstructor // 생성자 자동 생성
+@RequestMapping("/product/*") 
+@AllArgsConstructor 
 public class ProductController {
-	// BoardController가 BoardService에 의존적이기 때문에 
-	// @AllArgsConstructor 로 생성자를 만들고 자동으로 주입시켜줌. 생성자를 
-	// 생성하지 않았을 경우 @Setter(onMethod_ = {@Autowired})로 처리함
+
 	private ProductService service;
 	
 	
 	
-	
-//	private UserMapper usermapper;
-	
-	// register 입력 page와 등록 처리
-	// 등록 작업은 post method를 사용하나 get method로 입력 page를 '읽어올 수
-	// 있도록' BoardController에 method를 추가해야 함
-	// 아래의 register method는 입력 page를 보여주는 역할을 수행
+
 	@GetMapping("/register")
 	public void register() {
 	}
@@ -79,7 +71,7 @@ public class ProductController {
 		return productVO.getPdName();
 	}
 	
-	// 첨부 파일 list를 읽어오기 위한 method
+	
 	@GetMapping(value="/getAttachListZero", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<ProductAttachVO>> getAttachListZero(Long pdNum) {
@@ -105,9 +97,7 @@ public class ProductController {
 	
 	
 	
-	// Page712 added need of authentication
-	// Only Logged in user can access
-//	@PreAuthorize("isAuthenticated()")
+
 	@PostMapping("/register")
 	public void register(ProductVO product, RedirectAttributes ratt, HttpServletResponse response) throws Exception {
 		log.info("register ===== " + product.getPdNum());
@@ -127,19 +117,11 @@ public class ProductController {
 		
 	}
 	
-	/* 조회시 등록과 유사하게 BoardController를 이용해 처리할 수 있음. 특별한 경우를
-	 * 제하면 조회는 Get 방식을 사용함
-	 * C(reate)R(ead)U(pdate)D(elete)중 R만이 Get방식으로 수행
-	 * modify 할 게시글을 불러오기 위해 get method에 modify mapping을 추가
-	 * @GetMapping("/get")
-	 * public void get(@RequestParam("b_number") Long b_number, Model m) ...
-	 */
+
 	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, Model m) {
 		// @ModelAttribute : 자동으로 모델에 데이터를 지정한 이름으로 담아줌
-		// 어노테이션 없이도 parameter는 객체를 통해 전달이 되지만 명시적 지정을 위해
-		// 어노테이션을 사용
-		// log.info("get ===== " + b_number);
+		
 		log.info("get or modify ===== " + pdNum);
 		m.addAttribute("product", service.get(pdNum));
 		m.addAttribute("productAttach", service.getAttachList(pdNum));
@@ -156,19 +138,12 @@ public class ProductController {
 		return new ResponseEntity<ProductVO>(service.get(pdNum), HttpStatus.OK);
 	}
 
-	// Page712 added need of authentication
-	// Only if author of entry is username can access to modify
-	// #board.writer : BoardVO(board)의 writer를 명시하여 검증절차
-//	@PreAuthorize("principal.username == #board.u_email")
-	// update의 경우 BoardVO parameter로 내용을 설정하고 BoardService를 호출
+
 	@PostMapping("/modify")
 	public String modify(ProductVO product, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt, HttpServletResponse response) throws Exception {
 		log.info("modify ===== " + product);
 		
-//		if (service.modify(product)) {
-//			log.info("modify successfully done");
-//			ratt.addFlashAttribute("result", "success");
-//		}
+
 		
 		try {
 			service.modify(product);
@@ -178,11 +153,10 @@ public class ProductController {
 			System.out.println("수정 실패했데" + e.getMessage());
 			
 		}
-		// service.modify() method는 수정 여부를 boolean type으로 처리하므로
-		// 수정에 성공한 경우 true를 반환하여 if문을 실행한다
+	
 		ratt.addAttribute("pageNum", cri.getPageNum());
 		ratt.addAttribute("amount", cri.getAmount());
-		// page 346 redirect시 attribute 유지
+		//redirect시 attribute 유지
 		ratt.addAttribute("type", cri.getType());
 		ratt.addAttribute("keyword", cri.getKeyword());
 		
@@ -198,32 +172,18 @@ public class ProductController {
 		return "/product/page";
 	}
 	
-	// Page712 added need of authentication
-	// Only if author of entry is username can access to remove
-	// Parameter로 writer를 받아 검증절차
-//	@PreAuthorize("principal.username == #u_email")
-	// remove()로 삭제 처리 한 후 RedirectAttributes로 list페이지로 이동시킴
+
 	@PostMapping("/remove")
 	public String remove(@RequestParam("pdName") String pdName, @RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt, HttpServletResponse response) {
-		// RequestParam은 view의 form data가 submit될 때에 전송된 data의 key값을
-		// 기준으로 value값을 받아오는 것. @RequestParam("writer")의 writer는
-		// form-data의 writer와 맞아야 하고, @PreAuthorize에서 검증을 위한 #writer
-		// 는 form-data의 remove의 parameter로 받아온 writer의 *변수명*과 맞아야한다 
+	
 		log.info("remove ===== " + pdNum);
 		
 		List<ProductAttachVO> attachList = service.getAttachList(pdNum);
-		// Added(page581)
-		
-//		if (service.remove(pdNum)) {
-//			deleteFiles(attachList);
-//			// Added(page581)
-//			
-//			ratt.addFlashAttribute("result", "success");
-//		}
+
 		
 		try {
 			service.remove(pdNum);
-//			deleteFiles(attachList);
+			deleteFiles(attachList);
 			
 			response.setContentType("text/html; charset=UTF-8");
 			response.setCharacterEncoding("UTF-8");

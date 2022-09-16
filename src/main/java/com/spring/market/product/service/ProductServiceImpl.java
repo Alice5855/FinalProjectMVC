@@ -19,8 +19,8 @@ import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
 @Log4j
-@Service // 계층 구조상 business 영역을 담당하는 객체임을 명시
-@AllArgsConstructor // 모든 parameter를 이용하는 생성자를 자동 생성
+@Service 
+@AllArgsConstructor 
 public class ProductServiceImpl implements ProductService {
 
 
@@ -110,20 +110,7 @@ public class ProductServiceImpl implements ProductService {
 		});
 		
 		
-//		if (modifyResult && product.getAttachList() != null && product.getAttachList().size() > 0) {
-//			product.getAttachList().forEach(attach -> {
-//				attach.setPdNum(product.getPdNum());
-//				attachMapper.insert(attach);
-//			});
-//		}
-//		mapper.setBoardImage(product.getPdNum());
-		
-		
-	
-		
-		// return mapper.update(board) == 1;
-		// 수정이 정상적으로 이루어 지면 true 값이 return됨
-		// (mapper.update()에서 1을 반환함)
+
 	}
 
 
@@ -131,13 +118,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void remove(Long pdNum) {
 		log.info("remove ===== Remove entry " + pdNum);
-//		attachMapper.deleteAll(pdNum);
-		// 첨부된 file 일괄 삭제
-//		return mapper.delete(pdNum) == 1;
+
 		attachMapper.deleteAll(pdNum);
 		mapper.delete(pdNum);
-		// 수정이 정상적으로 이루어 지면 true 값이 return됨
-		// (mapper.delete()에서 1을 반환함)
+		
 	}
 
 	@Override
@@ -160,11 +144,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	
-//	@Override
-//	public String getpdNameFromU_Email(String u_email) {
-//		log.info("get U_name from U_email");
-//		return mapper.getU_nameFromU_Email(u_email);
-//	}
+
 
 	@Override
 	public void setBoardImage(Long pdNum) {
@@ -177,11 +157,7 @@ public class ProductServiceImpl implements ProductService {
 		return attachMapper.selectAll(pdNum);
 	}
 
-//	@Override
-//	public void attachGet(Long pdNum) {
-//		attachMapper.findByB_number(pdNum);
-//		
-//	}
+
 
 	
 	

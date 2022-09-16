@@ -11,28 +11,27 @@ public interface ProductService {
 	
 	public void register(ProductVO product);
 	
-	// bno값으로 특정 게시물 정보를 가져옴
+	
 	public ProductVO get(Long pdNum);
 	
 	public void modify(ProductVO product);
 	
 	public void remove(Long pdNum);
 	
-	// 전체 게시물 리스트를 가져옴
-	// public List<BoardVO> getList();
+	
 	
 	public List<ProductVO> getList(Criteria cri);
 	
-	// Page 323 getTotal() method 정의
+
 	public int getTotal(Criteria cri);
 	
-	// 첨부 파일을 불러오기 위한 List
+
 	public List<ProductAttachVO> getAttachList(Long pdNum);
 	
-//	public String getU_nameFromU_Email(String u_email);
+
 	public void setBoardImage(Long pdNum);
 	
 	public List<ProductAttachVO> selectAll(Long pdNum);
 
-//	public void attachGet(Long pdNum);
+
 }

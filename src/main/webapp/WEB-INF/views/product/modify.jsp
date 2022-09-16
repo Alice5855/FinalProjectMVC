@@ -81,6 +81,13 @@
 	/*object-fit: contain;*/
 	cursor: pointer;
 }
+
+@media ( max-width : 475px) {
+	.uploadResult ul li img.thumbnail {
+		width: 50px;
+		height: 50px
+	}
+}
 </style>
 
 
@@ -136,7 +143,7 @@
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-							<label>상품 번호</label> <input class="form-control" name='pdNum'
+							<input class="form-control" name='pdNum'
 								value='<c:out value="${product.pdNum}" />' readonly="readonly">
 						</div>
 						<div class="form-group">
@@ -174,19 +181,12 @@
 				</div>
 			</div>
 		</form>
+		<button type="submit" data-oper='modify' class="btn btn-secondary OperationButton">수정</button>
+		<button type="submit" data-oper='remove' class="btn btn-secondary OperationButton">삭제</button>
+		<button type="submit" data-oper='list' class="btn btn-info OperationButton">리스트</button>
 	</section>
 </div>
 
-
-
-
-
-
-
-<button type="submit" data-oper='modify' class="btn btn-secondary OperationButton">수정</button>
-<button type="submit" data-oper='remove' class="btn btn-secondary OperationButton">삭제</button>
-
-<button type="submit" data-oper='list' class="btn btn-info OperationButton">리스트</button>
 
 
 <div class='bigPictureWrapper'>
