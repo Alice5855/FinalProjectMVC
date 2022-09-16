@@ -26,7 +26,7 @@
 		/* 'IBM Plex Sans KR', sans-serif; */
 		@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;700&display=swap');
 		/* https://fonts.google.com/specimen/Rubik */
-		/* 'Rubik', sans-serif; */
+		/* 'Rubik', sans-serif; */1248
 		@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
 		body {
 			padding-bottom: 20px;
@@ -120,7 +120,7 @@
 				font-size: 0.9rem;
 			}
 		}
-		@media screen and (max-width: 1247px) {
+		@media screen and (max-width: 1394px) {
 			.btnwrapper {
 				width: 15%;
 			}
