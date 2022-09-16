@@ -247,34 +247,7 @@
 	<div class='row mt-5'>
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<!-- Page 419 coding 시 주석처리됨 -->
-				<!--
-				<div class="panel-heading">
-					<i class="fa fa-comments fa-fw"></i> Reply
-				</div>
-				-->
-				<%--
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="panel panel-default">
-					      	<div class="panel-heading">상품 이미지</div>
-					      	<!-- /.panel-heading -->
-					      	<div class="panel-body">
-					        
-					        	<div class='uploadResult'> 
-					          		<ul>
-					          		</ul>
-					        	</div>
-					      	</div>
-					      	<!--  end panel-body -->
-				    	</div>
-				    	<!--  end panel-body -->
-				  	</div>
-				  	<!-- end panel -->
-				</div>
-				<!-- /.row -->
-				--%>
-				<!-- new entry button added -->
+				
 				<div class="mb-4">
 					<span class="badge text-bg-info reply-heading">Review</span>
 					<button id="addReplyBtn" class="btn btn-info btn-sm float-end">New Review</button>
@@ -394,8 +367,7 @@
 			// getList(param, callback, error)
 		}
 		// showList(page) page : path variable
-		
-		// Page 440 : paging을 위한 method
+	
 		var pageNum = 1;
 		var replyPageFooter = $(".panel-footer");
 		
@@ -449,11 +421,11 @@
 			showList(pageNum);
 		});
 		
-		// page 422 modal handler
+	
 		var modal = $(".modal");
 		var modalInputRvText = modal.find("input[name='rvText']");
 		var modalInputMemNickname = modal.find("input[name='memNickname']");
-		// var modalInputReplyDate = modal.find("input[name='replyDate']");
+	
 		
 		var modalModBtn = $("#modalModBtn");
 		var modalRemoveBtn = $("#modalRemoveBtn");

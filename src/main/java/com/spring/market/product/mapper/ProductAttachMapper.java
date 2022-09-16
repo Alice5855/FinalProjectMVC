@@ -17,7 +17,7 @@ public interface ProductAttachMapper {
 	public void deleteAll(Long pdNum);
 	// 첨부 파일 일괄 삭제
 	
-	// file의 유효성을 검증하는 method(Page600)
+	
 	public List<ProductAttachVO> getOldFiles();
 	
 	public List<ProductAttachVO> selectAll(Long pdNum);

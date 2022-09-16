@@ -81,6 +81,13 @@
 	/*object-fit: contain;*/
 	cursor: pointer;
 }
+
+@media ( max-width :475px) {
+	.uploadResult ul li img.thumbnail {
+		width: 50px;
+		height: 50px
+	}
+}
 </style>
 
 
@@ -203,13 +210,16 @@
 
 
 
-<button type="submit" data-oper='modify' class="btn btn-secondary OperationButton">수정</button>
-<button type="submit" data-oper='remove' class="btn btn-secondary OperationButton">삭제</button>
+<button type="submit" data-oper='modify'
+	class="btn btn-secondary OperationButton">수정</button>
+<button type="submit" data-oper='remove'
+	class="btn btn-secondary OperationButton">삭제</button>
 
 
 
 
-<button type="submit" data-oper='list' class="btn btn-info OperationButton">리스트</button>
+<button type="submit" data-oper='list'
+	class="btn btn-info OperationButton">리스트</button>
 
 
 
