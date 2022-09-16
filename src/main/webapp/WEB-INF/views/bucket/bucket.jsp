@@ -304,8 +304,6 @@ h3{
 </div>
 
 <script>
-
-	
 	function totalPriceInsert(){
 		
 		var totalPrice = 0;
@@ -319,7 +317,6 @@ h3{
 	}
 	
 	totalPriceInsert();
-	
 	
 	var btnDel = $("#btnDel");
 	var memNum = "<c:out value='${member.memNum}' />";
