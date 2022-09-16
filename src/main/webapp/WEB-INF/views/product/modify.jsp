@@ -243,7 +243,7 @@
 			
 			} else if(operation === 'list'){
 				//move to list
-				formObj.attr("action", "/product/main").attr("method","get");
+				formObj.attr("action", "/product/page").attr("method","get");
 			  
 			} else if(operation === 'modify'){
 				

@@ -38,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
 		mapper.insertSelectKey(product);
 		
 		product.getAttachList().forEach(attach -> {
+			attach.setPdNum(product.getPdNum());
 			attach.setPdPath(attach.getPdFolder().replace('\\', '/')+ "/" + attach.getPdUuid() + "_" + attach.getPdName());
 			System.out.println("확인 실행 됐냐 어태치 PdPath : " + attach.getPdPath());
 			attachMapper.insert(attach);
@@ -89,25 +90,7 @@ public class ProductServiceImpl implements ProductService {
 //		mapper.update(product);
 		mapper.insert(product);
 		
-		
-		
-		
-//		if (product.getAttachList() != null) {
-//			product.getAttachList().forEach(attach -> {
-//				
-//				attach.setPdNum(product.getPdNum());
-//
-//				
-//
-//				attach.setPdPath(attach.getPdFolder().replace('\\', '/')+ "/" + attach.getPdUuid() + "_" + attach.getPdName());
-//				System.out.println("확인 실행 됐냐 어태치 PdPath : " + attach.getPdPath());
-//				attachMapper.insert(attach);
-//				
-//				product.setPdPath(attach.getPdPath());
-//				mapper.inserpdPath(product);
-//			});
-//		}
-		
+
 		product.getAttachList().forEach(attach -> {
 			
 			attach.setPdNum(product.getPdNum());
