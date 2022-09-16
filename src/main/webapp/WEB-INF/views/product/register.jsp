@@ -142,7 +142,7 @@
 					        </div>
 					        
 					        <div class="d-flex align-middle mt-2">
-					        	<span class="lead me-2 pt-1">잔여 수량</span>
+					        	<span class="lead me-2 pt-1">상품 수량</span>
 					            <div class="form-group">
 									<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" style="max-width: 3.4rem">
 						        </div>
