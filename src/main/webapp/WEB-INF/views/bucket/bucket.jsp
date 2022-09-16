@@ -145,18 +145,17 @@ h3{
 	font-weight: 800;
 }
 
-.btn{
-	border-radius: 0px !important;
-}
 
 #btnBuy{
 	background-color: #4A75D4;
 	color: white;
+	border-radius: 0px !important;
 }
 
 #btnDel{
 	border: 2px solid black;
 	font-size: 0.9rem;
+	border-radius: 0px !important;
 }
 
 .mobileTextChange:after {
