@@ -81,8 +81,8 @@ public class MemberServiceImpl implements MemberService {
  			System.out.println(MF.getContentType());
  			System.out.println("=============");
  			
-			String path = req.getSession().getServletContext().getRealPath("/KIMBranch/src/main/webapp/resources/upload/profile/");
-			String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\KIMBranch", "");
+			String path = req.getSession().getServletContext().getRealPath("/FinalProjectMVC/src/main/webapp/resources/upload/profile/");
+			String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\FinalProjectMVC", "");
 			String pathing = req.getServletContext().getRealPath("/src/main/webapp/resources/upload/profile/");
 			System.out.println("어디서부터 어디까지 읽냐? " + pathing);
  			System.out.println(path);
