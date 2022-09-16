@@ -160,9 +160,9 @@
 						    <div class="container-fluid py-3">
 								<div id="carousel" class="carousel slide" data-bs-ride="carousel">
 									<div class="carousel-indicators">
-										<button type="button" data-bs-target="#carousel" data-bs-slide-to="0"  aria-current="true" aria-label="Slide 1"></button>
+										<button type="button" data-bs-target="#carousel" data-bs-slide-to="0" aria-label="Slide 1"></button>
 										<button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-										<button type="button" data-bs-target="#carousel" data-bs-slide-to="2"class="active" aria-label="Slide 3"></button>
+										<button type="button" data-bs-target="#carousel" data-bs-slide-to="2" class="active" aria-current="true" aria-label="Slide 3"></button>
 									</div>
 									<div class="carousel-inner  uploadResult pd-img-wrapper card" >
 										
@@ -221,6 +221,9 @@
 				<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
 		    </sec:authorize>
 			<button data-oper='list' class="btn btn-info" onclick="location.href='/product/page'">List</button>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<button class="btn btn-success float-end" onclick="location.href='/product/list'">Product List</button>
+			</sec:authorize>
 			
 			<form id='operForm' action="/product/modify" method="get">
 				<input type='hidden' id='pdNum' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
@@ -726,7 +729,6 @@
 			operForm.submit();
 		});
 	});
-	
 </script>
 
 <script type="text/javascript">
@@ -741,17 +743,11 @@
 			    
 				$(arr).each(function(i, attach){
 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
-//  					if(str == ""){
-//  						str += "<div class='carousel-item active' data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
-//  						str += "<img src='/product/display?fileName=" + fileCallPath + "' class='d-block w-100' alt='banner1'>";
-//  						str += "</div>"
-//  					}
-// 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div>";
-// 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div class='carousel-inner'>";
+					
+ 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
 					str += "<div class='carousel-item' data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
 					str += "<img src='/product/display?fileName=" + fileCallPath + "' class='d-block w-100' alt='banner1'>";
 					str += "</div>";
-					
 				});
 				
 				$(".uploadResult").html(str);
@@ -767,14 +763,7 @@
 			
 			var path = encodeURIComponent(liObj.data("pdfolder") + "/" + liObj.data("pduuid") + "_" + liObj.data("pdname"));
 			
-			// if(liObj.data("type")){
 			showImage(path.replace(new RegExp(/\\/g),"/"));
-			/*
-			} else {
-				//download 
-				self.location ="/download?fileName="+path
-			}
-			*/
 		});
 		
 		function showImage(fileCallPath){
@@ -816,15 +805,16 @@
 </script>
 
 <script type="text/javascript">
+	// 가격 text에 ,찍는 function
 	$(document).ready(function () {
-			var num = $("#price").text();
-			var num2 = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			document.getElementById("price").innerHTML=num2;
+		var num = $("#price").text();
+		var num2 = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		document.getElementById("price").innerHTML=num2;
 	});
 </script>
 
 <script type="text/javascript">
-
+	// Bootstrap Carousel
 	var myCarousel = document.querySelector('#carousel');
 	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle'), {
 		interval: 3000,

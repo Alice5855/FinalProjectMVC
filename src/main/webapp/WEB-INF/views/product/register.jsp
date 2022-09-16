@@ -82,92 +82,80 @@
          cursor: pointer;
       }
 </style>
-
-
-
-			<section class="py-5">
-			<form role="form" action="${context}/product/register" method="post">
-				<div class="container px-4 px-lg-5 my-5">
-					<div class="row gx-4 gx-lg-5 align-items-center">
-					    <div class="col-md-6">
-					    
-						    <div class="container-fluid py-3">
-								<div class="row">
-								  <div class="col-lg-12">
-								    <div class="panel panel-default">
-								
-								      <div class="panel-heading">상품 이미지 등록</div>
-								      <!-- /.panel-heading -->
-								      <div class="panel-body">
-								        <div class="form-group uploadDiv">
-								            <input type="file" name='uploadFile' multiple>
-								        </div>
-								        
-								        <div class='uploadResult pd-img-wrapper card'> 
-								          <ul>
-								          
-								          </ul>
-								        </div>
-								        
-								        
-								      </div>
-								      <!--  end panel-body -->
-								
-								    </div>
-								    <!--  end panel-body -->
-								  </div>
-								  <!-- end panel -->
+	<section class="py-5">
+		<form role="form" action="${context}/product/register" method="post">
+			<div class="container px-4 px-lg-5 my-5">
+				<div class="row gx-4 gx-lg-5 align-items-center">
+			    	<div class="col-md-6">
+			    
+				    	<div class="container-fluid py-3">
+							<div class="row">
+							  	<div class="col-lg-12">
+							    	<div class="panel panel-default">
+							
+								      	<div class="lead">상품 이미지 등록</div>
+										<!-- /.panel-heading -->
+										<div class="panel-body">
+									        <div class="form-group uploadDiv">
+									        	<input type="file" name='uploadFile' class="form-control" accept="image/*" multiple>
+									        </div>
+									        
+									        <div class='uploadResult pd-img-wrapper'> 
+									        	<ul>
+									          
+									        	</ul>
+								        	</div>
+										</div>
+										<!--  end panel-body -->
+									</div>
+									<!--  end panel -->
 								</div>
-												</div>
-							<!-- Carousel -->
-				    	</div>
-					    <div class="col-md-6">
-					    	
-					        <div class="form-group">
-					        	<h1 class="display-5 fw-bolder">
-					        		<label>물품명</label>
-									<input class="form-control" name='pdName'>
-				        		</h1>
-					        </div>
-					        
-					        <div class="form-group">
-					        	<div class="fs-5 mb-5">
-										<label>물품가격</label>
-										<input class="form-control" rows="3" name='pdPrice' style="resize: none;" type="number">
-								</div>
-					        </div>
-					        <div class="form-group mt-4">
-								<label class="mb-0">태그</label>
-		            			<input class="form-control" name='pdKeyword'>
-					        </div>
-					        
-					        <div class="d-flex align-middle mt-2">
-					        	<span class="lead me-2 pt-1">상품 수량</span>
-					            <div class="form-group">
-									<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" style="max-width: 3.4rem">
-						        </div>
-					        </div>
-		        	<div class="form-group">
-						<button type="submit" class="btn btn-secondary">등록</button>
-						<button type="reset" class="btn btn-default" onclick="javascript:history.go(-1);">취소</button>
+								<!-- /.col-lg-12 -->
+							</div>
+							<!-- /.row -->
+						</div>
+						<!-- /.container-fluid -->
 					</div>
-					     
+					<div class="col-md-6">
+					    <div class="form-group">
+					    	<div class="fs-5 mb-5">
+					    		<label>물품명</label>
+								<input class="form-control" name='pdName'>
+					   		</div>
 					    </div>
 					    
+					    <div class="form-group">
+					    	<div class="fs-5 mb-5">
+								<label>물품가격</label>
+								<input class="form-control" rows="3" name='pdPrice' style="resize: none;" type="number">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="fs-5 mb-5">
+								<label>태그</label>
+								<input class="form-control" name='pdKeyword'>
+							</div>
+						</div>
+    
+						<div class="d-flex align-middle mt-2">
+							<span class="lead me-3 pt-3">상품 수량</span>
+							<div class="form-group">
+								<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" style="max-width: 3.4rem">
+							</div>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-outline-success">등록</button>
+							<button type="reset" class="btn btn-outline-dark" onclick="javascript:history.go(-1);">취소</button>
+						</div>
 					</div>
+					<!-- /.col-md-6 -->
 				</div>
-				</form>
-				
-			
-			</section>
-
-
-
-
-
-
-
- <script
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+		</form>
+	</section>
+<script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
@@ -283,8 +271,8 @@
 			
 			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
 			str += "<span> "+ obj.pdName + "</span>";
-			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
-			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
+			str += "<img class='thumbnail rounded' src='/product/display?fileName=" + fileLink + "'>";
+			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-close'></button><br>";
 			str += "</div></li>";
            }); // uploadResultArr.each
          uploadUL.append(str);
@@ -302,9 +290,11 @@
          
          $.ajax({
             url: '/product/deleteFile',
+            /*
             beforeSend: function(xhr){
                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
+            */
             // csrf token을 data 전송 전에 header로 전송
             data: {fileName: targetFile},
             dataType:'text',

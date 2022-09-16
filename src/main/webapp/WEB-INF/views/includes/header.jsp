@@ -125,6 +125,11 @@
 				width: 18%;
 			}
 		}
+		@media screen and (max-width: 768px) {
+			.btnwrapper {
+				width: 50%;
+			}
+		}
     </style>
 </head>
 <body>
@@ -150,11 +155,17 @@
 	                        <sec:authorize access="isAnonymous()">
 	                        	<li><a class="dropdown-item" href="/member/login">로그인</a></li>
 	                        </sec:authorize>
-	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
-	                        <li><a class="dropdown-item" href="/member/mypage">My page</a></li>
-	                        <li><hr class="dropdown-divider" /></li>
-	                        <li><a class="dropdown-item" href="/member/join">회원가입</a></li>
-	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                        <sec:authorize access="isAuthenticated()">
+	                        	<li><a class="dropdown-item" href="/member/mypage">My page</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="isAuthenticated()">
+	                        	<li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="isAnonymous()">
+	                        	<li><a class="dropdown-item" href="/member/join">회원가입</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+	                        	<li><a class="dropdown-item" href="/product/list">상품목록</a></li>
 	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
 	                        </sec:authorize>
 	                    </ul>
@@ -192,11 +203,17 @@
 	                    	<sec:authorize access="isAnonymous()">
 	                        	<li><a class="dropdown-item" href="/member/login">로그인</a></li>
 	                        </sec:authorize>
-	                        <li><a class="dropdown-item" href="#!">로그아웃</a></li>
-	                        <li><a class="dropdown-item" href="/member/mypage">My page</a></li>
-	                        <li><hr class="dropdown-divider" /></li>
-	                        <li><a class="dropdown-item" href="/member/join">회원가입</a></li>
+	                        <sec:authorize access="isAuthenticated()">
+	                        	<li><a class="dropdown-item" href="/member/mypage">My page</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="isAuthenticated()">
+	                        	<li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="isAnonymous()">
+	                        	<li><a class="dropdown-item" href="/member/join">회원가입</a></li>
+	                        </sec:authorize>
 	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                        	<li><a class="dropdown-item" href="/product/list">상품목록</a></li>
 	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
 	                        </sec:authorize>
 	                    </ul>

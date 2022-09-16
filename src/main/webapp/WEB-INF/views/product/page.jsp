@@ -21,10 +21,6 @@
 		width: 70%;
 		font-size: 120%;
 		background-color: #FFF !important;
-<<<<<<< HEAD
-=======
-	
->>>>>>> origin/Kim
 	}
 	.form-select{
 		width: 15%;
