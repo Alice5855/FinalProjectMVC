@@ -220,8 +220,7 @@
          return true;
       };
       
-      // Page 721 : CSRF token을 Header에 전달하기 위하여 변수선언. ajax
-      // 에서 data 전달 시 token과 headername을 함께 전달하게 된다
+   
       var csrfHeaderName ="${_csrf.headerName}"; 
       var csrfTokenValue="${_csrf.token}";
       

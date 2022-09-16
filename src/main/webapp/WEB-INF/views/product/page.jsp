@@ -20,7 +20,7 @@
 		text-align:  center;
 		width: 70%;
 		font-size: 120%;
-	
+		background-color: #FFF !important;
 	
 	}
 	
@@ -270,12 +270,9 @@
 				return false;
 			}
 			
-			// 여러 문제들 중에서 검색 버튼을 클릭하면 검색은
-			// 1페이지를 하도록 수정 처리합니다.
+		
 			searchForm.find("input[name='pageNum']").val("1");
-			// 브라우저에서 검색 버튼을 클릭하면 form 태그의
-			// 전송은 막고, 페이지의 번호는 1이 되도록 처리합니다.
-			// 화면에서 키워드가 없다면 검색을 하지 않도록 제어합니다.
+		
 			e.preventDefault();
 			searchForm.submit();			
 		});
