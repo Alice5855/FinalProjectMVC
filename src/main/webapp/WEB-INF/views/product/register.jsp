@@ -11,7 +11,6 @@
 <style>
       .uploadResult {
          width: 100%;
-         background-color: #F5F5F5;
       }
       
       .uploadResult ul {
@@ -31,7 +30,8 @@
       }
       
       .uploadResult ul li img.thumbnail {
-         width: 100px;
+         width: 120px;
+         height: 120px
       }
       .btn-icon {
          margin-left: 5%;
@@ -40,6 +40,17 @@
       	margin-bottom: 1rem;
       	margin-top: 1rem;
       }
+      
+      @media(max-width:475px)  {
+      
+	      .uploadResult ul li img.thumbnail {
+	         width: 50px;
+	         height: 50px
+	      }
+	      
+	     
+		
+		}
 </style>
 <style>
       .bigPictureWrapper {
@@ -85,14 +96,14 @@
 								  <div class="col-lg-12">
 								    <div class="panel panel-default">
 								
-								      <div class="panel-heading">File Attach</div>
+								      <div class="panel-heading">상품 이미지 등록</div>
 								      <!-- /.panel-heading -->
 								      <div class="panel-body">
 								        <div class="form-group uploadDiv">
 								            <input type="file" name='uploadFile' multiple>
 								        </div>
 								        
-								        <div class='uploadResult'> 
+								        <div class='uploadResult pd-img-wrapper card'> 
 								          <ul>
 								          
 								          </ul>
@@ -131,7 +142,7 @@
 					        </div>
 					        
 					        <div class="d-flex align-middle mt-2">
-					        	<span class="lead me-2 pt-1">잔여 수량</span>
+					        	<span class="lead me-2 pt-1">상품 수량</span>
 					            <div class="form-group">
 									<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" style="max-width: 3.4rem">
 						        </div>
@@ -194,7 +205,7 @@
       var formFile = $("input[type='file']");
       
 	
-      function checkExtension(fileName, fileSize) {
+      function checkExtension(fileName, fileSize,) {
          if(fileSize >= (maxSize * 4)) { // Up to 20MB
             alert("업로드 파일은 20MB를 초과할 수 없습니다");
             return false;
@@ -204,6 +215,8 @@
             alert("올바르지 않은 유형의 파일입니다");
             return false;
          }
+       
+      
          return true;
       };
       
@@ -219,12 +232,18 @@
 		var files = inputFile[0].files;
 		
 		for(var i = 0; i < files.length; i++){
+			if(i >= 3){
+				alert("상품 이미지 업로드는 3개 까지만 가능 합니다.");
+				return false;
+			}
 			
 			console.log(files[i]);
 			
 			if(!checkExtension(files[i].name, files[i].size) ){
 				return false;
 			}
+			
+			
 			
 			formData.append("uploadFile", files[i]);
 			

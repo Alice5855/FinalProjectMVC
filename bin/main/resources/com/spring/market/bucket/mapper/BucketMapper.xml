@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.market.bucket.mapper.BucketMapper">
+	
+	<insert id="registerBucket">
+		insert into bucket_table(PDNUM,MEMNUM) values(#{pdNum}, #{memNum})
+	</insert>
+	
+	<select id="getBucketPdNum" resultType="long" >
+		select pdNum from bucket_table where memNum = #{memNum}
+	</select>
+	
+	<select id="getBucketInfo" resultType="com.spring.market.product.domain.ProductVO">
+		select * from product_table where pdNum = #{pdNum}
+	</select>
+	
+	<delete id="removeBucket">
+		delete from bucket_table where pdNum = #{pdNum} AND memNum = #{memNum}
+	</delete>
+	
+	<delete id="removeBucketAll">
+		delete from bucket_table where memNum = #{memNum}
+	</delete>
+
+</mapper>
