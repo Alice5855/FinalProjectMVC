@@ -45,7 +45,7 @@
 	    <hr><hr><hr>
 	    
 	</div>
-<%@ include file="../includes/footer.jsp" %>
+
 <script type="text/javascript">
 
 
@@ -98,3 +98,4 @@
     });
 }
     </script>
+<%@ include file="../includes/footer.jsp" %>

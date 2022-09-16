@@ -205,7 +205,7 @@
       var formFile = $("input[type='file']");
       
 	
-      function checkExtension(fileName, fileSize,) {
+      function checkExtension(fileName, fileSize) {
          if(fileSize >= (maxSize * 4)) { // Up to 20MB
             alert("업로드 파일은 20MB를 초과할 수 없습니다");
             return false;
@@ -222,9 +222,10 @@
       
       // Page 721 : CSRF token을 Header에 전달하기 위하여 변수선언. ajax
       // 에서 data 전달 시 token과 headername을 함께 전달하게 된다
+      /*
       var csrfHeaderName ="${_csrf.headerName}"; 
       var csrfTokenValue="${_csrf.token}";
-      
+      */
       $("input[type='file']").change(function(e){
         
 		var formData = new FormData();
@@ -285,7 +286,7 @@
 			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
 			str += "<span> "+ obj.pdName + "</span>";
 			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
-			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
+			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn-close'></button><br>";
 			str += "</div></li>";
            }); // uploadResultArr.each
          uploadUL.append(str);

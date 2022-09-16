@@ -277,7 +277,9 @@
 				<!-- new entry button added -->
 				<div class="mb-4">
 					<span class="badge text-bg-info reply-heading">Review</span>
-					<button id="addReplyBtn" class="btn btn-info btn-sm float-end">New Review</button>
+					<sec:authorize access="isAuthenticated()">
+						<button id="addReplyBtn" class="btn btn-info btn-sm float-end">New Review</button>
+					</sec:authorize>
 				</div>
 				
 				<!-- /.panel-heading -->
@@ -307,22 +309,25 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-hidden="Close"></button>
 				<h4 class="modal-title" id="myModalLabel">REVIEW</h4>
             </div>
             <div class="modal-body">
-				<div class="form-group mt-4">
-					<input class="form-control" name='rvText' value='rvText'>
+				<div class="form-group mt-1">
+					<label>리뷰</label>
+					<textarea class="form-control mt-2" rows="3" name='rvText' style="resize: none;"></textarea>
 				</div>
 				<div class="form-group mt-4">
 					<label>작성자</label> 
-					<input class="form-control" name='memNickname' value='memNickname'>
+					<input class="form-control mt-2" name='memNickname' value='memNickname'>
 				</div>
 				<!-- file -->
+				<%--
 				<div class="form-group mt-4">
 					<label for="formFile" class="form-label">업로드 하실 이미지를 선택해주세요</label>
 					<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*">
 				</div>
+				--%>
 				<div class='rvUploadResult'> 
 					<ul>
 					
@@ -342,6 +347,7 @@
 </div>
 <!-- /.modal -->
 
+
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
 <script type="text/javascript" src="/resources/js/reply.js"></script>
 <!-- <script type="text/javascript" src="/resources/js/get_script.js"></script> -->
@@ -349,8 +355,6 @@
 <script type="text/javascript">
 	// page 415 reply event handler
 	$(document).ready(function() {
-		
-		
 		
 		var pdNumValue = '<c:out value="${product.pdNum}"/>';
 		var replyUL = $(".chat");
@@ -451,7 +455,7 @@
 		
 		// page 422 modal handler
 		var modal = $(".modal");
-		var modalInputRvText = modal.find("input[name='rvText']");
+		var modalInputRvText = modal.find("textarea[name='rvText']");
 		var modalInputMemNickname = modal.find("input[name='memNickname']");
 		// var modalInputReplyDate = modal.find("input[name='replyDate']");
 		
@@ -459,13 +463,13 @@
 		var modalRemoveBtn = $("#modalRemoveBtn");
 		var modalRegisterBtn = $("#modalRegisterBtn");
 		
-		/*
+		
 		var replyer = null;
 
 		<sec:authorize access="isAuthenticated()">
-			replyer = '<sec:authentication property="principal.username"/>';
+			replyer = '<sec:authentication property="principal.memNickname"/>';
 		</sec:authorize>
-		*/
+		
 		// added
 		var regex = new RegExp("(.*?)\.(jpg|jpeg|gif|png|bmp|webp)$");
 		var maxSize = 5242880; // 5MB
@@ -540,7 +544,7 @@
 				str += "<li data-rvfolder='" + obj.rvFolder + "' data-rvuuid='" + obj.rvUuid + "' data-rvname='" + obj.rvName + "' ><div>";
 				str += "<span> "+ obj.rvName + "</span>";
 				str += "<img class='thumbnail' src='/review/display?fileName=" + fileLink + "'>";
-				str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
+				str += "<button type='button' data-file=\'" + fileLink + "\' class='btn-close'></button><br>";
 				str += "</div></li>";
 			}); // uploadResultArr.each
 			upload.append(str);
@@ -579,6 +583,9 @@
 		
 		$("#addReplyBtn").on("click", function(e){
 			modal.find("input").val("");
+			console.log(replyer);
+			modal.find("input[name='memNickname']").val(replyer);
+			
 			// modalInputReplyDate.closest("div").hide();
 			modal.find("button[id !='modalCloseBtn']").hide();
 			
@@ -655,14 +662,13 @@
 		modalModBtn.on("click", function(e){
 			var reply = {rvNum:modal.data("rvnum"), rvText: modalInputRvText.val()};
 			
-			/*
-			var originalReplyer = modalInputReplyer.val();
+			var originalReplyer = modalInputMemNickname.val();
 			
 			// 검증을 위해 replyer data를 추가
 			// var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
-			var reply = {rno: modal.data("rno"),
-					reply: modalInputReply.val(),
-					replyer: originalReplyer};
+			var reply = {rvNum: modal.data("rvnum"),
+						rvText: modalInputRvText.val(),
+						memNickname: originalReplyer};
 			if(!replyer) {
 				alert("You have to be logged in to modify");
 				modal.modal("hide");
@@ -676,7 +682,7 @@
 				modal.modal("hide");
 				return;
 			}
-			*/
+			
 			replyService.update(reply, function(result){
 				alert(result);
 				modal.modal("hide");
@@ -689,25 +695,21 @@
 			var rvNum = modal.data("rvnum");
 			var memNickname = modalInputMemNickname.val();
 			
-			/* after security
 			if(!replyer){
 	           alert("You have to be logged in to remove");
 	           modal.modal("hide");
 	           return;
 	        }
 	        
-	        var originalReplyer = modalInputReplyer.val();
+	        var originalReplyer = modalInputMemNickname.val();
 	        
 	        console.log("Original Replyer: " + originalReplyer);
 	        
 	        if(replyer != originalReplyer){
-	           
 	           alert("You can only remove your replies");
 	           modal.modal("hide");
 	           return;
-	           
 	        }
-	        */
 			
 			replyService.remove(rvNum, memNickname, function(result){
 				alert(result);
@@ -821,7 +823,6 @@
 		});
 	}); // document ready
 	
-	
 	function regBucket(pdNum) {
 		$.ajax({
 			type:'post',
@@ -840,9 +841,6 @@
 			}
 		})
 	}
-	
-	
-	
 </script>
 
 <script type="text/javascript">
@@ -850,26 +848,16 @@
 			var num = $("#price").text();
 			var num2 = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 			document.getElementById("price").innerHTML=num2;
-		
-			
-	})
-	
-	
-
-</script>
-
-
-
-
-<script type="text/javascript">
-
-
-	var myCarousel = document.querySelector('#carousel');
-	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle'), {
-	  interval: 3000,
-	  wrap: false
 	});
 </script>
 
+<script type="text/javascript">
+
+	var myCarousel = document.querySelector('#carousel');
+	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle'), {
+		interval: 3000,
+		wrap: false
+	});
+</script>
 
 <%@include file="../includes/footer.jsp"%>

@@ -29,7 +29,7 @@
 		/* 'Rubik', sans-serif; */1248
 		@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
 		body {
-			padding-bottom: 20px;
+			margin: 0;
 			font-family: 'IBM Plex Sans KR', sans-serif;
 		}
 		.font2 {
@@ -122,7 +122,7 @@
 		}
 		@media screen and (max-width: 1394px) {
 			.btnwrapper {
-				width: 15%;
+				width: 18%;
 			}
 		}
     </style>
@@ -222,10 +222,10 @@
 	$(window).on("scroll", function(e) {
 		if ($(this).scrollTop() < 1) {
 			topbar.css('opacity', '1');
-			fixbar.css('opacity', '0');
+			fixbar.css('display', 'none');
 		} else {
 			topbar.css('opacity', '0');
-			fixbar.css('opacity', '1');
+			fixbar.css('display', 'flex');
 		}
 	});
 </script>

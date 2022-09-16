@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,7 +41,7 @@ public class ReplyController {
 	
 	// 새 댓글
 	// Page729 댓글 등록이 로그인 한 사용자와 일치하는지 검증
-	// @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/new", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
 	public ResponseEntity<String> create(@RequestBody ReplyVO vo){
 		log.info("ReplyVO ====== " + vo);
@@ -104,7 +105,7 @@ public class ReplyController {
 	// 댓글 삭제
 	// Page 732 replyer 검증절차를 위한 annotation(PreAuthorize), parameter(vo) 추가
 	// ajax에서 전송받은 JSON data를 VO 객체화 시키기 위해 @RequestBody를 적용함
-	// @PreAuthorize("principal.username == #vo.memnickname")
+	@PreAuthorize("principal.memNickname == #vo.memNickname")
 	@DeleteMapping(value = "/{rvNum}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> remove(@RequestBody ReplyVO vo, @PathVariable("rvNum") Long rvNum){
 		log.info("ReplyVO ===== " + vo);
@@ -162,7 +163,7 @@ public class ReplyController {
 	
 	// 댓글 수정
 	// Page734 remove와 마찬가지로 replyer 검증을 위한 annotation 추가. vo는 이미 있었음
-	// @PreAuthorize("principal.username == #vo.memnickname")
+	@PreAuthorize("principal.memNickname == #vo.memNickname")
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value="/{rvnum}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> modify(@RequestBody ReplyVO vo, @PathVariable("rvnum") Long rvnum){
 		vo.setRvNum(rvnum);
