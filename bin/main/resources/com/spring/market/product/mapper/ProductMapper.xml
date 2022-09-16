@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.market.product.mapper.ProductMapper">
+
+<!-- 	Search query preference -->
+	<sql id="criteria">
+		<trim prefix="(" suffix=") and" prefixOverrides="or">
+			<foreach item="type" collection="typeArr">
+				<trim prefix="or">
+					<choose>
+						<when test="type == 'N'.toString()">
+							pdName like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'T'.toString()">
+							pdKeyword like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							u_email like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	
+	<insert id="insert">
+		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, pdRegDate)
+		values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit}, sysdate)
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="pdNum" order="BEFORE" resultType="long">
+			select seq_product.nextval from dual
+		</selectKey>
+		insert into Product_Table(pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit,pdRegDate) 
+		values(#{pdNum}, #{pdName}, #{pdPrice}, #{pdStock}, #{pdKeyword}, #{pdHit}, sysdate)
+	</insert>
+	
+	<select id="read" resultType="com.spring.market.product.domain.ProductVO">
+		select * from Product_Table where pdNum = #{pdNum}
+	</select>
+
+	<delete id="delete">
+		delete from Product_Table where pdNum = #{pdNum}
+	</delete>
+	
+	<update id="update">
+		update Product_Table set pdName = #{pdName}, pdPrice = #{pdPrice}, pdStock = #{pdStock}, pdKeyword = #{pdKeyword} where pdNum = #{pdNum}
+	</update>
+	
+	
+	
+	<select id="getTotalCount" resultType="int">
+		<![CDATA[
+ 			select count(*) from Product_Table 
+ 			where 
+ 		]]> 
+			<include refid="criteria" />
+		<![CDATA[
+ 			pdNum > 0 
+ 		]]> 
+	</select>
+		
+		<select id="getListPaging" resultType="com.spring.market.product.domain.ProductVO">
+			<![CDATA[
+	 			select pdNum, pdName, pdPrice, pdStock, pdKeyword, pdHit, pdPath from  
+				(select /*+ index_desc(PRODUCT_TABLE pk_product)*/
+	 			rownum rn, pdNum, pdName, pdPrice,pdStock,pdKeyword, pdHit,pdPath   
+	 			from Product_Table 
+				where 
+			]]>
+			
+			<include refid="criteria"/>
+			
+			<![CDATA[
+	 			rownum <= #{pageNum} * #{amount}) 
+	 			where rn > (#{pageNum} - 1) * #{amount}
+	 		]]> 
+		</select>
+	
+	<update id ="inserpdPath">
+		update product_table set pdPath = #{pdPath} where pdNum = #{pdNum}
+	</update>
+	
+	
+		
+</mapper>
