@@ -71,83 +71,90 @@
          cursor: pointer;
       }
 </style>
-<div class="container-fluid">
-	<div class="row">
-	  <div class="col-lg-12">
-	    <h1 class="page-header">새 글 쓰기</h1>
-	  </div>
-	  <!-- /.col-lg-12 -->
-	</div>
-	<!-- /.row -->
-	
-	<div class="row">
-	  <div class="col-lg-12">
-	    <div class="panel panel-default">
-	
-	        <form role="form" action="${context}/product/register" method="post">
-		        <!-- Page714 CSRF Token을 hidden input으로 추가함 -->
-<%-- 		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
-		        
-		        <div class="form-group">
-					<label>물품명</label>
-					<input class="form-control" name='pdName'>
+
+
+
+			<section class="py-5">
+			<form role="form" action="${context}/product/register" method="post">
+				<div class="container px-4 px-lg-5 my-5">
+					<div class="row gx-4 gx-lg-5 align-items-center">
+					    <div class="col-md-6">
+					    
+						    <div class="container-fluid py-3">
+								<div class="row">
+								  <div class="col-lg-12">
+								    <div class="panel panel-default">
+								
+								      <div class="panel-heading">File Attach</div>
+								      <!-- /.panel-heading -->
+								      <div class="panel-body">
+								        <div class="form-group uploadDiv">
+								            <input type="file" name='uploadFile' multiple>
+								        </div>
+								        
+								        <div class='uploadResult'> 
+								          <ul>
+								          
+								          </ul>
+								        </div>
+								        
+								        
+								      </div>
+								      <!--  end panel-body -->
+								
+								    </div>
+								    <!--  end panel-body -->
+								  </div>
+								  <!-- end panel -->
+								</div>
+												</div>
+							<!-- Carousel -->
+				    	</div>
+					    <div class="col-md-6">
+					    	
+					        <div class="form-group">
+					        	<h1 class="display-5 fw-bolder">
+					        		<label>물품명</label>
+									<input class="form-control" name='pdName'>
+				        		</h1>
+					        </div>
+					        
+					        <div class="form-group">
+					        	<div class="fs-5 mb-5">
+										<label>물품가격</label>
+										<input class="form-control" rows="3" name='pdPrice' style="resize: none;" type="number">
+								</div>
+					        </div>
+					        <div class="form-group mt-4">
+								<label class="mb-0">태그</label>
+		            			<input class="form-control" name='pdKeyword'>
+					        </div>
+					        
+					        <div class="d-flex align-middle mt-2">
+					        	<span class="lead me-2 pt-1">잔여 수량</span>
+					            <div class="form-group">
+									<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" style="max-width: 3.4rem">
+						        </div>
+					        </div>
+		        	<div class="form-group">
+						<button type="submit" class="btn btn-secondary">등록</button>
+						<button type="reset" class="btn btn-default" onclick="javascript:history.go(-1);">취소</button>
+					</div>
+					     
+					    </div>
+					    
+					</div>
 				</div>
-		
-				<div class="form-group">
-					<label>물품가격</label>
-					<input class="form-control" rows="3" name='pdPrice' style="resize: none;" type="number">
-				</div>
-		
-				<div class="form-group">
-					<label>수량</label>
-		            <input class="form-control" name='pdStock'>
-				</div>
+				</form>
 				
-				<div class="form-group">
-					<label>태그</label>
-		            <input class="form-control" name='pdKeyword'>
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-secondary">등록</button>
-					<button type="reset" class="btn btn-default" onclick="javascript:history.go(-1);">취소</button>
-				</div>
-	        </form>
-	
-	      </div>
-	      <!--  end panel-body -->
-	
-	    </div>
-	    <!--  end panel-body -->
-	  </div>
-	  <!-- end panel -->
-	
-	<div class="row">
-	  <div class="col-lg-12">
-	    <div class="panel panel-default">
-	
-	      <div class="panel-heading">File Attach</div>
-	      <!-- /.panel-heading -->
-	      <div class="panel-body">
-	        <div class="form-group uploadDiv">
-	            <input type="file" name='uploadFile' multiple>
-	        </div>
-	        
-	        <div class='uploadResult'> 
-	          <ul>
-	          
-	          </ul>
-	        </div>
-	        
-	        
-	      </div>
-	      <!--  end panel-body -->
-	
-	    </div>
-	    <!--  end panel-body -->
-	  </div>
-	  <!-- end panel -->
-	</div>
-</div>
+			
+			</section>
+
+
+
+
+
+
 
  <script
   src="https://code.jquery.com/jquery-3.6.0.min.js"

@@ -14,6 +14,45 @@
 		height: 100%;
 		object-fit: cover;
 	}
+	
+	.price{
+		border: none;
+		text-align:  center;
+		width: 70%;
+		font-size: 120%;
+	
+	
+	}
+	
+	
+	.form-select{
+		width: 15%;
+	}
+	.form-control{
+		width: 25%;
+	}
+	
+	@media (max-width:475px) {
+	.row-cols-2>* {
+	    flex: 0 0 auto;
+	    width: 80% !important;
+		}
+		
+		
+	.form-select{
+		width: 30%;
+		}
+		
+	.form-control{
+		width: 50%;
+		}
+	
+	
+	}
+	
+	
+	
+	
 </style>
 <div class="container-fluid">
 	<!-- Carousel -->
@@ -40,15 +79,15 @@
 						<p></p>
 					</div>
 				</div>
-				
+				<!--
 				<div class="carousel-item">
-					<img src="/resources/imgs/bannersample3.png" class="d-block w-100" alt="banner3">
+					<img src="/resources/imgs/sample2.jpg" class="d-block w-100" alt="banner3">
 					<div class="carousel-caption d-none d-md-block">
 						<h5></h5>
 						<p></p>
 					</div>
 				</div>
-				
+				-->
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -97,7 +136,7 @@
 								    </h6>
 								    
 								 
-								    <c:out value="${product.pdPrice}원"/>
+								    <input class="price" id="" value="<c:out value="${product.pdPrice}원"/>" disabled="disabled">
 								</div>
 						    </div>
 						</div>
@@ -108,18 +147,18 @@
 	
 	
 	<div class="row text-center">
-		<div class="col-12">
-			<form id="searchForm" action="/product/page" method="get">
-				<select class="form-select d-inline" name="type" style="width: 15% !important;">
-					<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
-					<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
-					<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
-				</select>
-				<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" style="width: 25% !important;" />						
-				<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
-				<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
-				<button class="btn btn-outline-secondary">검색</button>						
-			</form>
+	<div class="col-12">
+		<form id="searchForm" action="/product/page" method="get">
+			<select class="form-select d-inline" name="type">
+				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
+				<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
+				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
+			</select>
+			<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
+			<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
+			<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
+			<button class="btn btn-outline-secondary">검색</button>						
+		</form>
 		</div>
 	</div>
 	
@@ -245,44 +284,34 @@
 	});
 </script>
 
-<script>
-	(function() {
-	  var w = window;
-	  if (w.ChannelIO) {
-	    return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
-	  }
-	  var ch = function() {
-	    ch.c(arguments);
-	  };
-	  ch.q = [];
-	  ch.c = function(args) {
-	    ch.q.push(args);
-	  };
-	  w.ChannelIO = ch;
-	  function l() {
-	    if (w.ChannelIOInitialized) {
-	      return;
-	    }
-	    w.ChannelIOInitialized = true;
-	    var s = document.createElement('script');
-	    s.type = 'text/javascript';
-	    s.async = true;
-	    s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-	    s.charset = 'UTF-8';
-	    var x = document.getElementsByTagName('script')[0];
-	    x.parentNode.insertBefore(s, x);
-	  }
-	  if (document.readyState === 'complete') {
-	    l();
-	  } else if (window.attachEvent) {
-	    window.attachEvent('onload', l);
-	  } else {
-	    window.addEventListener('DOMContentLoaded', l, false);
-	    window.addEventListener('load', l, false);
-	  }
-	})();
-	ChannelIO('boot', {
-	  "pluginKey": "4916b26c-5334-4f28-bab8-781e855a1f4b"
+<script type="text/javascript">
+$(document).ready(function () {
+
+	
+	
+
+
+	$(".price").each(function() {
+		
+		var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		console.log(changeNum);
+		
+		$(this).val(changeNum);
+		
+	
 	});
-</script>
+
+	
+		
+		
+		
+		
+		
+		
+		
+
+		
+	
+		
+})
 <%@ include file="../includes/footer.jsp" %>

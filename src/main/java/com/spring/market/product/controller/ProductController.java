@@ -1,14 +1,19 @@
 package com.spring.market.product.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -104,7 +109,7 @@ public class ProductController {
 	// Only Logged in user can access
 //	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
-	public String register(ProductVO product, RedirectAttributes ratt) {
+	public void register(ProductVO product, RedirectAttributes ratt, HttpServletResponse response) throws Exception {
 		log.info("register ===== " + product.getPdNum());
 		
 		// adding file upload feature
@@ -115,7 +120,16 @@ public class ProductController {
 		
 		service.register(product);
 		ratt.addFlashAttribute("result", product.getPdNum());
-		return "redirect:/product/list";
+		
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		out.println("<script>alert('상품 등록 성공');location.href = '/product/page'</script>");
+		out.flush();
+		
+		
+		
 	}
 	
 	/* 조회시 등록과 유사하게 BoardController를 이용해 처리할 수 있음. 특별한 경우를
@@ -153,7 +167,7 @@ public class ProductController {
 //	@PreAuthorize("principal.username == #board.u_email")
 	// update의 경우 BoardVO parameter로 내용을 설정하고 BoardService를 호출
 	@PostMapping("/modify")
-	public String modify(ProductVO product, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt) {
+	public String modify(ProductVO product, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt, HttpServletResponse response) throws Exception {
 		log.info("modify ===== " + product);
 		
 //		if (service.modify(product)) {
@@ -177,7 +191,16 @@ public class ProductController {
 		ratt.addAttribute("type", cri.getType());
 		ratt.addAttribute("keyword", cri.getKeyword());
 		
-		return "redirect:/product/list";
+		
+		
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		out.println("<script>alert('상품 수정 성공');location.href = '/product/page'</script>");
+		out.flush();
+		
+		return "/product/page";
 	}
 	
 	// Page712 added need of authentication
@@ -186,7 +209,7 @@ public class ProductController {
 //	@PreAuthorize("principal.username == #u_email")
 	// remove()로 삭제 처리 한 후 RedirectAttributes로 list페이지로 이동시킴
 	@PostMapping("/remove")
-	public String remove(@RequestParam("pdName") String pdName, @RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt) {
+	public String remove(@RequestParam("pdName") String pdName, @RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt, HttpServletResponse response) {
 		// RequestParam은 view의 form data가 submit될 때에 전송된 data의 key값을
 		// 기준으로 value값을 받아오는 것. @RequestParam("writer")의 writer는
 		// form-data의 writer와 맞아야 하고, @PreAuthorize에서 검증을 위한 #writer
@@ -221,7 +244,7 @@ public class ProductController {
 		
 		return "redirect:/board/list";
 		*/
-		return "redirect:/product/list" + cri.getListLink();
+		return "redirect:/product/page" + cri.getListLink();
 		// Criteria에 새로 생성한 method 사용(page 581)
 	}
 	
@@ -316,7 +339,6 @@ public class ProductController {
 		int total = service.getTotal(cri);
 		log.info("total ===== " + total);
 		m.addAttribute("pageMaker", new PageDTO(cri, total));
-		
     }
     
 }

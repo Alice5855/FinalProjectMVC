@@ -9,10 +9,10 @@
 			<foreach item="type" collection="typeArr">
 				<trim prefix="or">
 					<choose>
-						<when test="type == 'T'.toString()">
+						<when test="type == 'N'.toString()">
 							pdName like '%'||#{keyword}||'%'
 						</when>
-						<when test="type == 'C'.toString()">
+						<when test="type == 'T'.toString()">
 							pdKeyword like '%'||#{keyword}||'%'
 						</when>
 						<when test="type == 'W'.toString()">
