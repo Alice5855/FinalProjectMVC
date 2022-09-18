@@ -1,31 +1,96 @@
+<style>
+#preview img {
+	overflow: hidden;
+}
+
+.h3mid{
+	align-content: center;
+}
+
+
+.container{
+	border: 2px solid black;
+	border-radius: 1%;
+	box-sizing: border-box;
+	box-shadow: 15px 10px 0 0 rgba(0, 0, 0, .4);
+}
+</style>
+
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ include file="../includes/header.jsp" %>
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<body>
-	<div id="div-main">
-		<h1>마이페이지</h1>
-		
-		<form action = "/member/mypage" method = "post" enctype="multipart/form-data">
-			<input type = hidden name = "memNum" value="${loginMember.memNum}" readonly="readonly"/><br>
-			이메일 : <input type = "Email" name = "memEmail" value="${loginMember.memEmail}"/><br>
-	     	비밀번호 : <input type = "password" name = "memPw" /><br>
-	     	성함 : <input type = "text" name = "memName" value="${loginMember.memName}"/><br>
-			닉네임 : <input type = "text" name = "memNickname" value="${loginMember.memNickname}"/><br>
-			핸드폰 : <input type = "text"  name = "memPh" value="${loginMember.memPh}"/><br>
-			성별 : <input type = "text" name="memGender" value="${loginMember.memGender}"><br>
-			주소 : <br />
-				  <input type="text" id="address_kakao" name="memAd" value="${loginMember.memAd}"/>
-				  <input id="Address_box" name="memAddetail" placeholder="상세 주소" value="${loginMember.memAddetail}">
-	     	사진 : <input type = "file" name = "MF" multiple="multiple" accept=".jpg, .png"/><br>
-	       		  <img id="profileIm" src=""><br><hr>
-	        	  <div id="div-preview">
-	        	  		<img class="pf" src="/resources/upload/profile/${profile.changeName}" width="100" height="100">
-	        	  </div>
-	        <input type = "submit" value ="수정하기"/>
-	    </form>
+    
+<div class="container">
+	<div class="input-form-backgroud row">
+		<div class="input-form col-md-12 mx-auto">
+			<h3 class="mb-3 h3mid" >회원가입</h3>
+			<form class="validation-form" novalidate action="/member/join"
+				method="post" enctype="multipart/form-data">
+				<div class="row">
+					<div class="col-md-6 mb-3">
+						<div id="preview">
+							<img class="pf" src="/resources/upload/profile/${profile.changeName}" width="150" height="150">
+						</div>
+						<label for="profile">프로필사진</label> 
+						<input type="file" class="form-control" id="profile" name="MF" accept=".jpg, .png" required>
+						<div class="invalid-feedback">사진은 150px로해주세요</div>
+					</div>
+					<div class="mb-3">
+						<label for="name">이메일</label> 
+						<input type="email" class="form-control" id="email" name="memEmail" value="${loginMember.memEmail}" required>
+						<div class="invalid-feedback">이메일을 입력해주세요.</div>
+					</div>
+					<div class="mb-3">
+						<label for="nickname">패스워드</label> 
+						<input type="password" class="form-control" id="password" name="memPw"  required>
+						<div class="invalid-feedback">패스워드를 입력해주세요.</div>
+					</div>
+				</div>
+
+				<div class="mb-3">
+					<label for="nickname">닉네임</label> 
+					<input type="text" class="form-control" id="nickname" name="memNickname" value="${loginMember.memNickname}" required>
+					<div class="invalid-feedback">닉네임을 입력해주세요</div>
+				</div>
+
+				<div class="mb-3">
+					<label for="name">성함</label> <input type="text"
+						class="form-control" id="name" name="memName" value="${loginMember.memName}" required>
+					<div class="invalid-feedback">성함을 입력해주세요.</div>
+				</div>
+
+				<div class="mb-3">
+					<label for="telephone">핸드폰</label> 
+					<input type="text" name= "memPh" class="form-control" id="telephone"
+						placeholder="-빼고 입력해주세요" value="${loginMember.memPh}" required>
+				</div>
+				
+				<div class="mb-3">
+					<label for="Gender">성별</label> 
+					<input type="text" name= "memGender" class="form-control" id="gender"
+						placeholder="원하시는 성별을 입력해주세요" value="${loginMember.memGender}" required>
+				</div>
+				
+				<div class="mb-3">
+					<label for="address">주소</label> 
+					<input type="text" name= "memAd" class="form-control" id="address_kakao" value="${loginMember.memAd}" required>
+				</div>
+				<div class="mb-3">
+					<label for="address2">상세주소</label> 
+					<input type="text" name= "memAddetail" class="form-control" id="Address_box" value="${loginMember.memAddetail}" required>
+				</div>
+				
+
+				<div class="mb-4 justfy-content-end"></div>
+				<button class="btn btn-success btn-lg btn-block " type="submit">수정하기</button>
+			</form>
+		</div>
 	</div>
-</body>
+</div>	    
+    
+    
 
     <%@ include file="../includes//footer.jsp" %>
 
