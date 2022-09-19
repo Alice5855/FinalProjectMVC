@@ -7,6 +7,9 @@
 	align-content: center;
 }
 
+.rounded-circle{
+	border: 2px solid black;
+}
 
 .container{
 	border: 2px solid black;
@@ -25,14 +28,15 @@
 <div class="container">
 	<div class="input-form-backgroud row">
 		<div class="input-form col-md-12 mx-auto">
-			<h3 class="mb-3 h3mid" >회원가입</h3>
-			<form class="validation-form" novalidate action="/member/join"
+			<h3 class="mb-3 h3mid" >MyPage</h3>
+			<form class="validation-form" novalidate action="/member/mypage"
 				method="post" enctype="multipart/form-data">
 				<div class="row">
 					<div class="col-md-6 mb-3">
+						<input type = hidden name = "memNum" value="${loginMember.memNum}" readonly="readonly"/><br>
 						<div id="preview">
-							<img class="pf" src="/resources/upload/profile/${profile.changeName}" width="150" height="150">
-						</div>
+							<img class="pf rounded-circle" src="/resources/upload/profile/${profile.changeName}" width="150" height="150">
+						</div><br>	
 						<label for="profile">프로필사진</label> 
 						<input type="file" class="form-control" id="profile" name="MF" accept=".jpg, .png" required>
 						<div class="invalid-feedback">사진은 150px로해주세요</div>
@@ -68,7 +72,7 @@
 				</div>
 				
 				<div class="mb-3">
-					<label for="Gender">성별</label> 
+					<label for="gender">성별</label> 
 					<input type="text" name= "memGender" class="form-control" id="gender"
 						placeholder="원하시는 성별을 입력해주세요" value="${loginMember.memGender}" required>
 				</div>
@@ -98,7 +102,7 @@
 	
 	
 		let fileTag = document.querySelector("input[name=MF]");
-		let divPreview = document.querySelector("#div-preview");
+		let divPreview = document.querySelector("#preview");
 		fileTag.onchange = function(){
 				$('.pf').remove();
 			
@@ -117,7 +121,7 @@
 						imgTag.setAttribute('src', src);
 						imgTag.setAttribute('width', '100');
 						imgTag.setAttribute('height', '100');
-						
+						imgTag.setAttribute('class', 'rounded-circle');
 						//3. 이미지 태그 div안에 넣기
 						divPreview.appendChild(imgTag);
 					}
