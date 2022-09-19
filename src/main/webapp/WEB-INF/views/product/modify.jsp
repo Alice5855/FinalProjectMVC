@@ -143,6 +143,7 @@
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
+						<label>상품번호</label>
 							<input class="form-control" name='pdNum'
 								value='<c:out value="${product.pdNum}" />' readonly="readonly">
 						</div>
