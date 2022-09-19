@@ -1,24 +1,17 @@
 package com.spring.market.product.controller;
 
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,9 +39,6 @@ public class ProductController {
 
 	private ProductService service;
 	
-	
-	
-
 	@GetMapping("/register")
 	public void register() {
 	}
@@ -71,7 +61,6 @@ public class ProductController {
 		return productVO.getPdName();
 	}
 	
-	
 	@GetMapping(value="/getAttachListZero", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<ProductAttachVO>> getAttachListZero(Long pdNum) {
@@ -85,23 +74,16 @@ public class ProductController {
 		return new ResponseEntity<List<ProductAttachVO>>(result, HttpStatus.OK);
 	}
 	
-	
-	
 	@GetMapping(value="/getAttachList", produces=MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<ProductAttachVO>> getAttachList(Long pdNum) {
 		log.info("getAttachList ===== " + pdNum);
 		return new ResponseEntity<List<ProductAttachVO>>(service.getAttachList(pdNum), HttpStatus.OK);
 	}
-	
-	
-	
-	
 
 	@PostMapping("/register")
 	public void register(ProductVO product, RedirectAttributes ratt, HttpServletResponse response) throws Exception {
 		log.info("register ===== " + product.getPdNum());
-		
 		
 		service.register(product);
 		ratt.addFlashAttribute("result", product.getPdNum());
@@ -113,10 +95,7 @@ public class ProductController {
 		out.println("<script>alert('상품 등록 성공');location.href = '/product/page'</script>");
 		out.flush();
 		
-		
-		
 	}
-	
 
 	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, Model m) {
@@ -138,12 +117,9 @@ public class ProductController {
 		return new ResponseEntity<ProductVO>(service.get(pdNum), HttpStatus.OK);
 	}
 
-
 	@PostMapping("/modify")
 	public String modify(ProductVO product, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt, HttpServletResponse response) throws Exception {
 		log.info("modify ===== " + product);
-		
-
 		
 		try {
 			service.modify(product);
@@ -171,7 +147,6 @@ public class ProductController {
 		
 		return "/product/page";
 	}
-	
 
 	@PostMapping("/remove")
 	public String remove(@RequestParam("pdName") String pdName, @RequestParam("pdNum") Long pdNum, @ModelAttribute("cri") Criteria cri, RedirectAttributes ratt, HttpServletResponse response) {
@@ -195,12 +170,10 @@ public class ProductController {
 		} catch (Exception e) {
 			System.out.println("삭제 안됐데 ㅋㅋ" + e.getMessage());
 		}
-	
 
 		return "redirect:/product/page" + cri.getListLink();
 		
 	}
-	
 	
 	private void deleteFiles(List<ProductAttachVO> attachList) {
    
@@ -229,7 +202,6 @@ public class ProductController {
 			} // catch
 		}); // forEach
 	}
-
 	
 	@GetMapping("/page")
 	public void page(Criteria cri, Model m) {

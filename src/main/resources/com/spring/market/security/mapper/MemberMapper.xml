@@ -76,30 +76,4 @@
 	<update id="changeProfile">
 		update Member_PROFILE set ChangeName = #{ChangeName} Where memNum = #{memNum}	
 	</update>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </mapper>

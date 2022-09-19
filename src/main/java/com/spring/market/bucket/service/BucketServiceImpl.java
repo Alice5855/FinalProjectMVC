@@ -11,8 +11,6 @@ import com.spring.market.product.domain.ProductVO;
 
 import lombok.AllArgsConstructor;
 import lombok.Setter;
-import lombok.extern.java.Log;
-import lombok.extern.log4j.Log4j2;
 
 @Service
 @AllArgsConstructor

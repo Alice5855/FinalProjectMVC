@@ -5,9 +5,4 @@
 	<insert id="authInsert">
 		insert into auth_table(memNum) values (#{memNum})
 	</insert>
-	
-
-	
-	
-	
 </mapper>
