@@ -145,18 +145,17 @@ h3{
 	font-weight: 800;
 }
 
-.btn{
-	border-radius: 0px !important;
-}
 
 #btnBuy{
 	background-color: #4A75D4;
 	color: white;
+	border-radius: 0px !important;
 }
 
 #btnDel{
 	border: 2px solid black;
 	font-size: 0.9rem;
+	border-radius: 0px !important;
 }
 
 .mobileTextChange:after {
@@ -305,8 +304,6 @@ h3{
 </div>
 
 <script>
-
-	
 	function totalPriceInsert(){
 		
 		var totalPrice = 0;
@@ -320,7 +317,6 @@ h3{
 	}
 	
 	totalPriceInsert();
-	
 	
 	var btnDel = $("#btnDel");
 	var memNum = "<c:out value='${member.memNum}' />";

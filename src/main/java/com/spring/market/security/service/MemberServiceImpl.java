@@ -2,8 +2,6 @@ package com.spring.market.security.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,8 +18,6 @@ import com.spring.market.security.model.Member;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
-import sun.print.PeekGraphics;
-import sun.security.pkcs11.Secmod.DbMode;
 
 @Service
 @Log4j
@@ -90,7 +86,7 @@ public class MemberServiceImpl implements MemberService {
  			//파일을 서버에 저장
  			//getRealPath == /srpingshopping/src/main/webapp
  			File file = new File(newPath + changName);
- 			System.out.println(file + "뻐큐머겅"); 
+ 			System.out.println(file + "file"); 
  			MF.transferTo(file);
  			
  			memMapper.insertProfile(mem);
@@ -108,7 +104,7 @@ public class MemberServiceImpl implements MemberService {
 		String rawPw = mem.getMemPw();
 		mem.setMemPw(bCryptPasswordEncoder.encode(rawPw));
 		boolean modifyMember = memMapper.update(mem) == 1;
-		System.out.println("시발련아 boolean실행하냐?");
+		System.out.println("boolean update()?");
 		return modifyMember;
 	}
 
@@ -153,7 +149,7 @@ public class MemberServiceImpl implements MemberService {
 		 			//파일을 서버에 저장
 		 			//getRealPath == /srpingshopping/src/main/webapp
 		 			File file = new File(newPath + changName);
-		 			System.out.println(file + "뻐큐머겅"); 
+		 			System.out.println(file + " ===== file"); 
 		 			try {
 						MF.transferTo(file);
 					} catch (IllegalStateException e) {
@@ -169,13 +165,8 @@ public class MemberServiceImpl implements MemberService {
 				
 				return result;
 				
-			}else {
+			} else {
 				return (Boolean) null;
-			}	
+			}
+		}
 	}
-
-
-
-	
-	
-}

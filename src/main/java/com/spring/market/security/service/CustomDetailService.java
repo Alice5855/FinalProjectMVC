@@ -27,8 +27,5 @@ public class CustomDetailService implements UserDetailsService {
 		System.out.println("mem에 뭐가 담기나요??" + mem);
 		return mem;
 	}
-	
-	
-	
 
 }

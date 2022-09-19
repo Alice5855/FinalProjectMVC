@@ -82,7 +82,7 @@
 	cursor: pointer;
 }
 
-@media ( max-width :475px) {
+@media ( max-width : 475px) {
 	.uploadResult ul li img.thumbnail {
 		width: 50px;
 		height: 50px
@@ -104,7 +104,6 @@
 
 	<section class="py-5">
 		<form role="form" action="${context}/product/modify" method="post">
-
 			<input type='hidden' id='pageNum' name='pageNum'
 				value='<c:out value="${cri.pageNum}"/>'> <input
 				type='hidden' id='amount' name='amount'
@@ -113,17 +112,13 @@
 			<input type='hidden' id='type' name='type'
 				value='<c:out value="${cri.type}"/>'> <input type='hidden'
 				id='keyword' name='keyword' value='<c:out value="${cri.keyword}"/>'>
-
-
 			<div class="container px-4 px-lg-5 my-5">
 				<div class="row gx-4 gx-lg-5 align-items-center">
 					<div class="col-md-6">
-
 						<div class="container-fluid py-3">
 							<div class="row">
 								<div class="col-lg-12">
 									<div class="panel panel-default">
-
 										<div class="panel-heading">수정할 상품 이미지 등록</div>
 										<!-- /.panel-heading -->
 										<div class="panel-body">
@@ -136,11 +131,8 @@
 
 												</ul>
 											</div>
-
-
 										</div>
 										<!--  end panel-body -->
-
 									</div>
 									<!--  end panel-body -->
 								</div>
@@ -150,106 +142,61 @@
 						<!-- Carousel -->
 					</div>
 					<div class="col-md-6">
-
 						<div class="form-group">
-						<label>상품번호</label>
 							<input class="form-control" name='pdNum'
 								value='<c:out value="${product.pdNum}" />' readonly="readonly">
 						</div>
-
 						<div class="form-group">
 							<label>상품명</label> <input class="form-control" name='pdName'
 								value='<c:out value="${product.pdName}" />'>
 						</div>
-
 						<div class="form-group">
-							<label>상품 가격</label> <input class="form-control" rows="3"
+							<label>상품 가격</label> <input class="form-control"
 								type="number" name='pdPrice' style="resize: none;"
 								value="${product.pdPrice}">
 						</div>
-
 						<div class="form-group">
 							<label>상품 수량</label> <input class="form-control" name='pdStock'
 								value='<c:out value="${product.pdStock}" />'>
 						</div>
-
 						<div class="form-group">
-							<label>상품 키워드</label> <input class="form-control" rows="3"
+							<label>상품 키워드</label> <input class="form-control"
 								type="text" name='pdKeyword' style="resize: none;"
 								value="${product.pdKeyword}">
 						</div>
-
 						<div class="form-group">
 							<label>등록일</label> <input class="form-control" name='pdRegDate'
 								value='<fmt:formatDate pattern="yyyy/MM/dd" value="${product.pdRegDate}"/>'
 								readonly="readonly">
 						</div>
-
-
 						<div class="pd-img-wrapper form-group">
 							기존 상품 이미지 <img class="card-img-top"
 								src="/product/display?fileName=${product.pdPath}"
 								alt="product image" />
 
 						</div>
-
 						<input class="form-control" name='pdPath' type="hidden"
 							value='${product.pdPath}'>
 					</div>
 				</div>
-
 			</div>
-</div>
-</form>
-
-
-</section>
-
-
-
-
-
-
-
-<button type="submit" data-oper='modify'
-	class="btn btn-secondary OperationButton">수정</button>
-<button type="submit" data-oper='remove'
-	class="btn btn-secondary OperationButton">삭제</button>
-
-
-
-
-<button type="submit" data-oper='list'
-	class="btn btn-info OperationButton">리스트</button>
-
-
-
+		</form>
+		<button type="submit" data-oper='modify' class="btn btn-secondary OperationButton">수정</button>
+		<button type="submit" data-oper='remove' class="btn btn-secondary OperationButton">삭제</button>
+		<button type="submit" data-oper='list' class="btn btn-info OperationButton">리스트</button>
+	</section>
 </div>
 
-
-</div>
-
-</div>
-
-</div>
 
 
 <div class='bigPictureWrapper'>
 	<div class='bigPicture'></div>
 </div>
 
-
-
-
-
-
 <!-- /.row -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
 	crossorigin="anonymous"></script>
-
-
-
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form");
@@ -423,14 +370,6 @@
 </script>  
  -->
 
-
-
-
-
-
-
-
-
 <script type="text/javascript">
    // file upload handle
    $(document).ready(function(e){
@@ -537,7 +476,7 @@
 			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
 			str += "<span> "+ obj.pdName + "</span>";
 			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
-			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
+			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn-close'></button><br>";
 			str += "</div></li>";
            }); // uploadResultArr.each
          uploadUL.append(str);
@@ -573,4 +512,5 @@
       
    }); // document ready
 </script>
+
 <%@include file="../includes/footer.jsp"%>

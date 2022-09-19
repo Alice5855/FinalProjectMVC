@@ -48,20 +48,14 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">Tables</h1>
-		</div>
-		<!-- /.col-lg-12 -->
-	</div>
-	<!-- /.row -->
-	
-	<div class="row">
-		<div class="col-lg-12">
 			<div class="panel panel-default">
 				
 				<!-- Page250 위에 jsp 소스 코딩 시작 -->
 				<div class="panel-heading mb-3">
-					Board List Page
-					<button id='regBtn' type="button" class="btn btn-sm btn-outline-info float-end">Register</button>
+					상품 리스트
+					<sec:authorize access="hasRole('ROLE_ADMIN')"> 
+						<button id='regBtn' type="button" class="btn btn-sm btn-outline-info float-end">Register</button>
+					</sec:authorize>
 				</div>
 				<!-- Page250 위에 jsp 소스 코딩 끝 -->
 				
@@ -72,11 +66,13 @@
 					<table class="table table-striped table-bordered table-hover">
 						<thead>
 							<tr>
-								<th>#번호</th>
-								<th>제목</th>
-								<th>작성자</th>
+								<th>상품번호</th>
+								<th>상품명</th>
+								<th>가격</th>
+								<th>재고</th>
+								<th>조회수</th>
+								<th>태그</th>
 								<th>작성일</th>
-								<th>수정일</th>
 							</tr>
 						</thead>
 						<!-- Model에 담긴 데이터 출력 : '/board/list'를
@@ -99,12 +95,11 @@
 	<%-- 									<b>[<c:out value="${board.replyCnt}" /> ]</b> --%>
 								</a></td>
 								<!-- Page 314 아래 jsp 소스 코딩할 때 아래 소스 추가 코딩 끝 -->
-	
-								<td><c:out value="${product.pdName}" /></td>
-								<td><fmt:formatDate pattern="yyyy-MM-dd"
-										value="${product.pdRegDate}" /></td>
-	<%-- 							<td><fmt:formatDate pattern="yyyy-MM-dd" --%>
-	<%-- 									value="${board.updateDate}" /></td> --%>
+								<td><c:out value="${product.pdPrice}" /></td>
+								<td><c:out value="${product.pdStock}" /></td>
+								<td><c:out value="${product.pdHit}" /></td>
+								<td>#<c:out value="${product.pdKeyword}" /></td>
+								<td><fmt:formatDate pattern="yyyy-MM-dd" value="${product.pdRegDate}" /></td>
 							</tr>
 							<!-- Page254 아래 ~ Page255 위까지 소스 수정 코딩 끝 -->
 						</c:forEach>
@@ -137,73 +132,65 @@
 						
 					<div class="text-center mt-3">
 						<ul class="pagination" style="justify-content: center;">
-						
 							<c:if test="${pageMaker.prev}">
-								<li class="paginate_button previous"><a
+								<li class="paginate_button page-item previous"><a
 									href="${pageMaker.startPage -1}">Previous</a></li>
 							</c:if>
-				
 							<c:forEach var="num" begin="${pageMaker.startPage}"
 								end="${pageMaker.endPage}">
-								<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active" : ""} ">
+								<li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? "active" : ""} ">
 									<a class="page-link" href="${num}">${num}</a>
 								</li>
 							</c:forEach>
-				
 							<c:if test="${pageMaker.next}">
-								<li class="paginate_button next"><a
+								<li class="paginate_button page-item next"><a
 									href="${pageMaker.endPage +1}">Next</a></li>
 							</c:if>
-					
 						</ul>
 					</div>
-				</div>
 	
-				<!-- Page 311 위에 소스 코딩 시작 -->
-				<form id='actionForm' action="/product/list" method='get'>
-					<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
-					<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-				<!-- form 종료 태그 : Page 311 위에 소스 코딩 끝 -->
-	
-				<!-- Page 344 중간 jsp 소스 코딩 추가 시작 : 소스 문제 없는데 붉은색 표시나면 구문 잘라내기 후에 다시 붙여넣기 저장해 보시기 바랍니다. -->
-				<!-- 다음의 구문 코딩 후에 웹브라우저 실행해서, 검색 이후에 페이지를 이동해서 동일한
-				     검색 조건과 키워드가 유지되는지 확인 바랍니다. -->
-					<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
-					<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
-				<!-- Page 344 중간 jsp 소스 코딩 추가 끝 -->
-	
-				</form>
-	
-				<!-- Page 248 소스 코딩 시작 -->
-				<!-- Modal  추가 -->
-				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-					aria-labelledby="myModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">&times;</button>
-								<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					<!-- Page 311 위에 소스 코딩 시작 -->
+					<form id='actionForm' action="/product/list" method='get'>
+						<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
+						<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
+					<!-- form 종료 태그 : Page 311 위에 소스 코딩 끝 -->
+		
+					<!-- Page 344 중간 jsp 소스 코딩 추가 시작 : 소스 문제 없는데 붉은색 표시나면 구문 잘라내기 후에 다시 붙여넣기 저장해 보시기 바랍니다. -->
+					<!-- 다음의 구문 코딩 후에 웹브라우저 실행해서, 검색 이후에 페이지를 이동해서 동일한
+					     검색 조건과 키워드가 유지되는지 확인 바랍니다. -->
+						<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
+						<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
+					<!-- Page 344 중간 jsp 소스 코딩 추가 끝 -->
+		
+					</form>
+		
+					<!-- Page 248 소스 코딩 시작 -->
+					<!-- Modal  추가 -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+						aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+									<h4 class="modal-title" id="myModalLabel">Modal</h4>
+								</div>
+								<div class="modal-body">처리가 완료되었습니다.</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								</div>
 							</div>
-							<div class="modal-body">처리가 완료되었습니다.</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary" data-dismiss="modal">Save
-									changes</button>
-							</div>
+							<!-- /.modal-content -->
 						</div>
-						<!-- /.modal-content -->
+						<!-- /.modal-dialog -->
 					</div>
-					<!-- /.modal-dialog -->
+					<!-- /.modal -->
+					<!-- Page 248 소스 코딩 끝 -->
 				</div>
-				<!-- /.modal -->
-				<!-- Page 248 소스 코딩 끝 -->
-	
+				<!--  end panel-body -->
 			</div>
-			<!--  end panel-body -->
+			<!-- end panel -->
 		</div>
-		<!-- end panel -->
+		<!-- /.col-lg-12 -->
 	</div>
 	<!-- /.row -->
 </div>
@@ -211,114 +198,69 @@
 
 
 <script type="text/javascript">
-	// Page 246 소스 코딩 시작
-	// 새로운 게시물의 번호는 BoardController의 addFlashAttribute() 메서드로
-	// 저장되었기 때문에 한 번도 사용된 적이 없다면 사용자가 "/board/list"를 호출하거나,
-	// '새로고침'을 통해서 호출하는 경우 아무런 내용이 없게 됩니다.
-	// 또한, addFlashAttribute() 메서드를 이용해서 일회성으로만 데이터를 사용할 수 
-	// 있으므로 이를 이용하여 경고창이나 모달창 등을 보여주는 방식으로 처리할 수 있습니다.
 	$(document).ready(function() {
 		var result = '<c:out value="${result}"/>';
-	// }); Page 246 소스 코딩 끝 
 	
-						// Page 248 아래 자바스크립트 소스 코딩 시작
-						// 모달창 관련 자바스크립트 소스 코딩(시작)	
-						// checkModal() 함수는 파라미터에 따라서 모달창을 보여주거나 내용을 수정한 뒤
-						// 보이도록 처리합니다. checkModal()에서는 새로운 게시글이 작성되는 경우
-						// RedirectAttributes로 게시물의 번호가 전송되므로 이를 이용해서 모달창의 내용을
-						// 수정 처리합니다. $("#modal").modal('show')를 호출하면 모달창이 보이게 됩니다.
-						// 실행 확인은 웹 프로젝트 실행 후 '/board/register'를 이용해서 새로운 게시물을 작성하고
-						// 나면 자동으로 '/board/list'로 이동하면서 모달창이 보이게 됩니다.
-						checkModal(result);
+		checkModal(result);
+	
+		history.replaceState({}, null, null);
+	
+		function checkModal(result) {
+	
+			if (result === '' || history.state) {
+				return;
+			}
+	
+			if (parseInt(result) > 0) {
+				$(".modal-body").html(
+						"상품 " + parseInt(result)
+								+ " 번이 등록되었습니다.");
+			}
+	
+			$("#myModal").modal("show");
+		}
+		$("#regBtn").on("click", function() {
+			self.location = "/product/register";
+			
+		});
+		var actionForm = $("#actionForm");
+	
+		$(".paginate_button a").on("click", function(e) {
 
-						// Page257 중간 window.history 객체, replaceState() 메서드 소스 추가 코딩
-						history.replaceState({}, null, null);
+			e.preventDefault();
 
-						function checkModal(result) {
-
-							if (result === '' || history.state) {
-								return;
-							}
-
-							if (parseInt(result) > 0) {
-								$(".modal-body").html(
-										"게시글 " + parseInt(result)
-												+ " 번이 등록되었습니다.");
-							}
-
-							$("#myModal").modal("show");
-							// 모달창 관련 자바스크립트 소스 코딩(종료)
-						}
-						
-						
-						// }); Page 248 아래 자바스크립트 소스 코딩 끝
-
-						// Page 250 아래 자바스크립트 소스 코딩 시작
-						// list.jsp에서  Register New Board 버튼 클릭하면
-						// 게시물의 등록 웹페이지로 이동 처리 합니다.
-						$("#regBtn").on("click", function() {
-							self.location = "/product/register";
-							
-						});
-						// Page 250 아래 자바스크립트 소스 코딩 끝
-
-						// Page 312 위에 자바스크립트 소스 코딩 시작
-						var actionForm = $("#actionForm");
-
-						$(".paginate_button a").on(
-								"click",
-								function(e) {
-
-									e.preventDefault();
-
-									console.log('click');
-									// }); Page 312 위에 자바스크립트 소스 코딩 끝
-									
-									// Page 312 아래 자바스크립트 소스 코딩 시작
-									actionForm.find("input[name='pageNum']")
-											.val($(this).attr("href"));
-									actionForm.submit(); // actionForm 자체를 submit() 처리 시켜줍니다.
-								});
-								// Page 312 아래 자바스크립트 소스 코딩 끝						
-
-						// Page 315 자바스크립트 소스 코딩 시작
-						$(".move").on("click",function(e) {
-								e.preventDefault();
-								actionForm.append("<input type='hidden' name='pdNum' value='"
-															+ $(this).attr("href") + "'>");
-								actionForm.attr("action","/product/get");
-								actionForm.submit();
-								});
-						// Page 315 자바스크립트 소스 코딩 끝
-
-						// Page 342 자바스크립트 소스 코딩 시작
-						var searchForm = $("#searchForm");
-						
-						$("#searchForm button").on("click", function(e) {
-							if(!searchForm.find("option:selected").val()){
-								alert("검색 종류를 선택해 주시기 바랍니다!");
-								return false;
-							}
-							
-							if(!searchForm.find("input[name='keyword']").val()){
-								alert("키워드를 입력해 주시기 바랍니다!");
-								return false;
-							}
-							
-							// 여러 문제들 중에서 검색 버튼을 클릭하면 검색은
-							// 1페이지를 하도록 수정 처리합니다.
-							searchForm.find("input[name='pageNum']").val("1");
-							// 브라우저에서 검색 버튼을 클릭하면 form 태그의
-							// 전송은 막고, 페이지의 번호는 1이 되도록 처리합니다.
-							// 화면에서 키워드가 없다면 검색을 하지 않도록 제어합니다.
-							e.preventDefault();
-							searchForm.submit();			
-						});
-					});
-						// Page 342 자바스크립트 소스 코딩 끝
+			console.log('click');
+			
+			actionForm.find("input[name='pageNum']")
+					.val($(this).attr("href"));
+			actionForm.submit();
+		});
+	
+		$(".move").on("click",function(e) {
+			e.preventDefault();
+			actionForm.append("<input type='hidden' name='pdNum' value='"
+										+ $(this).attr("href") + "'>");
+			actionForm.attr("action","/product/get");
+			actionForm.submit();
+		});
+		var searchForm = $("#searchForm");
+		
+		$("#searchForm button").on("click", function(e) {
+			if(!searchForm.find("option:selected").val()){
+				alert("검색 종류를 선택해 주시기 바랍니다!");
+				return false;
+			}
+			
+			if(!searchForm.find("input[name='keyword']").val()){
+				alert("키워드를 입력해 주시기 바랍니다!");
+				return false;
+			}
+			
+			searchForm.find("input[name='pageNum']").val("1");
+			e.preventDefault();
+			searchForm.submit();			
+		});
+	});
 </script>
-
-
-        
 
 <%@include file="../includes/footer.jsp" %>
