@@ -146,7 +146,7 @@
 				    	</div>
 					    <div class="col-md-6">
 					    	<div class="form-group">
-					        	<div class="small mb-1">
+					        	<div class="small mb-1" style="display: none">
 					        		PD[<c:out value="${product.pdNum}" />]
 					        	</div>
 					        </div>
