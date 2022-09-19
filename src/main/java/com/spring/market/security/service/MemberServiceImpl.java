@@ -82,7 +82,7 @@ public class MemberServiceImpl implements MemberService {
  			System.out.println("=============");
  			
 			String path = req.getSession().getServletContext().getRealPath("/FinalProjectMVC/src/main/webapp/resources/upload/profile/");
-			String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\FinalProjectMVC", "");
+			String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\controller", "");
 			String pathing = req.getServletContext().getRealPath("/src/main/webapp/resources/upload/profile/");
 			System.out.println("어디서부터 어디까지 읽냐? " + pathing);
  			System.out.println(path);
@@ -90,7 +90,6 @@ public class MemberServiceImpl implements MemberService {
  			//파일을 서버에 저장
  			//getRealPath == /srpingshopping/src/main/webapp
  			File file = new File(newPath + changName);
- 			System.out.println(file + "뻐큐머겅"); 
  			MF.transferTo(file);
  			
  			memMapper.insertProfile(mem);
@@ -102,15 +101,6 @@ public class MemberServiceImpl implements MemberService {
 	
 		
 
-	@Override
-	public boolean update(Member mem) {
-		System.out.println("멤버가 가져와지나요?" + mem);
-		String rawPw = mem.getMemPw();
-		mem.setMemPw(bCryptPasswordEncoder.encode(rawPw));
-		boolean modifyMember = memMapper.update(mem) == 1;
-		System.out.println("시발련아 boolean실행하냐?");
-		return modifyMember;
-	}
 
 	@Override
 	public boolean deleteMember(Long memNum) {
@@ -145,7 +135,7 @@ public class MemberServiceImpl implements MemberService {
 		 			System.out.println("=============");
 		 			
 					String path = req.getSession().getServletContext().getRealPath("/FinalProjectMVC/src/main/webapp/resources/upload/profile/");
-					String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\FinalProjectMVC", "");
+					String newPath = path.replace(".metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\controller", "");
 					String pathing = req.getServletContext().getRealPath("/src/main/webapp/resources/upload/profile/");
 					System.out.println("어디서부터 어디까지 읽냐? " + pathing);
 		 			System.out.println(path);
@@ -153,7 +143,6 @@ public class MemberServiceImpl implements MemberService {
 		 			//파일을 서버에 저장
 		 			//getRealPath == /srpingshopping/src/main/webapp
 		 			File file = new File(newPath + changName);
-		 			System.out.println(file + "뻐큐머겅"); 
 		 			try {
 						MF.transferTo(file);
 					} catch (IllegalStateException e) {
