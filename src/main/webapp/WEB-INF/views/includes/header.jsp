@@ -159,7 +159,7 @@
 	                        	<li><a class="dropdown-item" href="/member/mypage">My page</a></li>
 	                        </sec:authorize>
 	                        <sec:authorize access="isAuthenticated()">
-	                        	<li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        	<li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
 	                        </sec:authorize>
 	                        <sec:authorize access="isAnonymous()">
 	                        	<li><a class="dropdown-item" href="/member/join">회원가입</a></li>
@@ -207,7 +207,7 @@
 	                        	<li><a class="dropdown-item" href="/member/mypage">My page</a></li>
 	                        </sec:authorize>
 	                        <sec:authorize access="isAuthenticated()">
-	                        	<li><a class="dropdown-item" href="#!">로그아웃</a></li>
+	                        	<li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
 	                        </sec:authorize>
 	                        <sec:authorize access="isAnonymous()">
 	                        	<li><a class="dropdown-item" href="/member/join">회원가입</a></li>
