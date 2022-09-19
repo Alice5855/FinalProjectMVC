@@ -717,7 +717,7 @@
 			// js에서 속성을 명시할 때 [] 사용
 			operForm.find("#pdNum").remove();
 			// list로 이동 시 form tag 내의 #bno 삭제?
-			operForm.attr("action", ctx + "/product/list");
+			operForm.attr("action", ctx + "/product/page");
 			operForm.submit();
 		});
 	});
