@@ -2,8 +2,6 @@ package com.spring.market.product.service;
 
 import java.util.List;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +20,6 @@ import lombok.extern.log4j.Log4j;
 @Service 
 @AllArgsConstructor 
 public class ProductServiceImpl implements ProductService {
-
 
 	@Setter(onMethod_ = {@Autowired})
 	private ProductMapper mapper;
@@ -45,15 +42,7 @@ public class ProductServiceImpl implements ProductService {
 			
 			product.setPdPath(attach.getPdPath());
 			mapper.inserpdPath(product);
-				
-			
-			
-			
 		});
-		
-		
-		
-
 	}
 
 	@Override
@@ -63,12 +52,8 @@ public class ProductServiceImpl implements ProductService {
 		ProductVO pvo = mapper.read(pdNum);
 		pvo.getPdName();
 		
-		
 		return pvo;
 	}
-	
-	
-
 	
 	@Transactional
 	@Override
@@ -85,17 +70,13 @@ public class ProductServiceImpl implements ProductService {
 		
 		attachMapper.deleteAll(product.getPdNum());
 		
-		
 		mapper.delete(product.getPdNum());
 //		mapper.update(product);
 		mapper.insert(product);
 		
-
 		product.getAttachList().forEach(attach -> {
 			
 			attach.setPdNum(product.getPdNum());
-
-			
 
 			attach.setPdPath(attach.getPdFolder().replace('\\', '/')+ "/" + attach.getPdUuid() + "_" + attach.getPdName());
 			System.out.println("확인 실행 됐냐 어태치 PdPath : " + attach.getPdPath());
@@ -104,15 +85,8 @@ public class ProductServiceImpl implements ProductService {
 			product.setPdPath(attach.getPdPath());
 			mapper.inserpdPath(product);
 				
-			
-			
-			
 		});
-		
-		
-
 	}
-
 
 	@Transactional
 	@Override
@@ -143,9 +117,6 @@ public class ProductServiceImpl implements ProductService {
 		return attachMapper.findByPdNum(pdNum);
 	}
 
-	
-
-
 	@Override
 	public void setBoardImage(Long pdNum) {
 		mapper.setBoardImage(pdNum);
@@ -156,11 +127,5 @@ public class ProductServiceImpl implements ProductService {
 		log.info("프로덕트랑 어태치테이블 다 고를게~" + pdNum);
 		return attachMapper.selectAll(pdNum);
 	}
-
-
-
-	
-	
-	
 	
 }
