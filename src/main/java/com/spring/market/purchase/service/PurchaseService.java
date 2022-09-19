@@ -6,4 +6,5 @@ public interface PurchaseService {
 
 	public void registerPurchase(PurchaseVO purchaseVO);
 	
+	public void pdStockDown(Long pdStock, Long pdNum);
 }

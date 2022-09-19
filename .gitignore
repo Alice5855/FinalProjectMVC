@@ -3,3 +3,4 @@
 .settings/*
 target/*
 .project
+src/main/webapp/resources/upload/profile/*

@@ -26,14 +26,13 @@ public class BucketServiceTests {
 	@Test
 	public void testReg() {
 		ProductVO testPdVO = new ProductVO();
-		testPdVO.setPdNum(32L);
+		testPdVO.setPdNum(2L);
 		
 		Member testMemVO = new Member();
-		testMemVO.setMemNum(23L);
+		testMemVO.setMemNum(6L);
 		
-		service.registerBucket(22L, 32L);
-		service.registerBucket(23L, 32L);
-		service.registerBucket(40L, 32L);
+		service.registerBucket(20L, 6L);
+		service.registerBucket(21L, 6L);
 	}
 	
 //	@Test
@@ -54,20 +53,21 @@ public class BucketServiceTests {
 		}
 		System.out.println("--------------------------------------");
 	}
-	
-//	@Test
+	/*
+	@Test
 	public void testDelete() {
 		Member testMemVO = new Member();
 		testMemVO.setMemNum(1L);
 		
-		service.removeBucket(testMemVO.getMemNum(), 0L);
+		service.removeBucket(testMemVO.getmemNum()(), 0L);
 	}
 	
-//	@Test
+	@Test
 	public void testSelectCount() {
 		Member testMemVO = new Member();
 		testMemVO.setMemNum(1L);
 		
 		System.out.println("1번친구의 장바구니 갯수"+service.getBucketCount(testMemVO.getMemNum()));
 	}
+	*/
 }

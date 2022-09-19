@@ -11,7 +11,6 @@
 <style>
       .uploadResult {
          width: 100%;
-         background-color: #F5F5F5;
       }
       
       .uploadResult ul {
@@ -31,7 +30,8 @@
       }
       
       .uploadResult ul li img.thumbnail {
-         width: 100px;
+         width: 120px;
+         height: 120px
       }
       .btn-icon {
          margin-left: 5%;
@@ -40,6 +40,17 @@
       	margin-bottom: 1rem;
       	margin-top: 1rem;
       }
+      
+      @media(max-width:475px)  {
+      
+	      .uploadResult ul li img.thumbnail {
+	         width: 50px;
+	         height: 50px
+	      }
+	      
+	     
+		
+		}
 </style>
 <style>
       .bigPictureWrapper {
@@ -71,84 +82,80 @@
          cursor: pointer;
       }
 </style>
-<div class="container-fluid">
-	<div class="row">
-	  <div class="col-lg-12">
-	    <h1 class="page-header">새 글 쓰기</h1>
-	  </div>
-	  <!-- /.col-lg-12 -->
-	</div>
-	<!-- /.row -->
-	
-	<div class="row">
-	  <div class="col-lg-12">
-	    <div class="panel panel-default">
-	
-	        <form role="form" action="${context}/product/register" method="post">
-		        <!-- Page714 CSRF Token을 hidden input으로 추가함 -->
-<%-- 		        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
-		        
-		        <div class="form-group">
-					<label>물품명</label>
-					<input class="form-control" name='pdName'>
+	<section class="py-5">
+		<form role="form" action="${context}/product/register" method="post">
+			<div class="container px-4 px-lg-5 my-5">
+				<div class="row gx-4 gx-lg-5 align-items-center">
+			    	<div class="col-md-6">
+			    
+				    	<div class="container-fluid py-3">
+							<div class="row">
+							  	<div class="col-lg-12">
+							    	<div class="panel panel-default">
+							
+								      	<div class="lead">상품 이미지 등록</div>
+										<!-- /.panel-heading -->
+										<div class="panel-body">
+									        <div class="form-group uploadDiv">
+									        	<input type="file" name='uploadFile' class="form-control" accept="image/*" multiple>
+									        </div>
+									        
+									        <div class='uploadResult pd-img-wrapper'> 
+									        	<ul>
+									          
+									        	</ul>
+								        	</div>
+										</div>
+										<!--  end panel-body -->
+									</div>
+									<!--  end panel -->
+								</div>
+								<!-- /.col-lg-12 -->
+							</div>
+							<!-- /.row -->
+						</div>
+						<!-- /.container-fluid -->
+					</div>
+					<div class="col-md-6">
+					    <div class="form-group">
+					    	<div class="fs-5 mb-5">
+					    		<label>물품명</label>
+								<input class="form-control" name='pdName'>
+					   		</div>
+					    </div>
+					    
+					    <div class="form-group">
+					    	<div class="fs-5 mb-5">
+								<label>물품가격</label>
+								<input class="form-control" rows="3" name='pdPrice' style="resize: none;" type="number">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="fs-5 mb-5">
+								<label>태그</label>
+								<input class="form-control" name='pdKeyword'>
+							</div>
+						</div>
+    
+						<div class="d-flex align-middle mt-2">
+							<span class="lead me-3 pt-3">상품 수량</span>
+							<div class="form-group">
+								<input class="form-control text-center me-3" name='pdStock' id="inputQuantity" style="max-width: 3.4rem">
+							</div>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-outline-success">등록</button>
+							<button type="reset" class="btn btn-outline-dark" onclick="javascript:history.go(-1);">취소</button>
+						</div>
+					</div>
+					<!-- /.col-md-6 -->
 				</div>
-		
-				<div class="form-group">
-					<label>물품가격</label>
-					<input class="form-control" rows="3" name='pdPrice' style="resize: none;" type="number">
-				</div>
-		
-				<div class="form-group">
-					<label>수량</label>
-		            <input class="form-control" name='pdStock'>
-				</div>
-				
-				<div class="form-group">
-					<label>태그</label>
-		            <input class="form-control" name='pdKeyword'>
-				</div>
-				<div class="form-group">
-					<button type="submit" class="btn btn-secondary">등록</button>
-					<button type="reset" class="btn btn-default" onclick="javascript:history.go(-1);">취소</button>
-				</div>
-	        </form>
-	
-	      </div>
-	      <!--  end panel-body -->
-	
-	    </div>
-	    <!--  end panel-body -->
-	  </div>
-	  <!-- end panel -->
-	
-<div class="row">
-  <div class="col-lg-12">
-    <div class="panel panel-default">
-
-      <div class="panel-heading">File Attach</div>
-      <!-- /.panel-heading -->
-      <div class="panel-body">
-        <div class="form-group uploadDiv">
-            <input type="file" name='uploadFile' multiple>
-        </div>
-        
-        <div class='uploadResult'> 
-          <ul>
-          
-          </ul>
-        </div>
-        
-        
-      </div>
-      <!--  end panel-body -->
-
-    </div>
-    <!--  end panel-body -->
-  </div>
-  <!-- end panel -->
-</div>
-
- <script
+				<!-- /.row -->
+			</div>
+			<!-- /.container -->
+		</form>
+	</section>
+<script
   src="https://code.jquery.com/jquery-3.6.0.min.js"
   integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
   crossorigin="anonymous"></script>
@@ -186,7 +193,7 @@
       var formFile = $("input[type='file']");
       
 	
-      function checkExtension(fileName, fileSize) {
+      function checkExtension(fileName, fileSize,) {
          if(fileSize >= (maxSize * 4)) { // Up to 20MB
             alert("업로드 파일은 20MB를 초과할 수 없습니다");
             return false;
@@ -196,11 +203,12 @@
             alert("올바르지 않은 유형의 파일입니다");
             return false;
          }
+       
+      
          return true;
       };
       
-      // Page 721 : CSRF token을 Header에 전달하기 위하여 변수선언. ajax
-      // 에서 data 전달 시 token과 headername을 함께 전달하게 된다
+   
       var csrfHeaderName ="${_csrf.headerName}"; 
       var csrfTokenValue="${_csrf.token}";
       
@@ -211,12 +219,18 @@
 		var files = inputFile[0].files;
 		
 		for(var i = 0; i < files.length; i++){
+			if(i >= 3){
+				alert("상품 이미지 업로드는 3개 까지만 가능 합니다.");
+				return false;
+			}
 			
 			console.log(files[i]);
 			
 			if(!checkExtension(files[i].name, files[i].size) ){
 				return false;
 			}
+			
+			
 			
 			formData.append("uploadFile", files[i]);
 			
@@ -257,8 +271,8 @@
 			
 			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
 			str += "<span> "+ obj.pdName + "</span>";
-			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
-			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
+			str += "<img class='thumbnail rounded' src='/product/display?fileName=" + fileLink + "'>";
+			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-close'></button><br>";
 			str += "</div></li>";
            }); // uploadResultArr.each
          uploadUL.append(str);
@@ -276,9 +290,11 @@
          
          $.ajax({
             url: '/product/deleteFile',
+            /*
             beforeSend: function(xhr){
                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
             },
+            */
             // csrf token을 data 전송 전에 header로 전송
             data: {fileName: targetFile},
             dataType:'text',

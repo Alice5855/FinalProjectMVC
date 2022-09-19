@@ -60,6 +60,10 @@ public class PaymentController {
 			pcVO.setPdNum9(0L);
 			pcVO.setPdNum10(0L);
 			purchaseService.registerPurchase(pcVO);
+			ProductVO pdVO = new ProductVO();
+			pdVO = bucketService.getBucketInfo(pcVO.getPdNum1());
+			
+			purchaseService.pdStockDown(pdVO.getPdStock()-1L, pdVO.getPdNum());
 			bucketService.removeBucket(mem.getmemNum(), payVO.getPdNum());
 		}else {
 			List<ProductVO> bucketList = new ArrayList<>();
@@ -138,7 +142,16 @@ public class PaymentController {
 				// TODO: handle exception
 				pcVO.setPdNum10(0L);
 			}
-			
+			try {
+				for(int i = 0; i<bucketList.size(); i++) {
+					System.out.println("pdStock 변경값 : " + (bucketList.get(i).getPdStock() -1));
+					System.out.println("pdNum : " + (bucketList.get(i).getPdNum()));
+					
+					purchaseService.pdStockDown(bucketList.get(i).getPdStock()-1L, bucketList.get(i).getPdNum());
+				}
+			}catch (Exception e) {
+				System.out.println("stockDown 사이즈 익셉션, 반복문탈출");
+			}
 			purchaseService.registerPurchase(pcVO);
 			bucketService.removeBucketAll(mem.getmemNum());
 		}

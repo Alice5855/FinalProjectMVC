@@ -26,10 +26,10 @@
 		/* 'IBM Plex Sans KR', sans-serif; */
 		@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;700&display=swap');
 		/* https://fonts.google.com/specimen/Rubik */
-		/* 'Rubik', sans-serif; */
+		/* 'Rubik', sans-serif; */1248
 		@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
 		body {
-			padding-bottom: 20px;
+			margin: 0;
 			font-family: 'IBM Plex Sans KR', sans-serif;
 		}
 		.font2 {
@@ -120,9 +120,14 @@
 				font-size: 0.9rem;
 			}
 		}
-		@media screen and (max-width: 1247px) {
+		@media screen and (max-width: 1394px) {
 			.btnwrapper {
-				width: 15%;
+				width: 18%;
+			}
+		}
+		@media screen and (max-width: 768px) {
+			.btnwrapper {
+				width: 50%;
 			}
 		}
     </style>
@@ -150,11 +155,17 @@
 	                        <sec:authorize access="isAnonymous()">
 	                        	<li><a class="dropdown-item" href="/member/login">로그인</a></li>
 	                        </sec:authorize>
-	                        <li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
-	                        <li><a class="dropdown-item" href="/member/mypage">My page</a></li>
-	                        <li><hr class="dropdown-divider" /></li>
-	                        <li><a class="dropdown-item" href="/member/join">회원가입</a></li>
-	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                        <sec:authorize access="isAuthenticated()">
+	                        	<li><a class="dropdown-item" href="/member/mypage">My page</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="isAuthenticated()">
+	                        	<li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="isAnonymous()">
+	                        	<li><a class="dropdown-item" href="/member/join">회원가입</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="hasRole('ROLE_ADMIN')">
+	                        	<li><a class="dropdown-item" href="/product/list">상품목록</a></li>
 	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
 	                        </sec:authorize>
 	                    </ul>
@@ -192,11 +203,17 @@
 	                    	<sec:authorize access="isAnonymous()">
 	                        	<li><a class="dropdown-item" href="/member/login">로그인</a></li>
 	                        </sec:authorize>
-	                        <li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
-	                        <li><a class="dropdown-item" href="/member/mypage">My page</a></li>
-	                        <li><hr class="dropdown-divider" /></li>
-	                        <li><a class="dropdown-item" href="/member/join">회원가입</a></li>
+	                        <sec:authorize access="isAuthenticated()">
+	                        	<li><a class="dropdown-item" href="/member/mypage">My page</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="isAuthenticated()">
+	                        	<li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
+	                        </sec:authorize>
+	                        <sec:authorize access="isAnonymous()">
+	                        	<li><a class="dropdown-item" href="/member/join">회원가입</a></li>
+	                        </sec:authorize>
 	                        <sec:authorize access="hasRole('ROLE_ADMIN')"> 
+	                        	<li><a class="dropdown-item" href="/product/list">상품목록</a></li>
 	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
 	                        </sec:authorize>
 	                    </ul>
@@ -222,10 +239,10 @@
 	$(window).on("scroll", function(e) {
 		if ($(this).scrollTop() < 1) {
 			topbar.css('opacity', '1');
-			fixbar.css('opacity', '0');
+			fixbar.css('display', 'none');
 		} else {
 			topbar.css('opacity', '0');
-			fixbar.css('opacity', '1');
+			fixbar.css('display', 'flex');
 		}
 	});
 </script>

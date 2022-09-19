@@ -5,7 +5,7 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript"
 src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
-<%@include file="../header.jsp" %> 
+<%@include file="../includes/header.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,16 +14,155 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
 <style>
 .purchaseContainer{
-	background: red;
 	width: 90%;
 	height: 90%;
 }
 
 .purchaseBox{
-	background: gray;
 	width: 80%;
-	height: 80%;
+	margin-left: auto;
+	margin-right: auto;
 }
+
+.customInput{
+    border: 1px solid #4a75d4;
+    padding-left: 1rem;
+}
+
+.unClickAble{
+	background-color: #4a75d4;	
+	color: white;
+}
+
+.purchaseTable{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1rem;
+	border-spacing: 5px;
+}
+
+.purchaseForm{
+	padding-top: 1rem;
+}
+
+td:first-child {
+	padding-right: 2rem;
+	text-align: right;
+	padding-top: 4%;
+/* 	border-right: 2px solid #4A75D4; */
+}
+th, td{
+	vertical-align: text-bottom;
+}
+
+.btnBuy{
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.btnBuyContainer{
+	margin-right: auto;
+	margin-left: auto;
+	width: fit-content;
+	margin-top:3rem;
+}
+
+.w-btn-neon2 {
+    position: relative;
+    border: none;
+    min-width: 200px;
+    min-height: 50px;
+	background: linear-gradient( 169deg, rgba(74, 117, 217, 0.7) 0%, rgba(3, 57, 223, 1) 100% );	
+    border-radius: 1000px; 
+    color: white;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.3s;
+}
+
+.w-btn-neon2:hover {
+    transform: scale(1.2);
+}
+
+.w-btn-neon2:hover::after {
+    content: "";
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: 6px solid #4a75d4;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ring 1.5s infinite;
+}
+
+@keyframes ring {
+    0% {
+        width: 30px;
+        height: 30px;
+        opacity: 1;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+.purchaseTitle{
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+	font-weight: 700;
+	color: #4A75D4;
+
+}
+
+.borderBottom{
+    border-bottom: 2px solid #4A75D4;
+    padding-bottom: 1rem;
+}
+
+@media (max-width: 500px) {
+
+	.purchaseContainer{
+	    padding-left: 0px;
+   		padding-right: 0px;
+   		margin-left: 0px;
+   		margin-right: 0px;
+   		width: 100%;
+	}
+	
+	.container-fluid{
+	    padding-left: 0px !important;
+   		padding-right: 0px !important;
+	}
+	
+	.purchaseBox{
+		width: 100%;
+	}
+	
+	td:first-child {
+		padding-right: 0rem;
+	}
+	
+	td:last-child {
+		width:fit-content;
+		padding-left: 0.5rem;
+	}
+	
+	input{
+		width:100%;
+	}
+	
+	.purchaseForm{
+		padding-right: 0.5rem;
+	}
+
+}
+
 
 </style>
 
@@ -31,15 +170,19 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <body>
 	<div class="container purchaseContainer">
 		<div class="purchaseBox">
-		
-			<form>
+			<div class="borderBottom">
+				<h1 class="purchaseTitle pt-2">
+					결 제
+				</h1>
+			</div>
+			<form class="purchaseForm">
 				<c:if test="${not empty product}" >
 					<input  class="pdNum" value="${product.pdNum}" type="hidden">
 				</c:if>
 				<c:if test="${empty product}" >
 					<input  class="pdNum" value="0" type="hidden">
 				</c:if>
-				<table>
+				<table class="purchaseTable">
 					<thead>
 						<tr>
 							<td>
@@ -47,19 +190,19 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 							</td>
 							<td>
 								<c:if test="${not empty product}" >
-									<input readonly="readonly" class="pdName" value="${product.pdName}" type="text">
+									<input readonly="readonly" class="pdName unClickAble customInput" value="${product.pdName}" type="text">
 								</c:if>
 								<c:if test="${empty product}" >
-									<input readonly="readonly" class="pdName" value="AniBucket 상품" type="text">
+									<input readonly="readonly" class="pdName unClickAble customInput" value="AniBucket 상품" type="text">
 								</c:if>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								배송자 명
+								구매자
 							</td>
 							<td>
-								<input class="memName" value="${member.memName}" type="text">
+								<input class="memName customInput" value="${member.memName}" type="text">
 							</td>
 						</tr>
 						<tr>
@@ -67,7 +210,7 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 								배송지
 							</td>
 							<td>
-								<input class="memAddr" value="${member.memAd}" type="text">
+								<input class="memAddr customInput" value="${member.memAd}" type="text">
 							</td>
 						</tr>
 						<tr>
@@ -75,7 +218,7 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 								이메일
 							</td>
 							<td>
-								<input class="memEmail" value="${member.memEmail}" type="text">
+								<input class="memEmail customInput" value="${member.memEmail}" type="text">
 							</td>
 						</tr>
 						<tr>
@@ -83,7 +226,7 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 								연락처
 							</td>
 							<td>
-								<input class="memPh" value="${member.memPh}">
+								<input class="memPh customInput" value="${member.memPh}">
 							</td>
 						</tr>
 						<tr>
@@ -91,19 +234,19 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 								닉네임
 							</td>
 							<td>
-								<input readonly="readonly" value="${member.memNickname}">
+								<input readonly="readonly" class="unClickAble customInput" value="${member.memNickname}">
 							</td>
 						</tr>
 						<tr>
 							<td>
-								결제 금액
+								금액
 							</td>
 							<td>
 								<c:if test="${not empty product}" >
-									<input readonly="readonly" value="${product.pdPrice}">
+									<input class="price unClickAble customInput" readonly="readonly" value="${product.pdPrice}">
 								</c:if>
 								<c:if test="${empty product}" >
-									<input readonly="readonly" value="${totalPrice}">
+									<input readonly="readonly" class="unClickAble customInput" value="${totalPrice}">
 								</c:if>
 							</td>
 						</tr>
@@ -111,8 +254,9 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 					</thead>
 				</table>
 			</form>
-			
-			<button type="button" onclick="fn_buy()">결제하기</button>
+			<div class="btnBuyContainer">
+				<button class="w-btn-neon2" type="button" onclick="fn_buy()">결제하기</button>
+			</div>
 			<br><br>
 			<a href="/">[처음으로]</a>
 		</div>
@@ -122,7 +266,18 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </body>
 
 <script>
+
+	function comma() {
+		$(".price").each(function() {
+			var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			$(this).val(changeNum);
+		})
+	}
+	
+	comma();	
+
 	function fn_buy() {
+
 		var pdNum = 0;
 		var price = 0;
 		if($('.pdNum').val() != 0){
@@ -131,7 +286,7 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 		}else{
 			price = "<c:out value='${totalPrice}' />";
 		}
-		
+		changePrice = price.replace(/[^\d]+/g, '');
 		
 		
 		var IMP = window.IMP;
@@ -141,7 +296,7 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 			pay_method : "card",
 			merchant_uid : 'merchant_' + new Date().getTime(),
 			name : $('.pdName').val(),
-			amount : price,
+			amount : changePrice,
 			buyer_email : $('.memEmail').val(),  // buyer_email도 수정하기 바랍니다.
 			buyer_name : $('.memName').val(),
 			buyer_tel : $('.memPh').val(),
@@ -181,4 +336,5 @@ src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 		});
 	}
 </script>
+<%@include file="../includes/footer.jsp" %>
 </html>

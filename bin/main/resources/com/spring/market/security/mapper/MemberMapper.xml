@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+              "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.market.security.mapper.MemberMapper">
+
+<resultMap type="com.spring.market.security.model.Member" id="MemberMap">
+	<id property="memNum" column="memNum"/>
+	<result property="memNum" column="memNum"/>
+	<result property="memName" column="memName"/>	
+	<result property="memEmail" column="memEmail"/>	
+	<result property="memNickname" column="memNickname"/>	
+	<result property="memPw" column="memPw"/>	
+	<result property="memAd" column="memAd"/>
+	<result property="memAddetail" column="memAddetail"/>
+	<result property="memGender" column="memGender"/>
+	<result property="memPh" column="memPh"/>
+	<result property="ChangeName" column="ChangeName"/>
+	<collection property="memAuth" resultMap="authMap"></collection>	
+</resultMap>
+
+
+
+<resultMap type="com.spring.market.security.model.Auth" id="authMap">
+	<result property="memAuth" column="memAuth"/>
+	<result property="memNum" column="memNum"/>
+</resultMap>
+	
+	
+	<select id="getSeq" resultType="Long">
+			select seq_member.nextval from dual
+	</select>
+	
+
+	<insert id="signup">
+		insert into membertable(memNum, memName, memEmail, memNickname, memPw, memAd, memAddetail, memGender, memPh) values(#{memNum}, #{memName}, #{memEmail}, #{memNickname} , #{memPw}, #{memAd}, #{memAddetail}, #{memGender}, #{memPh})
+	</insert>
+	
+	<update id="update">
+		update membertable set memName = #{memName}, memNickname = #{memNickname}, memAd = #{memAd}, memAddetail = #{memAddetail}, memGender = #{memGender}, memPh = #{memPh} where memNum = #{memNum}
+	
+	</update>
+	
+	<delete id="deleteMember">
+		delete from membertable where memNum = #{memNum}
+	</delete>
+	
+	<select id="read" resultMap="MemberMap">
+		SELECT 
+		  mt.memNum, memName, memNickname, memPw, memAd, memGender, memPh, memAuth, memEmail, memAddetail
+		FROM 
+		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNum = Auth.memNum 
+		WHERE mt.memNum = #{memNum} 
+	</select>
+	
+	<select id="findByMemberEmail" resultMap ="MemberMap">
+		SELECT 
+		  mt.memNum, memName, memNickname, memPw, memAd, memGender, memPh, memAuth, memEmail, memAddetail
+		FROM 
+		  membertable mt LEFT OUTER JOIN auth_table Auth on mt.memNum = Auth.memNum 
+		WHERE mt.memEmail = #{memEmail} 
+				
+	</select>
+	
+	<insert id="insertProfile" >
+		insert into Member_PROFILE(File_no, memNum, ChangeName) Values(Profile_seq.nextval, #{memNum}, #{ChangeName})
+	</insert>
+	
+	<select id="getMember" resultMap = "MemberMap" >
+		select
+		 p.ChangeName
+		FROM
+		 membertable m LEFT OUTER JOIN Member_PROFILE p on m.memNum = p.memNum
+		where p.memNum = #{memNum}
+	</select>
+
+	<update id="changeProfile">
+		update Member_PROFILE set ChangeName = #{ChangeName} Where memNum = #{memNum}	
+	</update>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

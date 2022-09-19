@@ -14,6 +14,36 @@
 		height: 100%;
 		object-fit: cover;
 	}
+	
+	.price{
+		border: none;
+		text-align:  center;
+		width: 70%;
+		font-size: 120%;
+		background-color: #FFF !important;
+	}
+	.form-select{
+		width: 15%;
+	}
+	.form-control{
+		width: 25%;
+	}
+	.searchbtn {
+	    vertical-align: unset;
+	}
+	@media (max-width:475px) {
+		.row-cols-2>* {
+		    flex: 0 0 auto;
+		    width: 80% !important;
+		}
+		.form-select{
+			width: 30%;
+		}
+			
+		.form-control{
+			width: 50%;
+		}
+	}
 </style>
 <div class="container-fluid">
 	<!-- Carousel -->
@@ -40,15 +70,13 @@
 						<p></p>
 					</div>
 				</div>
-				<!--
 				<div class="carousel-item">
-					<img src="/resources/imgs/sample2.jpg" class="d-block w-100" alt="banner3">
+					<img src="/resources/imgs/bannersample3.png" class="d-block w-100" alt="banner3">
 					<div class="carousel-caption d-none d-md-block">
 						<h5></h5>
 						<p></p>
 					</div>
 				</div>
-				-->
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -63,105 +91,92 @@
 	<!-- Carousel -->
 	
 	
-	
-	
-	
-	
 	<section class="py-5 border-top mt-5">
-		<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-			<c:forEach items="${list}" var="product">
-					<div class="col mb-5 mx-4">
-						<div class="card h-100">
-						    <!-- Product image-->
-						    <div class="pd-img-wrapper">
-	 					    	<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
-	 					    </div> 
-						    <!-- Product details-->
-						    <div class="card-body p-4">
-								<div class="text-center">
-								    <!-- Product name-->
-								    <h2 class="fw-bold">
-								    	<a class='move' href='<c:out value="${product.pdNum}"/>' style="text-decoration: none; color: #FF4A4A;">
-											<c:out value="${product.pdName}" />
-										</a>
-										<fmt:formatDate pattern="yyyy/MM/dd"
-											value="${product.pdRegDate}" />
-								    </h2>
-								    <!-- Product price-->
-								    <c:out value="${product.pdPrice}원"/>
-								</div>
-						    </div>
+		<div class="container-fluid">
+			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+				<c:forEach items="${list}" var="product">
+						<div class="col mb-5 mx-4">
+							<div class="card h-100">
+							    <!-- Product image-->
+							    <div class="pd-img-wrapper">
+							    	<a class='move' href='<c:out value="${product.pdNum}"/>'>
+		 					    		<img class="card-img-top" src="/product/display?fileName=${product.pdPath}" alt="product image" />
+		 					    	</a>
+		 					    </div> 
+							    <!-- Product details-->
+							    <div class="card-body p-4">
+									<div class="text-center">
+									    <!-- Product name-->
+									    <h2 class="fw-bold">
+									    	<a class='move' href='<c:out value="${product.pdNum}"/>' style="text-decoration: none; color: #333;">
+												<c:out value="${product.pdName}" />
+											</a>
+									    </h2>
+									    <fmt:formatDate pattern="yyyy/MM/dd"
+												value="${product.pdRegDate}" />
+									    <!-- Product price-->
+									    <h6>
+										    <a href='page?type=T&keyword=${product.pdKeyword}&pageNum=1&amount=9' style="text-decoration: none;">
+										    	#<c:out value="${product.pdKeyword}" />
+										    </a>
+									    </h6>
+									    <input class="price" id="" value="<c:out value="${product.pdPrice}원"/>" disabled="disabled">
+									</div>
+							    </div>
+							</div>
 						</div>
-					</div>
-			</c:forEach>
+				</c:forEach>
+			</div>
 		</div>
 	</section>
 	
-	
-	<div class="row">
-	<div class="col-lg-12">
+	<div class="row text-center">
+	<div class="col-12">
 		<form id="searchForm" action="/product/page" method="get">
-			<select name="type">
+			<select class="form-select d-inline" name="type">
 				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
-				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>제목</option>
-				<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : '' }"/>>내용</option>
-				<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : '' }"/>>작성자</option>
-				<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' : '' }"/>>제목 or 내용</option>
-				<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : '' }"/>>제목 or 작성자</option>
-				<option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' : '' }"/>>제목 or 내용 or 작성</option>
+				<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
+				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
 			</select>
-			<input type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
+			<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
 			<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
 			<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
-			<button class="btn btn-default">Search</button>						
-			</form>
+			<button class="btn btn-outline-secondary searchbtn">검색</button>						
+		</form>
 		</div>
 	</div>
 	
-	
-	<div class="">
-		<ul class="pagination">
-		
+	<div class="text-center mt-3">
+		<ul class="pagination" style="justify-content: center;">
 			<c:if test="${pageMaker.prev}">
-				<li class="paginate_button previous"><a
+				<li class="paginate_button page-item previous"><a
 					href="${pageMaker.startPage -1}">Previous</a></li>
 			</c:if>
-
 			<c:forEach var="num" begin="${pageMaker.startPage}"
 				end="${pageMaker.endPage}">
-				<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active" : ""} ">
+				<li class="paginate_button page-item ${pageMaker.cri.pageNum == num ? "active" : ""} ">
 					<a class="page-link" href="${num}">${num}</a>
 				</li>
 			</c:forEach>
-
 			<c:if test="${pageMaker.next}">
-				<li class="paginate_button next"><a
+				<li class="paginate_button page-item next"><a
 					href="${pageMaker.endPage +1}">Next</a></li>
 			</c:if>
-	
 		</ul>
 	</div>
-					
 	<form id='actionForm' action="/product/page" method='get'>
 		<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 		<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
-	
-	<!-- Page 344 중간 jsp 소스 코딩 추가 시작 : 소스 문제 없는데 붉은색 표시나면 구문 잘라내기 후에 다시 붙여넣기 저장해 보시기 바랍니다. -->
-	<!-- 다음의 구문 코딩 후에 웹브라우저 실행해서, 검색 이후에 페이지를 이동해서 동일한
-	     검색 조건과 키워드가 유지되는지 확인 바랍니다. -->
 		<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
 		<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
-	<!-- Page 344 중간 jsp 소스 코딩 추가 끝 -->
-	
 	</form>
-
 </div>
 
 <script type="text/javascript">
 	var myCarousel = document.querySelector('#carousel');
 	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle'), {
-	  interval: 3000,
-	  wrap: false
+		interval: 3000,
+		wrap: false
 	});
 </script>
 
@@ -188,7 +203,7 @@
 		}
 		
 		
-		// list.jsp에서  Register New Board 버튼 클릭하면 게시물의 등록 웹페이지로 이동
+		
 		$("#regBtn").on("click", function() {
 			self.location = "/product/register";
 			
@@ -219,23 +234,29 @@
 		
 		$("#searchForm button").on("click", function(e) {
 			if(!searchForm.find("option:selected").val()){
-				alert("검색 종류를 선택해 주시기 바랍니다!");
+				alert("검색 종류를 선택해 주시기 바랍니다");
 				return false;
 			}
 			
 			if(!searchForm.find("input[name='keyword']").val()){
-				alert("키워드를 입력해 주시기 바랍니다!");
+				alert("키워드를 입력해 주시기 바랍니다");
 				return false;
 			}
 			
-			// 여러 문제들 중에서 검색 버튼을 클릭하면 검색은
-			// 1페이지를 하도록 수정 처리합니다.
 			searchForm.find("input[name='pageNum']").val("1");
-			// 브라우저에서 검색 버튼을 클릭하면 form 태그의
-			// 전송은 막고, 페이지의 번호는 1이 되도록 처리합니다.
-			// 화면에서 키워드가 없다면 검색을 하지 않도록 제어합니다.
+			
 			e.preventDefault();
 			searchForm.submit();			
+		});
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function () {
+	
+		$(".price").each(function() {
+			var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+				console.log(changeNum);
+			$(this).val(changeNum);
 		});
 	});
 </script>

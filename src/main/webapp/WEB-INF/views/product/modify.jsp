@@ -1,77 +1,93 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!-- taglib for Security authentication -->
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-<c:set var ="context"><%=request.getContextPath()%></c:set>
+<%@ taglib uri="http://www.springframework.org/security/tags"
+	prefix="sec"%>
+<c:set var="context"><%=request.getContextPath()%></c:set>
 
 <%@include file="../includes/header.jsp"%>
 
 <style>
-		.uploadResult {
-		   width: 100%;
-		   background-color: #F5F5F5;
-		}
-		
-		.uploadResult ul {
-		   display: flex;
-		   flex-flow: row;
-		   justify-content: center;
-		   align-items: center;
-		}
-		
-		.uploadResult ul li {
-		   list-style: none;
-		   padding: 10px;
-		}
-		
-		.uploadResult ul li img.icon {
-		   width: 100px;
-		}
-		
-		.uploadResult ul li img.thumbnail {
-		   width: 100px;
-		}
-		.uploadResult ul li img {
-		   cursor: pointer;
-		}
-		.btn-icon {
-			margin-left: 5%;
-		}
-		.form-group {
-      	margin-bottom: 1rem;
-      	margin-top: 1rem;
-      }
+.card-img, .card-img-bottom, .card-img-top {
+	width: 30%;
+	height: 30%;
+}
+
+.uploadResult {
+	width: 100%;
+	background-color: #F5F5F5;
+}
+
+.uploadResult ul {
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.uploadResult ul li {
+	list-style: none;
+	padding: 10px;
+}
+
+.uploadResult ul li img.icon {
+	width: 100px;
+}
+
+.uploadResult ul li img.thumbnail {
+	width: 100px;
+}
+
+.uploadResult ul li img {
+	cursor: pointer;
+}
+
+.btn-icon {
+	margin-left: 5%;
+}
+
+.form-group {
+	margin-bottom: 1rem;
+	margin-top: 1rem;
+}
 </style>
 <style>
-		.bigPictureWrapper {
-			position: absolute;
-			display: none;
-			justify-content: center;
-			align-items: center;
-			top:0%;
-			left:0%;
-			width:100%;
-			height:100%;
-			background: rgba(0,0,0,0.2);
-			z-index: 9999;
-			margin: 0;
-		}
-		
-		.bigPicture {
-			position: relative;
-			display:flex;
-			justify-content: center;
-			align-items: center;
-			/*overflow: hidden;*/
-		}
-		
-		.bigPicture img {
-			width: 600px;
-			/*object-fit: contain;*/
-			cursor: pointer;
-		}
+.bigPictureWrapper {
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.2);
+	z-index: 9999;
+	margin: 0;
+}
+
+.bigPicture {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/*overflow: hidden;*/
+}
+
+.bigPicture img {
+	width: 600px;
+	/*object-fit: contain;*/
+	cursor: pointer;
+}
+
+@media ( max-width : 475px) {
+	.uploadResult ul li img.thumbnail {
+		width: 50px;
+		height: 50px
+	}
+}
 </style>
 
 
@@ -79,136 +95,113 @@
 
 <div class="container-fluid">
 	<div class="row">
-	  <div class="col-lg-12">
-	    <h1 class="page-header">글 수정</h1>
-	  </div>
-	  <!-- /.col-lg-12 -->
+		<div class="col-lg-12">
+			<h1 class="page-header">상품 수정</h1>
+		</div>
+		<!-- /.col-lg-12 -->
 	</div>
 	<!-- /.row -->
-	
-	<div class="row">
-		<div class="col-lg-12">
-			<div class="panel panel-default">
-		
-				<form role="form" action="/product/modify" method="post">
-				<!-- Page719 CSRF Token을 hidden input으로 추가함 -->
-<%--         		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> --%>
-        
-					<input type='hidden' id='pageNum' name='pageNum' value='<c:out value="${cri.pageNum}"/>'>
-					<input type='hidden' id='amount' name='amount' value='<c:out value="${cri.amount}"/>'>
-			    	<!-- 319 page modify code from get.jsp 49, 50 row -->
-			    	<input type='hidden' id='type' name='type' value='<c:out value="${cri.type}"/>'>
-					<input type='hidden' id='keyword' name='keyword' value='<c:out value="${cri.keyword}"/>'>
-					<!-- get.jsp 52, 53 row -->
-			    	
-					<div class="form-group">
-					  <label>상품 번호</label>
-					  <input class="form-control" name='pdNum' value='<c:out value="${product.pdNum}" />' readonly="readonly">
-					</div>
-					
-					<div class="form-group">
-					  <label>상품명</label>
-					  <input class="form-control" name='pdName' value='<c:out value="${product.pdName}" />' >
-					</div>
-					
-					<div class="form-group">
-					  <label>상품 가격</label>
-					  <input class="form-control" rows="3" type="number"  name='pdPrice' style="resize: none;" value="${product.pdPrice}">
-					</div>
-					
-					<div class="form-group">
-					  <label>상품 수량</label>
-					  <input class="form-control" name='pdStock' value='<c:out value="${product.pdStock}" />'>            
-					</div>
-					
-					<div class="form-group">
-					  <label>상품 키워드</label>
-					  <input class="form-control" rows="3" type="text"  name='pdKeyword' style="resize: none;" value="${product.pdKeyword}">
-					</div>
-					
-					<div class="form-group">
-					  <label>등록일</label>
-					  <input class="form-control" name='pdRegDate' value='<fmt:formatDate pattern="yyyy/MM/dd" value="${product.pdRegDate}"/>' readonly="readonly">            
-					</div>
-					
-					
-					
-					<!-- author가 로그인 된 userid와 일치하는 경우에만 Modify 되도록 함 -->
-					
-<%-- 					<sec:authentication property="principal" var="pinfo"/> --%>
 
-<%-- 			        <sec:authorize access="isAuthenticated()"> --%>
-<%-- 				        <c:if test="${pinfo.username eq board.u_email}"> --%>
-				        
-							<button type="submit" data-oper = 'modify' class="btn btn-secondary">수정</button>
-							<button type="submit" data-oper = 'remove' class="btn btn-secondary">삭제</button>
-							
-							
-<%-- 						</c:if> --%>
-<%-- 			        </sec:authorize> --%>
-			        
-					<button type="submit" data-oper='list' class="btn btn-info">리스트</button>
-				</form>
-				
-				<form> 
-				
-				</form>
-	
-		    </div>
-		    <!--  end panel-body -->
+	<section class="py-5">
+		<form role="form" action="${context}/product/modify" method="post">
+			<input type='hidden' id='pageNum' name='pageNum'
+				value='<c:out value="${cri.pageNum}"/>'> <input
+				type='hidden' id='amount' name='amount'
+				value='<c:out value="${cri.amount}"/>'>
+			<!-- 319 page modify code from get.jsp 49, 50 row -->
+			<input type='hidden' id='type' name='type'
+				value='<c:out value="${cri.type}"/>'> <input type='hidden'
+				id='keyword' name='keyword' value='<c:out value="${cri.keyword}"/>'>
+			<div class="container px-4 px-lg-5 my-5">
+				<div class="row gx-4 gx-lg-5 align-items-center">
+					<div class="col-md-6">
+						<div class="container-fluid py-3">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+										<div class="panel-heading">수정할 상품 이미지 등록</div>
+										<!-- /.panel-heading -->
+										<div class="panel-body">
+											<div class="form-group uploadDiv">
+												<input type="file" name='uploadFile' multiple>
+											</div>
 
-		</div>
-		<!--  end panel -->
-	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
+											<div class='uploadResult pd-img-wrapper card'>
+												<ul>
 
-<div class='bigPictureWrapper'>
-	<div class='bigPicture'>
-		
-	</div>
-</div>
- 
-<div class="row container-fluid">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="">
-				<div class="form-group uploadDiv">
-					<label for="formFile" class="form-label">이미지 하나를 선택하세요</label>
-					<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*">
-				</div>
-        
-				<div class='uploadResult'> 
-					<ul>
-          
-					</ul>
+												</ul>
+											</div>
+										</div>
+										<!--  end panel-body -->
+									</div>
+									<!--  end panel-body -->
+								</div>
+								<!-- end panel -->
+							</div>
+						</div>
+						<!-- Carousel -->
+					</div>
+					<div class="col-md-6">
+						<div class="form-group">
+							<input class="form-control" name='pdNum'
+								value='<c:out value="${product.pdNum}" />' readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label>상품명</label> <input class="form-control" name='pdName'
+								value='<c:out value="${product.pdName}" />'>
+						</div>
+						<div class="form-group">
+							<label>상품 가격</label> <input class="form-control"
+								type="number" name='pdPrice' style="resize: none;"
+								value="${product.pdPrice}">
+						</div>
+						<div class="form-group">
+							<label>상품 수량</label> <input class="form-control" name='pdStock'
+								value='<c:out value="${product.pdStock}" />'>
+						</div>
+						<div class="form-group">
+							<label>상품 키워드</label> <input class="form-control"
+								type="text" name='pdKeyword' style="resize: none;"
+								value="${product.pdKeyword}">
+						</div>
+						<div class="form-group">
+							<label>등록일</label> <input class="form-control" name='pdRegDate'
+								value='<fmt:formatDate pattern="yyyy/MM/dd" value="${product.pdRegDate}"/>'
+								readonly="readonly">
+						</div>
+						<div class="pd-img-wrapper form-group">
+							기존 상품 이미지 <img class="card-img-top"
+								src="/product/display?fileName=${product.pdPath}"
+								alt="product image" />
+
+						</div>
+						<input class="form-control" name='pdPath' type="hidden"
+							value='${product.pdPath}'>
+					</div>
 				</div>
 			</div>
-		
-		</div>
-		
-	
-	</div>
-	
-</div> 
+		</form>
+		<button type="submit" data-oper='modify' class="btn btn-secondary OperationButton">수정</button>
+		<button type="submit" data-oper='remove' class="btn btn-secondary OperationButton">삭제</button>
+		<button type="submit" data-oper='list' class="btn btn-info OperationButton">리스트</button>
+	</section>
+</div>
 
 
 
+<div class='bigPictureWrapper'>
+	<div class='bigPicture'></div>
+</div>
 
 <!-- /.row -->
-<script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
-
-
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		var formObj = $("form");
 	
-		$('button').on("click", function(e){
+		$('.OperationButton').on("click", function(e){
 
 			e.preventDefault(); 
 			
@@ -222,7 +215,7 @@
 			
 			} else if(operation === 'list'){
 				//move to list
-				formObj.attr("action", "/product/main").attr("method","get");
+				formObj.attr("action", "/product/page").attr("method","get");
 			  
 			} else if(operation === 'modify'){
 				
@@ -376,75 +369,6 @@
 	});
 </script>  
  -->
- 
- 
- 
- <script type="text/javascript">
-	$(document).ready(function(){
-		(function(){
-			var pdNum = '<c:out value="${product.pdNum}"/>';
-			
-		    $.getJSON("/product/getAttachList", {pdNum: pdNum}, function(arr){
-				console.log(arr);
-				
-				var str = "";
-			    
-				$(arr).each(function(i, attach){
-// 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
-					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
-					
-					str += "<li data-pdFolder='" + attach.pdFolder + "' data-pdUuid='" + attach.pdUuid + "' data-pdName='" + attach.pdName + "' ><div>";
-					str += "<img src='/product/display?fileName=" + fileCallPath + "'>";
-					str += "</div>";
-					str += "</li>";
-					
-				});
-				
-				$(".uploadResult ul").html(str);
-			    
-			}); // getjson
-			
-		})(); // function
-		
-		$(".uploadResult").on("click","li", function(e){
-			console.log("view image");
-			
-			var liObj = $(this);
-			
-			var path = encodeURIComponent(liObj.data("pdFolder") + "/" + liObj.data("pdUuid") + "_" + liObj.data("pdName"));
-			
-			// if(liObj.data("type")){
-			showImage(path.replace(new RegExp(/\\/g),"/"));
-			/*
-			} else {
-				//download 
-				self.location ="/download?fileName="+path
-			}
-			*/
-		});
-		
-		function showImage(fileCallPath){
-			console.log(fileCallPath);
-			
-			$(".bigPictureWrapper").css("display","flex").show();
-			
-			$(".bigPicture")
-			.html("<img src='/display?fileName=" + fileCallPath + "' >")
-			.animate({width:'100%', height: '100%'}, 150);
-		}
-		
-		$(".bigPictureWrapper").on("click", function(e){
-			$(".bigPicture").animate({width:'0%', height: '0%'}, 150);
-			setTimeout(function(){
-				$('.bigPictureWrapper').hide();
-			}, 150);
-		});
-	}); // document ready
-</script>
- 
- 
- 
- 
 
 <script type="text/javascript">
    // file upload handle
@@ -552,7 +476,7 @@
 			str += "<li data-path='" + obj.pdFolder + "' data-uuid='" + obj.pdUuid + "' data-filename='" + obj.pdName + "' ><div>";
 			str += "<span> "+ obj.pdName + "</span>";
 			str += "<img class='thumbnail' src='/product/display?fileName=" + fileLink + "'>";
-			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
+			str += "<button type='button' data-file=\'" + fileLink + "\' class='btn-close'></button><br>";
 			str += "</div></li>";
            }); // uploadResultArr.each
          uploadUL.append(str);
@@ -587,5 +511,6 @@
       }); // uploadResult.onclick func
       
    }); // document ready
-</script> 
+</script>
+
 <%@include file="../includes/footer.jsp"%>

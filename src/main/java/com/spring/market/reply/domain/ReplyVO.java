@@ -19,4 +19,5 @@ public class ReplyVO {
 	private String memNickname; // reply author
 	
 	private List<ReplyAttachVO> attachList;
+	
 }

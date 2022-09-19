@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+              "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zerock.mapper.UserMapper">
+
+ <resultMap type="org.zerock.domain.UserVO" id="userMap">
+    <id property="u_Email" column="u_Email"/>
+    <result property="u_Email" column="u_Email"/>
+    <result property="u_Name" column="u_Name"/>
+    <result property="u_pw" column="u_pw"/>
+    <result property="u_gender" column="u_gender"/>
+    <result property="u_profile_path" column="u_profile_path"/>
+    <collection property="u_Auth" resultMap="authMap">
+    </collection> 
+  </resultMap>
+
+
+<resultMap type="org.zerock.domain.AuthVO" id="authMap">
+    <result property="u_Email" column="u_Email"/>
+    <result property="u_Auth" column="u_Auth"/>
+  </resultMap>
+
+
+	<insert id="regist">
+		insert into user_table(u_Email, u_Name, u_Pw, u_Address, u_gender, u_profile_path) values(#{u_Email}, #{u_Name}, #{u_pw}, #{u_Address} , #{u_gender}, #{u_profile_path})
+	</insert>
+	  
+	<delete id="deleteAccount">
+		delete from user_table where u_Email = #{u_Email}
+	</delete>
+	  
+	<update id="update">
+		update user_table set u_Name = #{u_Name}, u_pw = #{u_pw}, u_Address = #{u_Address},u_gender=#{u_gender},u_profile_path = #{u_profile_path} where u_Email = #{u_Email}
+	
+	</update>
+   
+	<select id="read" resultMap="userMap">
+		SELECT 
+		  mem.u_Email, u_pw,u_Name, u_Auth
+		FROM 
+		  user_table mem LEFT OUTER JOIN u_auth_table Auth on mem.u_Email = Auth.u_Email 
+		WHERE mem.u_Email = #{u_Email} 
+	</select>
+   
+</mapper>

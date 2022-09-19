@@ -18,6 +18,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -46,8 +47,7 @@ public class UploadController {
 		log.info("Upload Form ===== ");
 	}
 	
-	// Page 497 : Spring MVC에서 지원하는 MultipartFile type으로 file handle
-	// upload를 multiple 속성으로 여러 개 업로드 할 수 있으므로 배열 type으로 param을 받음
+	
 	@PostMapping("/uploadFormAction")
 	public void uploadFormPost(MultipartFile[] uploadFile, Model m) {
 		String uploadFolder = "C:/Uploaded";
@@ -58,9 +58,7 @@ public class UploadController {
 			log.info("Upload File Size ====== " + multipartFile.getSize());
 			
 			File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
-			// File(parent, child) 상위 경로와 file 이름 경로를 설정
-			
-			// file upload handle (transferTo() method 활용)
+		
 			try {
 				multipartFile.transferTo(saveFile);
 			} catch (Exception e) {
@@ -69,19 +67,13 @@ public class UploadController {
 		} // for
 	} // uploadFormPost
 	
-	// Page 500 ajax 활용 file upload
-	// Ajax 활용 시 FormData 객체 사용
+	
 	@GetMapping("/uploadAjax")
 	public void uploadAjax() {
 		log.info("=== Upload via Ajax ===");
 	}
 	
-	/* Page508 중복된 이름의 첨부파일 handle
-	 * 중복된 이름의 file : 현재 시각을 milsec으로 구분하여 file 이름을 생성하거나
-	 * UUID를 이용하여 중복이 발생할 가능성이 매우 낮은 문자열을 생성하여 처리
-	 * 한 폴더 내에 생성될 수 있는 file 개수 제한 문제와 performance 저하 문제 handle : 
-	 * 년/월/일 단위의 folder를 생성하여 file을 저장
-	 */
+	
 	private String getFolder() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
@@ -97,7 +89,7 @@ public class UploadController {
 	// originally returns nothing (void)
 	
 	// page724 첨부파일의 등록, 삭제(post)는 로그인한 사용자만 가능하도록 제한 
-	// @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<ProductAttachVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
@@ -180,7 +172,7 @@ public class UploadController {
 	    return new ResponseEntity<List<ProductAttachVO>>(list, HttpStatus.OK);
     } // uploadAjaxPost
 	
-	// Page 526 Thumbnail data transfer
+	
 	@GetMapping("/display")
 	@ResponseBody
 	public ResponseEntity<byte[]> getFile(String fileName) {
@@ -194,12 +186,12 @@ public class UploadController {
 		
 		try {
 			HttpHeaders header = new HttpHeaders();
-			
 			header.add("Content-Type", Files.probeContentType(file.toPath()));
 			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), header, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("헤더 값이 뭐임?" + result.getHeaders());
 		return result;
 	}
 	
@@ -224,7 +216,7 @@ public class UploadController {
 	}
 
 
-	// @PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/deleteFile")
 	@ResponseBody
 	public ResponseEntity<String> deleteFile(String fileName, String type) {
