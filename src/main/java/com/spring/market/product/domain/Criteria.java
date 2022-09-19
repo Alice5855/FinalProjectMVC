@@ -29,8 +29,7 @@ public class Criteria {
 	
 	public String[] getTypeArr() {
 		return type == null ? new String[] {} : type.split("");
-		// type이 null일 경우 배열 String[] 객체를 생성하고 null이 아닌경우
-		// 정규식 ""를 기준으로 배열 String[]을 나눔
+
 	}
 	
 	public String getListLink() {

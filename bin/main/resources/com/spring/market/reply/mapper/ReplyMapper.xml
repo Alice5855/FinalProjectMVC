@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.market.reply.mapper.ReplyMapper">
+	<insert id="insert">
+		insert into review_table (rvNum, pdNum, rvText, memNickname)
+		values (seq_review.nextval, #{pdNum}, #{rvText}, #{memNickname})
+	</insert>
+	
+	<select id="read" resultType="com.spring.market.reply.domain.ReplyVO">
+		select * from review_table where rvNum = #{rvNum}
+	</select>
+	
+	<delete id="delete">
+		delete from review_table where rvNum = #{rvNum}
+	</delete>
+	
+	<update id="update">
+		update review_table set rvText = #{rvText} where rvNum = #{rvNum}
+	</update>
+	
+	<!-- 특정 bno 게시글의 댓글 가져오기. Mapper class의 @Param과 #{}의 속성명 일치해야함 -->
+	<!-- 
+	<select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
+		select rno, bno, reply, replyer, replydate, updatedate from tbl_reply where bno = #{bno} order by rno asc
+	</select>
+	-->
+	
+	<!-- page 431 -->
+	<select id="getListWithPaging" resultType="com.spring.market.reply.domain.ReplyVO">
+		<![CDATA[
+		   select rvNum, pdNum, rvText, memNickname
+		    from
+		      (
+		      select /*+ INDEX(review_table PK_REVIEW_RVNUM) */
+		      rownum rn, rvNum, pdNum, rvText, memNickname
+		   from review_table
+		   where pdNum = #{pdNum}
+		      and rvNum > 0
+		      and rownum <= #{cri.pageNum} * #{cri.amount}
+		   ) where rn > (#{cri.pageNum} -1) * #{cri.amount}
+	   ]]>
+	</select>
+	
+	<!-- Page 433 특정 bno의 reply 수를 count -->
+	<select id="getCountByPdNum" resultType="int">
+		<![CDATA[
+			select count(rvNum) from review_table where pdNum = #{pdNum}
+		]]>
+	</select>
+</mapper>

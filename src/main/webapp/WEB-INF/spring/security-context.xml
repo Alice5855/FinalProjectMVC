@@ -23,6 +23,7 @@
 		<security:intercept-url pattern="/member/mypage" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/bucket" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/buy" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/product/list" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/product/register" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/product/modify" access="hasRole('ROLE_ADMIN')"/>
 		<security:intercept-url pattern="/product/remove" access="hasRole('ROLE_ADMIN')"/>

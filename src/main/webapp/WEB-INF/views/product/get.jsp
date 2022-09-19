@@ -7,15 +7,25 @@
 
 <%@include file="../includes/header.jsp"%>
 <style>
-
-
+	.card {
+	    display: block;
+	}
 	.carousel-indicators [data-bs-target] {
-   
-    background-color: #333 !important;
-  
-}
-
-
+	    background-color: #333 !important;
+	}
+	.uploadResult img{
+		height: 400px !important;
+		object-fit:contain !important;
+	}
+	.active{
+		display: block !important;
+	}
+	@media(max-width:475px){
+		.lead {
+		    font-size: 1rem;
+		    font-weight: 300;
+		}
+	}
 	/*
 	.uploadResult {
 	   width: 100%;
@@ -136,9 +146,9 @@
 						    <div class="container-fluid py-3">
 								<div id="carousel" class="carousel slide" data-bs-ride="carousel">
 									<div class="carousel-indicators">
-										<button type="button" data-bs-target="#carousel" data-bs-slide-to="0"  aria-current="true" aria-label="Slide 1"></button>
+										<button type="button" data-bs-target="#carousel" data-bs-slide-to="0" aria-label="Slide 1"></button>
 										<button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-										<button type="button" data-bs-target="#carousel" data-bs-slide-to="2"class="active" aria-label="Slide 3"></button>
+										<button type="button" data-bs-target="#carousel" data-bs-slide-to="2" class="active" aria-current="true" aria-label="Slide 3"></button>
 									</div>
 									<div class="carousel-inner  uploadResult pd-img-wrapper card" >
 										
@@ -168,10 +178,6 @@
 					        </div>
 					        <div class="form-group">
 					        	<div class="fs-5 mb-5">
-<!-- 					        		<span id = "price" class="text-decoration-line-through me-2"> -->
-<!-- 					        			세일하는척 오졌고 -->
-<%-- 					        			<c:out value="${product.pdPrice + 5000}" />원 --%>
-<!-- 					        		</span> -->
 									<span id= "price">
 										<c:out value="${product.pdPrice}" />원
 									</span>
@@ -201,6 +207,9 @@
 				<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
 		    </sec:authorize>
 			<button data-oper='list' class="btn btn-info" onclick="location.href='/product/page'">List</button>
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<button class="btn btn-success float-end" onclick="location.href='/product/list'">Product List</button>
+			</sec:authorize>
 			
 			<form id='operForm' action="/product/modify" method="get">
 				<input type='hidden' id='pdNum' name='pdNum' value='<c:out value="${product.pdNum}"/>'>
@@ -227,37 +236,12 @@
 	<div class='row mt-5'>
 		<div class="col-lg-12">
 			<div class="panel panel-default">
-				<!-- Page 419 coding 시 주석처리됨 -->
-				<!--
-				<div class="panel-heading">
-					<i class="fa fa-comments fa-fw"></i> Reply
-				</div>
-				-->
-				<%--
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="panel panel-default">
-					      	<div class="panel-heading">상품 이미지</div>
-					      	<!-- /.panel-heading -->
-					      	<div class="panel-body">
-					        
-					        	<div class='uploadResult'> 
-					          		<ul>
-					          		</ul>
-					        	</div>
-					      	</div>
-					      	<!--  end panel-body -->
-				    	</div>
-				    	<!--  end panel-body -->
-				  	</div>
-				  	<!-- end panel -->
-				</div>
-				<!-- /.row -->
-				--%>
-				<!-- new entry button added -->
+				
 				<div class="mb-4">
 					<span class="badge text-bg-info reply-heading">Review</span>
-					<button id="addReplyBtn" class="btn btn-info btn-sm float-end">New Review</button>
+					<sec:authorize access="isAuthenticated()">
+						<button id="addReplyBtn" class="btn btn-info btn-sm float-end">New Review</button>
+					</sec:authorize>
 				</div>
 				
 				<!-- /.panel-heading -->
@@ -287,22 +271,25 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<button type="button" class="btn-close" data-dismiss="modal" aria-hidden="Close"></button>
 				<h4 class="modal-title" id="myModalLabel">REVIEW</h4>
             </div>
             <div class="modal-body">
-				<div class="form-group mt-4">
-					<input class="form-control" name='rvText' value='rvText'>
+				<div class="form-group mt-1">
+					<label>리뷰</label>
+					<textarea class="form-control mt-2" rows="3" name='rvText' style="resize: none;"></textarea>
 				</div>
 				<div class="form-group mt-4">
 					<label>작성자</label> 
-					<input class="form-control" name='memNickname' value='memNickname'>
+					<input class="form-control mt-2" name='memNickname' value='memNickname'>
 				</div>
 				<!-- file -->
+				<%--
 				<div class="form-group mt-4">
 					<label for="formFile" class="form-label">업로드 하실 이미지를 선택해주세요</label>
 					<input id="formFile" type="file" name='uploadFile' class="form-control" accept="image/*">
 				</div>
+				--%>
 				<div class='rvUploadResult'> 
 					<ul>
 					
@@ -310,9 +297,11 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id='modalModBtn' type="button" class="btn btn-outline-info">Modify</button>
-				<button id='modalRemoveBtn' type="button" class="btn btn-outline-danger">Remove</button>
-				<button id='modalRegisterBtn' type="button" class="btn btn-outline-primary">Register</button>
+				<sec:authorize access="isAuthenticated()">
+					<button id='modalModBtn' type="button" class="btn btn-outline-info">Modify</button>
+					<button id='modalRemoveBtn' type="button" class="btn btn-outline-danger">Remove</button>
+					<button id='modalRegisterBtn' type="button" class="btn btn-outline-primary">Register</button>
+				</sec:authorize>
 				<button id='modalCloseBtn' type="button" class="btn btn-outline-secondary">Close</button>
 			</div>
 		</div>
@@ -322,15 +311,14 @@
 </div>
 <!-- /.modal -->
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script> -->
 <script type="text/javascript" src="/resources/js/reply.js"></script>
-<script type="text/javascript" src="/resources/js/get_script.js"></script>
+<!-- <script type="text/javascript" src="/resources/js/get_script.js"></script> -->
 
 <script type="text/javascript">
 	// page 415 reply event handler
 	$(document).ready(function() {
-		
-		
 		
 		var pdNumValue = '<c:out value="${product.pdNum}"/>';
 		var replyUL = $(".chat");
@@ -374,8 +362,7 @@
 			// getList(param, callback, error)
 		}
 		// showList(page) page : path variable
-		
-		// Page 440 : paging을 위한 method
+	
 		var pageNum = 1;
 		var replyPageFooter = $(".panel-footer");
 		
@@ -429,23 +416,23 @@
 			showList(pageNum);
 		});
 		
-		// page 422 modal handler
+	
 		var modal = $(".modal");
-		var modalInputRvText = modal.find("input[name='rvText']");
+		var modalInputRvText = modal.find("textarea[name='rvText']");
 		var modalInputMemNickname = modal.find("input[name='memNickname']");
-		// var modalInputReplyDate = modal.find("input[name='replyDate']");
+	
 		
 		var modalModBtn = $("#modalModBtn");
 		var modalRemoveBtn = $("#modalRemoveBtn");
 		var modalRegisterBtn = $("#modalRegisterBtn");
 		
-		/*
+		
 		var replyer = null;
 
 		<sec:authorize access="isAuthenticated()">
-			replyer = '<sec:authentication property="principal.username"/>';
+			replyer = '<sec:authentication property="principal.memNickname"/>';
 		</sec:authorize>
-		*/
+		
 		// added
 		var regex = new RegExp("(.*?)\.(jpg|jpeg|gif|png|bmp|webp)$");
 		var maxSize = 5242880; // 5MB
@@ -520,7 +507,7 @@
 				str += "<li data-rvfolder='" + obj.rvFolder + "' data-rvuuid='" + obj.rvUuid + "' data-rvname='" + obj.rvName + "' ><div>";
 				str += "<span> "+ obj.rvName + "</span>";
 				str += "<img class='thumbnail' src='/review/display?fileName=" + fileLink + "'>";
-				str += "<button type='button' data-file=\'" + fileLink + "\' class='btn btn-secondary'><i class='bi bi-x-circle'></i></button><br>";
+				str += "<button type='button' data-file=\'" + fileLink + "\' class='btn-close'></button><br>";
 				str += "</div></li>";
 			}); // uploadResultArr.each
 			upload.append(str);
@@ -559,6 +546,9 @@
 		
 		$("#addReplyBtn").on("click", function(e){
 			modal.find("input").val("");
+			console.log(replyer);
+			modal.find("input[name='memNickname']").val(replyer);
+			
 			// modalInputReplyDate.closest("div").hide();
 			modal.find("button[id !='modalCloseBtn']").hide();
 			
@@ -635,14 +625,13 @@
 		modalModBtn.on("click", function(e){
 			var reply = {rvNum:modal.data("rvnum"), rvText: modalInputRvText.val()};
 			
-			/*
-			var originalReplyer = modalInputReplyer.val();
+			var originalReplyer = modalInputMemNickname.val();
 			
 			// 검증을 위해 replyer data를 추가
 			// var reply = {rno:modal.data("rno"), reply: modalInputReply.val()};
-			var reply = {rno: modal.data("rno"),
-					reply: modalInputReply.val(),
-					replyer: originalReplyer};
+			var reply = {rvNum: modal.data("rvnum"),
+						rvText: modalInputRvText.val(),
+						memNickname: originalReplyer};
 			if(!replyer) {
 				alert("You have to be logged in to modify");
 				modal.modal("hide");
@@ -656,7 +645,7 @@
 				modal.modal("hide");
 				return;
 			}
-			*/
+			
 			replyService.update(reply, function(result){
 				alert(result);
 				modal.modal("hide");
@@ -669,25 +658,21 @@
 			var rvNum = modal.data("rvnum");
 			var memNickname = modalInputMemNickname.val();
 			
-			/* after security
 			if(!replyer){
 	           alert("You have to be logged in to remove");
 	           modal.modal("hide");
 	           return;
 	        }
 	        
-	        var originalReplyer = modalInputReplyer.val();
+	        var originalReplyer = modalInputMemNickname.val();
 	        
 	        console.log("Original Replyer: " + originalReplyer);
 	        
 	        if(replyer != originalReplyer){
-	           
 	           alert("You can only remove your replies");
 	           modal.modal("hide");
 	           return;
-	           
 	        }
-	        */
 			
 			replyService.remove(rvNum, memNickname, function(result){
 				alert(result);
@@ -732,7 +717,6 @@
 			operForm.submit();
 		});
 	});
-	
 </script>
 
 <script type="text/javascript">
@@ -747,17 +731,11 @@
 			    
 				$(arr).each(function(i, attach){
 					var fileCallPath = encodeURIComponent(attach.pdFolder + "/sthmb_" + attach.pdUuid + "_" + attach.pdName);
-//  					if(str == ""){
-//  						str += "<div class='carousel-item active' data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
-//  						str += "<img src='/product/display?fileName=" + fileCallPath + "' class='d-block w-100' alt='banner1'>";
-//  						str += "</div>"
-//  					}
-// 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div>";
-// 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'><div class='carousel-inner'>";
+					
+ 					str += "<li data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
 					str += "<div class='carousel-item' data-pdfolder='" + attach.pdFolder + "' data-pduuid='" + attach.pdUuid + "' data-pdname='" + attach.pdName + "' style='list-style: none;'>";
 					str += "<img src='/product/display?fileName=" + fileCallPath + "' class='d-block w-100' alt='banner1'>";
 					str += "</div>";
-					
 				});
 				
 				$(".uploadResult").html(str);
@@ -773,14 +751,7 @@
 			
 			var path = encodeURIComponent(liObj.data("pdfolder") + "/" + liObj.data("pduuid") + "_" + liObj.data("pdname"));
 			
-			// if(liObj.data("type")){
 			showImage(path.replace(new RegExp(/\\/g),"/"));
-			/*
-			} else {
-				//download 
-				self.location ="/download?fileName="+path
-			}
-			*/
 		});
 		
 		function showImage(fileCallPath){
@@ -801,7 +772,6 @@
 		});
 	}); // document ready
 	
-	
 	function regBucket(pdNum) {
 		$.ajax({
 			type:'post',
@@ -820,41 +790,24 @@
 			}
 		})
 	}
-	
-	
-	
 </script>
 
 <script type="text/javascript">
+	// 가격 text에 ,찍는 function
 	$(document).ready(function () {
-		
-			var num = $("#price").text();
-			
-			var num2 = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			
-			
-			
-			document.getElementById("price").innerHTML=num2;
-		
-			
-	})
-	
-	
-
-</script>
-
-
-
-
-<script type="text/javascript">
-
-
-	var myCarousel = document.querySelector('#carousel');
-	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle'), {
-	  interval: 3000,
-	  wrap: false
+		var num = $("#price").text();
+		var num2 = num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		document.getElementById("price").innerHTML=num2;
 	});
 </script>
 
+<script type="text/javascript">
+	// Bootstrap Carousel
+	var myCarousel = document.querySelector('#carousel');
+	var carousel = new bootstrap.Carousel(myCarousel.carousel('cycle'), {
+		interval: 3000,
+		wrap: false
+	});
+</script>
 
 <%@include file="../includes/footer.jsp"%>
