@@ -51,6 +51,7 @@ public class ReplyController {
 		if (vo.getAttachList() != null) {
 			vo.getAttachList().forEach(attach -> log.info(attach));
 		}
+		
 		int insertCount = service.register(vo);
 		log.info("Reply insert count ===== " + insertCount);
 		return insertCount == 1 ? new ResponseEntity<>("Success", HttpStatus.OK) : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -32,9 +32,6 @@
 	.b_Modal_Content {
 		padding: 3%;
 	}
-	#regBtn{
-		margin-right: 5% !important;
-	}
 	.mNumber {
 		font-size: 0.5rem;
 	}
@@ -62,10 +59,9 @@
 			<div class="panel panel-default">
 				
 				<!-- Page250 위에 jsp 소스 코딩 시작 -->
-				<div class="panel-heading">
+				<div class="panel-heading mb-3">
 					Board List Page
-					<button id='regBtn' type="button" class="btn btn-xs pull-right">Register
-						New Board</button>
+					<button id='regBtn' type="button" class="btn btn-sm btn-outline-info float-end">Register</button>
 				</div>
 				<!-- Page250 위에 jsp 소스 코딩 끝 -->
 				
@@ -122,74 +118,45 @@
 					1페이지로 이동합니다.
 					세번째로 한글의 경우 GET방식으로 이동하는 경우 문제가 생길 수 있으므로
 					주의해야 합니다. -->
-					<div class="row">
-						<div class="col-lg-12">
-							<form id="searchForm" action="/board/list" method="get">
-							<select name="type">
-								<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
-								<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>제목</option>
-								<option value="C" <c:out value="${pageMaker.cri.type eq 'C' ? 'selected' : '' }"/>>내용</option>
-								<option value="W" <c:out value="${pageMaker.cri.type eq 'W' ? 'selected' : '' }"/>>작성자</option>
-								<option value="TC" <c:out value="${pageMaker.cri.type eq 'TC' ? 'selected' : '' }"/>>제목 or 내용</option>
-								<option value="TW" <c:out value="${pageMaker.cri.type eq 'TW' ? 'selected' : '' }"/>>제목 or 작성자</option>
-								<option value="TWC" <c:out value="${pageMaker.cri.type eq 'TWC' ? 'selected' : '' }"/>>제목 or 내용 or 작성</option>
-							</select>
-						<input type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
-						<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
-						<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
-					<button class="btn btn-default">Search Now!</button>						
-						</form>
+					<div class="row text-center">
+						<div class="col-12">
+							<form id="searchForm" action="/product/page" method="get">
+								<select class="form-select d-inline" name="type" style="width: 15% !important;">
+									<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
+									<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
+									<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
+								</select>
+								<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" style="width: 25% !important;" />						
+								<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
+								<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
+								<button class="btn btn-outline-secondary">검색</button>						
+							</form>
+						</div>
 					</div>
-				</div>
-				<!-- Page 340 jsp 소스 코딩 끝, Page 343 jsp 소스 코딩 수정 끝 -->
-	
-					<!-- Page308 소스 코딩 시작 : Page310 진행할 때 주석 처리함 -->
-					<!-- http://localhost:port번호/board/list?pageNum=5 : 하단 Next 버튼 확인 -->
-					<!-- http://localhost:port번호/board/list?pageNum=5&amount=20 : 하단 페이지 전체 확인 -->
-				    <%-- 
-					<div class='pull-right'>
-						<ul class="pagination">
-							            <c:if test="${pageMaker.prev}">
-	              <li class="paginate_button previous"><a href="#">Previous</a>
-	              </li>
-	            </c:if>
-	
-	            <c:forEach var="num" begin="${pageMaker.startPage}"
-	              end="${pageMaker.endPage}">
-	              <li class="paginate_button"><a href="#">${num}</a></li>
-	            </c:forEach>
-	
-	            <c:if test="${pageMaker.next}">
-	              <li class="paginate_button next"><a href="#">Next</a></li>
-	            </c:if>
-	            --%>
-	            <!-- Page308 소스 코딩 끝 : Page310 진행할 때 주석 처리함 -->
-	
-					<!-- Page310 위에 소스 코딩 시작 -->
-					<div class='pull-right'>
-						<ul class="pagination">
+						
+						
+					<div class="text-center mt-3">
+						<ul class="pagination" style="justify-content: center;">
 						
 							<c:if test="${pageMaker.prev}">
 								<li class="paginate_button previous"><a
 									href="${pageMaker.startPage -1}">Previous</a></li>
 							</c:if>
-	
+				
 							<c:forEach var="num" begin="${pageMaker.startPage}"
 								end="${pageMaker.endPage}">
 								<li class="paginate_button  ${pageMaker.cri.pageNum == num ? "active" : ""} ">
-									<a href="${num}">${num}</a>
+									<a class="page-link" href="${num}">${num}</a>
 								</li>
 							</c:forEach>
-	
+				
 							<c:if test="${pageMaker.next}">
 								<li class="paginate_button next"><a
-									href="${pageMaker.endPage +1 }">Next</a></li>
+									href="${pageMaker.endPage +1}">Next</a></li>
 							</c:if>
-						<!-- Page310 위에 소스 코딩 끝 -->
-	
+					
 						</ul>
 					</div>
-					<!--  end Pagination -->
 				</div>
 	
 				<!-- Page 311 위에 소스 코딩 시작 -->

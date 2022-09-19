@@ -14,45 +14,6 @@
 		height: 100%;
 		object-fit: cover;
 	}
-	
-	.price{
-		border: none;
-		text-align:  center;
-		width: 70%;
-		font-size: 120%;
-		background-color: #FFF !important;
-	
-	}
-	
-	
-	.form-select{
-		width: 15%;
-	}
-	.form-control{
-		width: 25%;
-	}
-	
-	@media (max-width:475px) {
-	.row-cols-2>* {
-	    flex: 0 0 auto;
-	    width: 80% !important;
-		}
-		
-		
-	.form-select{
-		width: 30%;
-		}
-		
-	.form-control{
-		width: 50%;
-		}
-	
-	
-	}
-	
-	
-	
-	
 </style>
 <div class="container-fluid">
 	<!-- Carousel -->
@@ -79,15 +40,15 @@
 						<p></p>
 					</div>
 				</div>
-				<!--
+				
 				<div class="carousel-item">
-					<img src="/resources/imgs/sample2.jpg" class="d-block w-100" alt="banner3">
+					<img src="/resources/imgs/bannersample3.png" class="d-block w-100" alt="banner3">
 					<div class="carousel-caption d-none d-md-block">
 						<h5></h5>
 						<p></p>
 					</div>
 				</div>
-				-->
+				
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -136,7 +97,7 @@
 								    </h6>
 								    
 								 
-								    <input class="price" id="" value="<c:out value="${product.pdPrice}원"/>" disabled="disabled">
+								    <c:out value="${product.pdPrice}원"/>
 								</div>
 						    </div>
 						</div>
@@ -147,18 +108,18 @@
 	
 	
 	<div class="row text-center">
-	<div class="col-12">
-		<form id="searchForm" action="/product/page" method="get">
-			<select class="form-select d-inline" name="type">
-				<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
-				<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
-				<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
-			</select>
-			<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" />						
-			<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
-			<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
-			<button class="btn btn-outline-secondary">검색</button>						
-		</form>
+		<div class="col-12">
+			<form id="searchForm" action="/product/page" method="get">
+				<select class="form-select d-inline" name="type" style="width: 15% !important;">
+					<option value="" <c:out value="${pageMaker.cri.type == null ? 'selected' : '' }"/>>--</option>
+					<option value="N" <c:out value="${pageMaker.cri.type eq 'N' ? 'selected' : '' }"/>>상품명</option>
+					<option value="T" <c:out value="${pageMaker.cri.type eq 'T' ? 'selected' : '' }"/>>태그</option>
+				</select>
+				<input class="form-control d-inline" type="text" name="keyword" value="<c:out value = "${pageMaker.cri.keyword}"/>" style="width: 25% !important;" />						
+				<input type="hidden" name="pageNum" value="<c:out value = "${pageMaker.cri.pageNum}"/>" />
+				<input type="hidden" name="amount" value="<c:out value = "${pageMaker.cri.amount}"/>" />
+				<button class="btn btn-outline-secondary">검색</button>						
+			</form>
 		</div>
 	</div>
 	
@@ -190,10 +151,12 @@
 		<input type='hidden' name='pageNum' value='${pageMaker.cri.pageNum}'>
 		<input type='hidden' name='amount' value='${pageMaker.cri.amount}'>
 	
-	
+	<!-- Page 344 중간 jsp 소스 코딩 추가 시작 : 소스 문제 없는데 붉은색 표시나면 구문 잘라내기 후에 다시 붙여넣기 저장해 보시기 바랍니다. -->
+	<!-- 다음의 구문 코딩 후에 웹브라우저 실행해서, 검색 이후에 페이지를 이동해서 동일한
+	     검색 조건과 키워드가 유지되는지 확인 바랍니다. -->
 		<input type='hidden' name='type' value='<c:out value="${pageMaker.cri.type}"/>'>
 		<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
-	
+	<!-- Page 344 중간 jsp 소스 코딩 추가 끝 -->
 	
 	</form>
 
@@ -270,41 +233,56 @@
 				return false;
 			}
 			
-		
+			// 여러 문제들 중에서 검색 버튼을 클릭하면 검색은
+			// 1페이지를 하도록 수정 처리합니다.
 			searchForm.find("input[name='pageNum']").val("1");
-		
+			// 브라우저에서 검색 버튼을 클릭하면 form 태그의
+			// 전송은 막고, 페이지의 번호는 1이 되도록 처리합니다.
+			// 화면에서 키워드가 없다면 검색을 하지 않도록 제어합니다.
 			e.preventDefault();
 			searchForm.submit();			
 		});
 	});
 </script>
 
-<script type="text/javascript">
-$(document).ready(function () {
-
-	
-	
-
-
-	$(".price").each(function() {
-		var changeNum = $(this).val().toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-			console.log(changeNum);
-		$(this).val(changeNum);
-		
-	
+<script>
+	(function() {
+	  var w = window;
+	  if (w.ChannelIO) {
+	    return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+	  }
+	  var ch = function() {
+	    ch.c(arguments);
+	  };
+	  ch.q = [];
+	  ch.c = function(args) {
+	    ch.q.push(args);
+	  };
+	  w.ChannelIO = ch;
+	  function l() {
+	    if (w.ChannelIOInitialized) {
+	      return;
+	    }
+	    w.ChannelIOInitialized = true;
+	    var s = document.createElement('script');
+	    s.type = 'text/javascript';
+	    s.async = true;
+	    s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
+	    s.charset = 'UTF-8';
+	    var x = document.getElementsByTagName('script')[0];
+	    x.parentNode.insertBefore(s, x);
+	  }
+	  if (document.readyState === 'complete') {
+	    l();
+	  } else if (window.attachEvent) {
+	    window.attachEvent('onload', l);
+	  } else {
+	    window.addEventListener('DOMContentLoaded', l, false);
+	    window.addEventListener('load', l, false);
+	  }
+	})();
+	ChannelIO('boot', {
+	  "pluginKey": "4916b26c-5334-4f28-bab8-781e855a1f4b"
 	});
-
-	
-		
-		
-		
-		
-		
-		
-		
-
-		
-	
-		
-})
+</script>
 <%@ include file="../includes/footer.jsp" %>
