@@ -39,7 +39,8 @@
 			정의한 dataSource(book_ex DB) 별도의 설정이 없는 경우 remember-me 라는
 			이름의 Cookie를 발행한다  -->
 		
-		<security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me, JSESSIONID"/>
+		<security:logout logout-url="/member/logout" invalidate-session="true"
+			delete-cookies="remember-me, JSESSIONID" logout-success-url="/product/page" />
 		<!-- Page681 : Log out 시 remember-me Cookie 삭제 
 			Tomcat에서 기본적으로 발행되는 JSESSIONID cookie 가 있는데,
 			반드시 필요한 것은 아니지만 함께 삭제해줌 -->
