@@ -7,23 +7,12 @@
 
 <%@include file="../includes/header.jsp"%>
 <style>
-	
-	
-	
-		.card {
-	   
+	.card {
 	    display: block;
-	  
 	}
-		
-	
-
 	.carousel-indicators [data-bs-target] {
-   
 	    background-color: #333 !important;
-	  
 	}
-	
 	.uploadResult img{
 		height: 400px !important;
 		object-fit:contain !important;
@@ -31,15 +20,12 @@
 	.active{
 		display: block !important;
 	}
-	
 	@media(max-width:475px){
 		.lead {
 		    font-size: 1rem;
 		    font-weight: 300;
-}
-	
+		}
 	}
-
 	/*
 	.uploadResult {
 	   width: 100%;
@@ -311,9 +297,11 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id='modalModBtn' type="button" class="btn btn-outline-info">Modify</button>
-				<button id='modalRemoveBtn' type="button" class="btn btn-outline-danger">Remove</button>
-				<button id='modalRegisterBtn' type="button" class="btn btn-outline-primary">Register</button>
+				<sec:authorize access="isAuthenticated()">
+					<button id='modalModBtn' type="button" class="btn btn-outline-info">Modify</button>
+					<button id='modalRemoveBtn' type="button" class="btn btn-outline-danger">Remove</button>
+					<button id='modalRegisterBtn' type="button" class="btn btn-outline-primary">Register</button>
+				</sec:authorize>
 				<button id='modalCloseBtn' type="button" class="btn btn-outline-secondary">Close</button>
 			</div>
 		</div>
