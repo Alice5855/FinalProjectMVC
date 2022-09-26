@@ -757,7 +757,7 @@
 		function showImage(fileCallPath){
 			console.log(fileCallPath);
 			
-			$(".bigPictureWrapper").css("display","flex").show();
+			$(".bigPictureWrapper").css("display", "flex").show();
 			
 			$(".bigPicture")
 			.html("<img src='/product/display?fileName=" + fileCallPath + "' >")

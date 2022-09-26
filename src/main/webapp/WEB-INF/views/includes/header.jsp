@@ -9,6 +9,8 @@
 	<title>Welcome to AniBucket</title>
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<!-- Common colors & fonts -->
+	<link href="/resources/css/common.css" rel="stylesheet">
 	<!-- Bootstrap JS -->
 	<!--
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
@@ -19,15 +21,6 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	
 	<style>
-		/* https://fonts.google.com/specimen/Do+Hyeon?subset=korean (OFL) */
-		/* 'Do Hyeon', sans-serif; */
-		@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
-		/* https://fonts.google.com/specimen/IBM+Plex+Sans+KR?subset=korean (OFL) */
-		/* 'IBM Plex Sans KR', sans-serif; */
-		@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;700&display=swap');
-		/* https://fonts.google.com/specimen/Rubik */
-		/* 'Rubik', sans-serif; */1248
-		@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
 		body {
 			margin: 0;
 			font-family: 'IBM Plex Sans KR', sans-serif;

@@ -45,7 +45,7 @@
 		}
 	}
 </style>
-<div class="container-fluid">
+<div class="container">
 	<!-- Carousel -->
 	<div class="container py-3">
 		<div id="carousel" class="carousel slide" data-bs-ride="carousel">
@@ -92,8 +92,13 @@
 	
 	
 	<section class="py-5 border-top mt-5">
-		<div class="container-fluid">
-			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+		<div class="container">
+			<div class="text-center">
+				<p class="fs-2 mb-5 kfont4 mcolor1" style="border-bottom: 2px solid; border-color: #4C51BD;">
+					상품 리스트
+				</p>
+			</div>
+			<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" style="border-bottom: 2px solid; border-color: #4C51BD;">
 				<c:forEach items="${list}" var="product">
 						<div class="col mb-5 mx-4">
 							<div class="card h-100">
@@ -107,20 +112,20 @@
 							    <div class="card-body p-4">
 									<div class="text-center">
 									    <!-- Product name-->
-									    <h2 class="fw-bold">
+									    <p class="fs-4 fw-bold my-4">
 									    	<a class='move' href='<c:out value="${product.pdNum}"/>' style="text-decoration: none; color: #333;">
 												<c:out value="${product.pdName}" />
 											</a>
-									    </h2>
+									    </p>
 									    <fmt:formatDate pattern="yyyy/MM/dd"
 												value="${product.pdRegDate}" />
 									    <!-- Product price-->
-									    <h6>
+									    <p class="fs-6 my-4">
 										    <a href='page?type=T&keyword=${product.pdKeyword}&pageNum=1&amount=9' style="text-decoration: none;">
 										    	#<c:out value="${product.pdKeyword}" />
 										    </a>
-									    </h6>
-									    <input class="price" id="" value="<c:out value="${product.pdPrice}원"/>" disabled="disabled">
+									    </p>
+									    <input class="price fs-5 my-4" id="" value="<c:out value="${product.pdPrice}원"/>" disabled="disabled">
 									</div>
 							    </div>
 							</div>

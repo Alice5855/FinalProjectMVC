@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+/* font imports *MUST BE ON TOP* */
+
+/* https://fonts.google.com/specimen/Poppins */
+/* font-family: 'Poppins', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Roboto+Condensed */
+/* font-family: 'Roboto Condensed', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Raleway */
+/* font-family: 'Raleway', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Hahmlet?subset=korean */
+/* font-family: 'Hahmlet', serif; */
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/IBM+Plex+Sans+KR?subset=korean */
+/* font-family: 'IBM Plex Sans KR', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Nanum+Gothic+Coding?subset=korean */
+/* font-family: 'Nanum Gothic Coding', monospace; */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Gothic+A1?subset=korean */
+/* font-family: 'Gothic A1', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Rubik */
+/* 'Rubik', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Do+Hyeon?subset=korean (OFL) */
+/* 'Do Hyeon', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+
+.kfont1 {
+  font-family: 'Hahmlet', serif;
+}
+
+.kfont2 {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.kfont3 {
+  font-family: 'Nanum Gothic Coding', monospace;
+}
+
+.kfont4 {
+  font-family: 'Gothic A1', sans-serif;
+}
+
+.efont1 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.efont2 {
+  font-family: 'Poppins', sans-serif;
+}
+
+.efont3 {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.efont4 {
+  font-family: 'Raleway', sans-serif;
+}
+
+.efont5 {
+  font-family: 'Roboto Slab', sans-serif;
+}
+
+.mcolor1 {
+  color: #4C51BD;
+}
+
+.mcolor2 {
+  color: #4A75D4;
+}
+
+.scolor1 {
+  color: #FCE73C;
+}
+
+.scolor2 {
+  color: #FEBC30;
+}
