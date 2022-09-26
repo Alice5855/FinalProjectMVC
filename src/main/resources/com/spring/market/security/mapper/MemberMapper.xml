@@ -62,7 +62,7 @@
 	</select>
 	
 	<insert id="insertProfile" >
-		insert into Member_PROFILE(File_no, memNum, ChangeName) Values(Profile_seq.nextval, #{memNum}, #{ChangeName})
+		insert into Member_PROFILE(File_no, memNum, ChangeName) Values(seq_profile.nextval, #{memNum}, #{ChangeName})
 	</insert>
 	
 	<select id="getMember" resultMap = "MemberMap" >
