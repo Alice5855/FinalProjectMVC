@@ -289,8 +289,8 @@
 					<textarea class="form-control mt-2" rows="3" name='rvText' style="resize: none;"></textarea>
 				</div>
 				<div class="form-group mt-4">
-					<label>작성자</label> 
-					<input class="form-control mt-2" name='memNickname' value='memNickname'>
+					<label>작성자</label>
+					<input class="form-control mt-2" name='memNickname' value='memNickname' readonly disabled>
 				</div>
 				<!-- file -->
 				<%--
