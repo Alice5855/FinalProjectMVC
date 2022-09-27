@@ -211,6 +211,8 @@ public class ProductController {
 	    	productVO.setPdNum(productVO.getPdNum());
 	    }
 	    m.addAttribute("list", productVOList);
+	    
+	    
 		int total = service.getTotal(cri);
 		log.info("total ===== " + total);
 		m.addAttribute("pageMaker", new PageDTO(cri, total));

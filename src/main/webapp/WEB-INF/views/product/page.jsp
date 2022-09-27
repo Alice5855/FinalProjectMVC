@@ -112,8 +112,9 @@
 												<c:out value="${product.pdName}" />
 											</a>
 									    </h2>
-									    <fmt:formatDate pattern="yyyy/MM/dd"
-												value="${product.pdRegDate}" />
+<%-- 									    <fmt:formatDate pattern="yyyy/MM/dd" --%>
+<%-- 												value="${product.pdRegDate}" /> --%>
+										<c:out value="${product.pdRegDate}" />
 									    <!-- Product price-->
 									    <h6>
 										    <a href='page?type=T&keyword=${product.pdKeyword}&pageNum=1&amount=9' style="text-decoration: none;">
@@ -171,6 +172,11 @@
 		<input type='hidden' name='keyword' value='<c:out value="${pageMaker.cri.keyword}"/>'>
 	</form>
 </div>
+
+
+<!-- <div>  -->
+<!-- 	<a href="http://localhost:3000/">부트로 넘어가기 테스트</a> -->
+<!-- </div> -->
 
 <script type="text/javascript">
 	var myCarousel = document.querySelector('#carousel');

@@ -81,15 +81,7 @@ public class UploadController {
 		return str.replace("-", File.separator);
 	}
 	
-	// Page 517 AttachFileDTO의 list 반환 구조 변경
-	// ResopnseEntity<list<AttachFileDTO>>를 JSON 형태로 반환하도록 변경하고
-	// 내부적으로 각 file type에 맞춰 AttachFileDTO를 생성하여 전달하는 구조로 변경
-	
-	// public void uploadAjaxPost(MultipartFile[] uploadFile)
-	// originally returns nothing (void)
-	
-	// page724 첨부파일의 등록, 삭제(post)는 로그인한 사용자만 가능하도록 제한 
-	@PreAuthorize("isAuthenticated()")
+
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
 	public ResponseEntity<List<ProductAttachVO>> uploadAjaxPost(MultipartFile[] uploadFile) {
@@ -128,7 +120,7 @@ public class UploadController {
 		    log.info("Uploaded file name ===== " + uploadFileName);
 		    
 		    attachDTO.setPdName(uploadFileName);
-		    // Added (page517)
+
 		    
 		    UUID uuid = UUID.randomUUID();
 		    uploadFileName = uuid.toString() + "_" + uploadFileName;

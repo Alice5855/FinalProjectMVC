@@ -3,12 +3,17 @@ package com.spring.market.product.service;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.spring.market.product.domain.Criteria;
+import com.spring.market.product.domain.ProductVO;
 
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -18,18 +23,18 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class BoardServiceTests {
 //
-//	@Setter(onMethod_ = @Autowired)
-//	private BoardService service;
+	@Setter(onMethod_ = @Autowired)
+	private ProductService service;
 //	
-//	@Test
-//	public void testExist() {
-//		try {
-//			log.info(service);
-//			assertNotNull(service);
-//		} catch (Exception e) {
-//			fail(e.getMessage());
-//		}
-//	}
+	@Test
+	public void test() {
+		Criteria cri = new Criteria();
+		
+		cri.setPageNum(1);
+		cri.setAmount(9);
+		service.getList(cri);
+	
+	}
 //	
 //	@Test
 //	public void testRegister() {
