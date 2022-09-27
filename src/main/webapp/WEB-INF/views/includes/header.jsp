@@ -21,6 +21,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<!-- favicon -->
+	<link rel="shortcut icon" href="/resources/imgs/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/resources/imgs/favicon.ico" type="image/x-icon">
 	
 	<style>
 		body {
