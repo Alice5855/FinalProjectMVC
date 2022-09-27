@@ -141,9 +141,6 @@
 		<div class="col-lg-12">
 			<section class="py-5">
 				<div class="container px-4 px-lg-5 my-5">
-			    	<div class="mb-5">
-						<p class="fs-2 mcolor1 kfont1" style="border-bottom: 2px solid; border-color: #4C51BD;">Product</p>
-					</div>
 					<div class="row gx-4 gx-lg-5 align-items-center">
 					    <div class="col-md-6">
 						    <div class="container-fluid py-3">
@@ -207,11 +204,11 @@
 			</section>
 		
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<button data-oper='modify' class="btn btn-outline-dark" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
+				<button data-oper='modify' class="btn btn-default" onclick="location.href='/product/modify?pdNum=<c:out value="${product.pdNum}" />'">Modify</button>
 		    </sec:authorize>
-			<button data-oper='list' class="btn btn-outline-info" onclick="location.href='/product/page'">List</button>
+			<button data-oper='list' class="btn btn-info" onclick="location.href='/product/page'">List</button>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<button class="btn btn-outline-success float-end" onclick="location.href='/product/list'">Product List</button>
+				<button class="btn btn-success float-end" onclick="location.href='/product/list'">Product List</button>
 			</sec:authorize>
 			
 			<form id='operForm' action="/product/modify" method="get">
@@ -235,45 +232,39 @@
 		</div>
 	</div>
 	
+	<!-- page414 댓글 목록 box -->
+	<div class='row mt-5'>
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				
+				<div class="mb-4">
+					<span class="badge text-bg-info reply-heading">Review</span>
+					<sec:authorize access="isAuthenticated()">
+						<button id="addReplyBtn" class="btn btn-info btn-sm float-end">New Review</button>
+					</sec:authorize>
+				</div>
+				
+				<!-- /.panel-heading -->
+				<div class="panel-body">
+					<ul class="chat list-group">
+						<!-- reply entries -->
+						
+					</ul>
+					<!-- /ul.chat -->
+				</div>
+				<!-- /.panel-body -->
+				
+				<div class="panel-footer">
+				
+				</div>
+				<!-- /.panel-footer -->
+			</div>
+			<!-- /.panel -->
+		</div>
+	</div>
+	<!-- /.row -->
 </div>
 <!-- /.container-fluid -->
-	
-<!-- page414 댓글 목록 box -->
-<div class="bg-light mt-4">
-	<div class="container p-3">
-		<div class='row mt-2'>
-			<div class="col-lg-12">
-				<div class="panel panel-default">
-					<div>
-						<p class="fs-2 mcolor1 kfont3" style="border-bottom: 2px solid; border-color: #4C51BD;">Review</p>
-					</div>
-					<div class="d-flex flex-row-reverse mb-4">
-						<sec:authorize access="isAuthenticated()">
-							<button id="addReplyBtn" class="btn btn-outline-info btn-sm">New Review</button>
-						</sec:authorize>
-					</div>
-					
-					<!-- /.panel-heading -->
-					<div class="panel-body">
-						<ul class="chat list-group">
-							<!-- reply entries -->
-							
-						</ul>
-						<!-- /ul.chat -->
-					</div>
-					<!-- /.panel-body -->
-					
-					<div class="panel-footer">
-					
-					</div>
-					<!-- /.panel-footer -->
-				</div>
-				<!-- /.panel -->
-			</div>
-		</div>
-		<!-- /.row -->
-	</div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -766,7 +757,7 @@
 		function showImage(fileCallPath){
 			console.log(fileCallPath);
 			
-			$(".bigPictureWrapper").css("display", "flex").show();
+			$(".bigPictureWrapper").css("display","flex").show();
 			
 			$(".bigPicture")
 			.html("<img src='/product/display?fileName=" + fileCallPath + "' >")
