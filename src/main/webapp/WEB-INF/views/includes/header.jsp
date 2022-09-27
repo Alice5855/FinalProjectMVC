@@ -161,9 +161,7 @@
 	                        <sec:authorize access="isAuthenticated()">
 	                        	<li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
 	                        </sec:authorize>
-	                        <sec:authorize access="isAnonymous()">
-	                        	<li><a class="dropdown-item" href="/member/join">회원가입</a></li>
-	                        </sec:authorize>
+
 	                        <sec:authorize access="hasRole('ROLE_ADMIN')">
 	                        	<li><a class="dropdown-item" href="/product/list">상품목록</a></li>
 	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>

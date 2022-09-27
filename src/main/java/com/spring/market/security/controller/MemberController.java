@@ -67,9 +67,12 @@ public class MemberController {
 			      res.setCharacterEncoding("UTF-8");
 			      
 			      PrintWriter out = res.getWriter();
-			      out.println("<script>alert('회원가입 성공');</script>");
+			      out.println("<script>alert('회원가입 성공'); window.history.go(-2); alert('이거실행함?')</script>");
 			      out.flush();
-				return "/member/login";
+			      
+			     
+			      
+				return "<script>window.history.go(-2); alert('회원가입성공공ㅁㄴㅇㅁㄴㅇ')</script>";
 			}else {
 				return "redirect:/member/join";
 			}
