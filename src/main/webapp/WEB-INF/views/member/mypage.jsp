@@ -96,9 +96,9 @@
     
     
 
-    <%@ include file="../includes//footer.jsp" %>
+<%@ include file="../includes/footer.jsp" %>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	
 	
 		let fileTag = document.querySelector("input[name=MF]");
@@ -135,10 +135,10 @@
 				divPreview.innerHTML = "";
 			}
 		}
-		</script>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
 	window.onload = function(){
     document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
         //카카오 지도 발생
