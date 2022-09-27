@@ -38,12 +38,12 @@
 							<img class="pf rounded-circle" src="/resources/upload/profile/${profile.changeName}" width="150" height="150">
 						</div><br>	
 						<label for="profile">프로필사진</label> 
-						<input type="file" class="form-control" id="profile" name="MF" accept=".jpg, .png" required>
+						<input type="file" class="form-control" id="profile" name="MF" accept=".jpg, .png" placeholder="사진은 150px로해주세요" readonly="readonly" />
 						<div class="invalid-feedback">사진은 150px로해주세요</div>
 					</div>
 					<div class="mb-3">
 						<label for="name">이메일</label> 
-						<input type="email" class="form-control" id="email" name="memEmail" value="${loginMember.memEmail}" required>
+						<input type="email" class="form-control" id="email" name="memEmail" value="${loginMember.memEmail}"  disabled="disabled" />
 						<div class="invalid-feedback">이메일을 입력해주세요.</div>
 					</div>
 					<div class="mb-3">
@@ -55,13 +55,13 @@
 
 				<div class="mb-3">
 					<label for="nickname">닉네임</label> 
-					<input type="text" class="form-control" id="nickname" name="memNickname" value="${loginMember.memNickname}" required>
+					<input type="text" class="form-control" id="nickname" name="memNickname" value="${loginMember.memNickname}" disabled="disabled" required>
 					<div class="invalid-feedback">닉네임을 입력해주세요</div>
 				</div>
 
 				<div class="mb-3">
 					<label for="name">성함</label> <input type="text"
-						class="form-control" id="name" name="memName" value="${loginMember.memName}" required>
+						class="form-control" id="name" name="memName" value="${loginMember.memName}" disabled="disabled" required>
 					<div class="invalid-feedback">성함을 입력해주세요.</div>
 				</div>
 
@@ -96,9 +96,9 @@
     
     
 
-    <%@ include file="../includes//footer.jsp" %>
+<%@ include file="../includes/footer.jsp" %>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	
 	
 		let fileTag = document.querySelector("input[name=MF]");
@@ -135,10 +135,10 @@
 				divPreview.innerHTML = "";
 			}
 		}
-		</script>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
 	window.onload = function(){
     document.getElementById("address_kakao").addEventListener("click", function(){ //주소입력칸을 클릭하면
         //카카오 지도 발생
