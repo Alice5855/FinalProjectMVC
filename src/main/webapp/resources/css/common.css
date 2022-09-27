@@ -1,0 +1,294 @@
+@charset "UTF-8";
+
+/* font imports *MUST BE ON TOP* */
+
+/* https://fonts.google.com/specimen/Poppins */
+/* font-family: 'Poppins', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Roboto+Condensed */
+/* font-family: 'Roboto Condensed', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Raleway */
+/* font-family: 'Raleway', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Hahmlet?subset=korean */
+/* font-family: 'Hahmlet', serif; */
+@import url('https://fonts.googleapis.com/css2?family=Hahmlet:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/IBM+Plex+Sans+KR?subset=korean */
+/* font-family: 'IBM Plex Sans KR', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Nanum+Gothic+Coding?subset=korean */
+/* font-family: 'Nanum Gothic Coding', monospace; */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Gothic+A1?subset=korean */
+/* font-family: 'Gothic A1', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Rubik */
+/* 'Rubik', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
+
+/* https://fonts.google.com/specimen/Do+Hyeon?subset=korean (OFL) */
+/* 'Do Hyeon', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+
+.kfont1 {
+  font-family: 'Hahmlet', serif;
+}
+
+.kfont2 {
+  font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+.kfont3 {
+  font-family: 'Nanum Gothic Coding', monospace;
+}
+
+.kfont4 {
+  font-family: 'Gothic A1', sans-serif;
+}
+
+.efont1 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.efont2 {
+  font-family: 'Poppins', sans-serif;
+}
+
+.efont3 {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.efont4 {
+  font-family: 'Raleway', sans-serif;
+}
+
+.efont5 {
+  font-family: 'Roboto Slab', sans-serif;
+}
+
+.mcolor1 {
+  color: #4C51BD;
+}
+
+.mcolor2 {
+  color: #4A75D4;
+}
+
+.scolor1 {
+  color: #FCE73C;
+}
+
+.scolor2 {
+  color: #FEBC30;
+}
+
+/* start features area css
+============================================================================================ */
+@media (max-width: 768px) {
+	.features-area {
+		padding-top: 0;
+	}
+}
+
+.features-area .col-lg-3:last-child .single-features {
+	border-right: 0;
+}
+
+@media (max-width: 575px) {
+    .features-area .col-lg-3:last-child .single-features {
+      margin-top: 30px;
+	}
+}
+
+.features-area .col-lg-3:nth-child(3) .single-features,
+.features-area .col-lg-3:nth-child(4) .single-features {
+	margin-bottom: 0;
+}
+
+.features-inner {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px 0;
+}
+
+.single-features {
+	text-align: center;
+	border-right: 1px solid #eeeeee;
+}
+
+@media (max-width: 991px) {
+	.single-features {
+		border-right: none;
+		margin-bottom: 30px;
+	}
+}
+
+.single-features .f-icon {
+	margin-bottom: 20px;
+}
+
+.single-features .f-icon img {
+	-webkit-transition: all 0.3s ease 0s;
+	-moz-transition: all 0.3s ease 0s;
+	-o-transition: all 0.3s ease 0s;
+	transition: all 0.3s ease 0s;
+}
+
+.single-features h6 {
+	font-size: 16px;
+	margin-bottom: 0;
+}
+
+.single-features p {
+	margin-bottom: 0;
+}
+
+.single-features:hover .f-icon img {
+    opacity: .5;
+}
+
+/* section_gap
+========================================================= */
+
+.section_gap {
+	padding: 100px 0;
+}
+@media (max-width: 991px) {
+	.section_gap {
+		padding: 80px 0;
+	}
+}
+
+.section_gap_top_75 {
+	padding: 75px 0;
+}
+
+@media (max-width: 991px) {
+	.section_gap_top_75 {
+		padding: 70px 0;
+	}
+}
+
+.section_gap_75 {
+	padding: 75px 0;
+}
+
+@media (max-width: 991px) {
+	.section_gap_75 {
+		padding: 70px 0;
+	}
+}
+
+.section_gap_top {
+	padding-top: 100px;
+}
+
+@media (max-width: 991px) {
+	.section_gap_top {
+		padding-top: 80px;
+	}
+}
+
+.section_gap_bottom {
+	padding-bottom: 100px;
+}
+
+@media (max-width: 991px) {
+	.section_gap_bottom {
+		padding-bottom: 80px;
+	}
+}
+
+/*=========================================================
+	10 -> NEWSLETTER
+===========================================================*/
+
+#newsletter.section {
+	border-top: 2px solid #E4E7ED;
+	border-bottom: 3px solid #4C51BD;
+	margin-top: 30px;
+}
+
+.newsletter {
+	text-align: center;
+}
+
+.newsletter p {
+	font-size: 24px;
+}
+
+.newsletter form {
+	position: relative;
+	max-width: 520px;
+	margin: 30px auto;
+}
+
+.newsletter form:after {
+	content: "\F32F";
+	font-family: bootstrap-icons;
+	position: absolute;
+	font-size: 160px;
+	color: #E4E7ED;
+	top: 15px;
+	-webkit-transform: translateY(-50%) rotate(15deg);
+	-ms-transform: translateY(-50%) rotate(15deg);
+	transform: translateY(-50%) rotate(15deg);
+	z-index: -1;
+	left: -90px;
+}
+
+.newsletter form .input {
+	width: calc(100% - 160px);
+	height: 40px;
+	margin-right: -10px;
+	border-radius: 10px 0px 0px 10px;
+}
+
+.newsletter form .newsletter-btn {
+	width: 155px;
+	height: 40px;
+	font-weight: 700;
+	background: #4C51BD;
+	color: #FFF;
+	border: none;
+	border-radius: 0px 10px 10px 0px;
+}
+
+.newsletter .newsletter-follow {
+	text-align: center;
+}
+
+.newsletter .newsletter-follow li {
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.newsletter .newsletter-follow li:last-child {
+	margin-right: 0px;
+}
+
+.newsletter .newsletter-follow li a {
+	position: relative;
+	display: block;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border: 1px solid #E4E7ED;
+	background-color: #FFF;
+	-webkit-transition: 0.2s all;
+	transition: 0.2s all;
+	color: black;
+}
+
+.newsletter .newsletter-follow li a:hover, .newsletter .newsletter-follow li a:focus {
+	background-color: #E4E7ED;
+	color: #4C51BD;
+}
