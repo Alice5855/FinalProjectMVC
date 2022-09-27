@@ -21,6 +21,9 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<!-- favicon -->
+	<link rel="shortcut icon" href="/resources/imgs/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/resources/imgs/favicon.ico" type="image/x-icon">
 	
 	<style>
 		body {
@@ -156,9 +159,7 @@
 	                        <sec:authorize access="isAuthenticated()">
 	                        	<li><a class="dropdown-item" href="/member/logout">로그아웃</a></li>
 	                        </sec:authorize>
-	                        <sec:authorize access="isAnonymous()">
-	                        	<li><a class="dropdown-item" href="/member/join">회원가입</a></li>
-	                        </sec:authorize>
+
 	                        <sec:authorize access="hasRole('ROLE_ADMIN')">
 	                        	<li><a class="dropdown-item" href="/product/list">상품목록</a></li>
 	                        	<li><a class="dropdown-item" href="/product/register">상품등록</a></li>
