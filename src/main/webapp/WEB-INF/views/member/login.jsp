@@ -177,7 +177,7 @@ and
 			</div>
 			<div class="checkbox joinus">
 				<label> <input name="remember-me" type="checkbox" />
-					Remember Me
+					자동 로그인
 				</label> <span></span> <span></span> <a href="/member/join">아직 회원이
 					아니신가요?</a>
 			</div>
