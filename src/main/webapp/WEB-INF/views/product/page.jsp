@@ -168,6 +168,9 @@
 												<c:out value="${product.pdName}" />
 											</a>
 									    </p>
+									     <p class="fs-6 my-4">
+									     	<c:out value="수량 : ${product.pdStock}개"></c:out>
+									     </p>
 									    <fmt:formatDate pattern="yyyy/MM/dd"
 												value="${product.pdRegDate}" />
 									    <!-- Product price-->

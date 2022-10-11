@@ -290,7 +290,7 @@
 				</div>
 				<div class="form-group mt-4">
 					<label>작성자</label> 
-					<input class="form-control mt-2" name='memNickname' value='memNickname'>
+					<input class="form-control mt-2" name='memNickname' readonly="readonly" value='memNickname'>
 				</div>
 				<!-- file -->
 				<%--

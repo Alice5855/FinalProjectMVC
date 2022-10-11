@@ -55,7 +55,7 @@
 
 				<div class="mb-3">
 					<label for="name">성함</label> <input type="text"
-						class="form-control" id="name" name="memName" placeholder="김춘식" required>
+						class="form-control" id="name" name="memName" placeholder="실명을 입력하세요" required>
 					<div class="invalid-feedback">성함을 입력해주세요.</div>
 				</div>
 

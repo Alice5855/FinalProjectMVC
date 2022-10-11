@@ -59,10 +59,11 @@ public class PaymentController {
 			pcVO.setPdNum8(0L);
 			pcVO.setPdNum9(0L);
 			pcVO.setPdNum10(0L);
+			
 			purchaseService.registerPurchase(pcVO);
+			
 			ProductVO pdVO = new ProductVO();
 			pdVO = bucketService.getBucketInfo(pcVO.getPdNum1());
-			
 			purchaseService.pdStockDown(pdVO.getPdStock()-1L, pdVO.getPdNum());
 			bucketService.removeBucket(mem.getmemNum(), payVO.getPdNum());
 		}else {
